@@ -1,33 +1,40 @@
-name: Pages
+name: Deploy Hexo site to GitHub Pages
 
 on:
   push:
     branches:
-      - main # default branch
+      - main  # 触发分支，可改成你源码所在分支
+
+permissions:
+  contents: write
 
 jobs:
-  pages:
+  build-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js 24.x
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: 20  # Node.js 20 LTS 更稳定
+
       - name: Cache NPM dependencies
         uses: actions/cache@v4
         with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-cache
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Deploy
+        run: npm ci
+
+      - name: Build site
+        run: npm run build  # 如果是 Hexo，通常是: npx hexo generate
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
