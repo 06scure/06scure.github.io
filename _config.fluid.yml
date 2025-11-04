@@ -1040,6 +1040,13 @@ links:
       link: "https://blog.apthg.org/",
       avatar: "/img/favicon.png"
     }
+    - {
+      title: "某位不愿透露姓名的LJA",
+      intro: "露娜SAMA的小站",
+      link: "https://onani-0721.xlog.app/",
+      avatar: "/img/favicon.png"
+    }
+
 
   # 当成员头像加载失败时，替换为指定图片
   # When the member avatar fails to load, replace the specified image
