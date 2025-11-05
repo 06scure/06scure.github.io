@@ -1046,7 +1046,12 @@ links:
       link: "https://onani-0721.xlog.app/",
       avatar: "/img/favicon.png"
     }
-
+    - {
+      title: "MOYUcorax",
+      intro: "tmpBuf[0]",
+      link: "https://blog.moyucorax.net",
+      avatar: "/img/favicon.png"
+    }
 
   # 当成员头像加载失败时，替换为指定图片
   # When the member avatar fails to load, replace the specified image
