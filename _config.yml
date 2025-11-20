@@ -104,3 +104,11 @@ deploy:
   type: git
   repo: https://github.com/06scure/06scure.github.io
   branch: main
+
+mathjax:
+  tags: none        # 'none' / 'ams' / 'all'
+  single_dollars: true  # 允许 $ ... $ 行内公式
+  cjk_width: 0.9
+  normal_width: 0.6
+  append_css: true
+  every_page: false     # 是否所有页面默认都启用 MathJax
