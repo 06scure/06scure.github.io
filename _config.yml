@@ -104,7 +104,3 @@ deploy:
   type: git
   repo: https://github.com/06scure/06scure.github.io
   branch: main
-
-markdown:
-  plugins:
-    - "@traptitech/markdown-it-katex"
