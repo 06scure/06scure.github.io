@@ -19,12 +19,12 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、前言写给亲爱的师弟鹿同学，师兄的作息比较混乱，平时没有时间能和你有足够的时间交流，只能用这种方式。也希望你尽快接手这个项目，要不然师兄的论文真的就来不及发啦！ 二、准备工作2.1 明确需求在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 README.md中，这个文件相当于github的欢迎页，打开网站就能看到。 今天我们主要完成梅花针和指针的">
+    <meta name="description" content="一、前言写给亲爱的师弟鹿同学，这是一份关于增加梅花针和指针精搜索功能的开发日志文档，希望你尽快接手这个项目，要不然师兄的论文真的就来不及啦！ 二、准备工作2.1 明确需求在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 README.md中，这个文件相当于github的欢迎页，打开网站就能看到。 今天我们主要完成梅花针和指针的精定位功能。 2.2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="智能水表项目 - 记一次完整的修改日志">
 <meta property="og:url" content="http://06scure.github.io/2025/11/06/20151106/index.html">
 <meta property="og:site_name" content="Obscureの小窝">
-<meta property="og:description" content="一、前言写给亲爱的师弟鹿同学，师兄的作息比较混乱，平时没有时间能和你有足够的时间交流，只能用这种方式。也希望你尽快接手这个项目，要不然师兄的论文真的就来不及发啦！ 二、准备工作2.1 明确需求在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 README.md中，这个文件相当于github的欢迎页，打开网站就能看到。 今天我们主要完成梅花针和指针的">
+<meta property="og:description" content="一、前言写给亲爱的师弟鹿同学，这是一份关于增加梅花针和指针精搜索功能的开发日志文档，希望你尽快接手这个项目，要不然师兄的论文真的就来不及啦！ 二、准备工作2.1 明确需求在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 README.md中，这个文件相当于github的欢迎页，打开网站就能看到。 今天我们主要完成梅花针和指针的精定位功能。 2.2">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106154249589.png">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106154923120.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106165836873.png">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106171700223.png">
 <meta property="article:published_time" content="2025-11-06T14:44:00.000Z">
-<meta property="article:modified_time" content="2025-11-23T11:33:41.776Z">
+<meta property="article:modified_time" content="2025-12-11T11:44:32.045Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Fastapi">
 <meta property="article:tag" content="Python">
@@ -243,7 +243,7 @@
         
         
         
-          28 分钟
+          27 分钟
         
       </span>
     
@@ -285,7 +285,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>写给亲爱的师弟鹿同学，师兄的作息比较混乱，平时没有时间能和你有足够的时间交流，只能用这种方式。也希望你尽快接手这个项目，要不然师兄的论文真的就来不及发啦！</p>
+                <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>写给亲爱的师弟鹿同学，这是一份关于增加梅花针和指针精搜索功能的开发日志文档，希望你尽快接手这个项目，要不然师兄的论文真的就来不及啦！</p>
 <h1 id="二、准备工作"><a href="#二、准备工作" class="headerlink" title="二、准备工作"></a>二、准备工作</h1><h4 id="2-1-明确需求"><a href="#2-1-明确需求" class="headerlink" title="2.1 明确需求"></a>2.1 明确需求</h4><p>在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 <code>README.md</code>中，这个文件相当于github的欢迎页，打开网站就能看到。</p>
 <p>今天我们主要完成<strong>梅花针和指针</strong>的精定位功能。</p>
 <h4 id="2-2-梳理思路"><a href="#2-2-梳理思路" class="headerlink" title="2.2 梳理思路"></a>2.2 梳理思路</h4><p>在原有的代码中，前端web页面标记了梅花针和指针的大致位置之后，将相关的位置坐标写入到了我们的配置文件中，如:</p>
