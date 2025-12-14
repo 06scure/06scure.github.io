@@ -22,7 +22,7 @@
     <meta name="description" content="一、前言写给亲爱的师弟鹿同学，这是一份关于增加梅花针和指针精搜索功能的开发日志文档，希望你尽快接手这个项目，要不然师兄的论文真的就来不及啦！ 二、准备工作2.1 明确需求在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 README.md中，这个文件相当于github的欢迎页，打开网站就能看到。 今天我们主要完成梅花针和指针的精定位功能。 2.2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="智能水表项目 - 记一次完整的修改日志">
-<meta property="og:url" content="http://06scure.github.io/2025/11/06/20151106/index.html">
+<meta property="og:url" content="http://06scure.github.io/2025/11/06/20251106/index.html">
 <meta property="og:site_name" content="Obscureの小窝">
 <meta property="og:description" content="一、前言写给亲爱的师弟鹿同学，这是一份关于增加梅花针和指针精搜索功能的开发日志文档，希望你尽快接手这个项目，要不然师兄的论文真的就来不及啦！ 二、准备工作2.1 明确需求在做动笔改代码之前，第一件事情就是明确我们的需求是什么，我近期简单整理了一下需要修改的内容，放到了 README.md中，这个文件相当于github的欢迎页，打开网站就能看到。 今天我们主要完成梅花针和指针的精定位功能。 2.2">
 <meta property="og:locale" content="zh_CN">
@@ -34,10 +34,10 @@
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106165836873.png">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106171700223.png">
 <meta property="article:published_time" content="2025-11-06T14:44:00.000Z">
-<meta property="article:modified_time" content="2025-12-11T11:44:32.045Z">
+<meta property="article:modified_time" content="2025-12-14T13:30:51.592Z">
 <meta property="article:author" content="Obscure">
-<meta property="article:tag" content="Fastapi">
 <meta property="article:tag" content="Python">
+<meta property="article:tag" content="Fastapi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://qiniu.mingxuan.xin/picgo/20251106154249589.png">
   
@@ -314,6 +314,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ElementSearcher</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    该模块用于搜索水表图像中的特定元素，进行精定位。</span><br><span class="hljs-string">    Methods:</span><br><span class="hljs-string">    - circle_search: 搜索圆形元素</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">pass</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">circle_search</span>(<span class="hljs-params">self, x,y,r, image</span>):<br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        首先根据输入的监测点位置和半径，在图像中截取感兴趣区域。</span><br><span class="hljs-string">        然后使用霍夫变换搜索图像中的圆形元素。</span><br><span class="hljs-string">        由于ROI区域应略大于搜索到的圆，因此只返回搜索到的最大的圆。</span><br><span class="hljs-string">        参数:</span><br><span class="hljs-string">        - x: 监测点中心x</span><br><span class="hljs-string">        - y: 监测点中心y</span><br><span class="hljs-string">        - r: 检测区域半径</span><br><span class="hljs-string"></span><br><span class="hljs-string">        返回:</span><br><span class="hljs-string">        - circles: 检测到的圆坐标，圆由(x, y, radius)表示</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">pass</span><br></code></pre></td></tr></table></figure>
 <p>接下来就是AI大显身手的时候了。参考提示词:</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">完善circle_search，实现其功能，并给我一个测试示例<span class="hljs-emphasis">__main__</span>，读取本地文件output.mp4，测试效果，代码结构如下:...<br></code></pre></td></tr></table></figure>
+
 <p><img src="http://qiniu.mingxuan.xin/picgo/20251106154249589.png" srcset="/img/loading.gif" lazyload><br>具体代码内容参照修改后的就好，我就不进行赘述了。经过测试，发现他能搜索到红色指针的表盘圆，但是无法识别得到梅花针的圆。<br><img src="http://qiniu.mingxuan.xin/picgo/20251106154923120.png" srcset="/img/loading.gif" lazyload><br>显然梅花针并不是一个规则的圆形，看来我们只能是想想别的办法了。</p>
 <p>由于梅花针呈中心对称的特性，因此我们可以写一个质心搜索器。</p>
 <h1 id="四、质心搜索器"><a href="#四、质心搜索器" class="headerlink" title="四、质心搜索器"></a>四、质心搜索器</h1><p>所谓质心搜索器，简而言之就是去找算平均值，即梅花针区域的黑色像素平均坐标。思路有了，我们就可以接着动笔了：</p>
@@ -370,9 +371,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Fastapi/" class="print-no-link">#Fastapi</a>
-      
         <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/Fastapi/" class="print-no-link">#Fastapi</a>
       
     </div>
   
@@ -385,7 +386,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>智能水表项目 - 记一次完整的修改日志</div>
-      <div>http://06scure.github.io/2025/11/06/20151106/</div>
+      <div>http://06scure.github.io/2025/11/06/20251106/</div>
     </div>
     <div class="license-meta">
       

@@ -19,27 +19,32 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="寒暑假在校外，无法内网访问学术网站，只能用VPN，但是这样zotero的抓取规则无法匹配网址，导致抓取失败。如何解决？其实zotero支持代理抓取。以计量大学的VPN为例进行展示： 1. 打开浏览器的zotero插件 2. 在左侧Proxies菜单中设置在configured Proxies 中添加条目:webvpn.video.cjlu.cn 3. 设置Proxied URL Scheme在Pr">
+    <meta name="description" content="首先创建服务器设置好后为：然后新建一个基于ssh的解释器 寻找另一台电脑的环境信息，把解释器的路径导入 报错： 先点取消，pycharm这里有bug，如果报错之后解释器就换不了了，弱智pycharm重复上述步骤，选择conda环境 我装在默认位置，大家可以自己找一下，如果不会找可以使用where conda 重点来了！ 这里直接加载环境会报错: 怎么办呢？把C前面的斜杠去掉就好了 问题解决。 注意">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Zotero在校园网VPN下抓取失败的问题">
-<meta property="og:url" content="http://06scure.github.io/2025/04/16/20150416/index.html">
+<meta property="og:title" content="Pycharm SSH 远程连接 Windows 环境">
+<meta property="og:url" content="http://06scure.github.io/2025/08/11/20250811/index.html">
 <meta property="og:site_name" content="Obscureの小窝">
-<meta property="og:description" content="寒暑假在校外，无法内网访问学术网站，只能用VPN，但是这样zotero的抓取规则无法匹配网址，导致抓取失败。如何解决？其实zotero支持代理抓取。以计量大学的VPN为例进行展示： 1. 打开浏览器的zotero插件 2. 在左侧Proxies菜单中设置在configured Proxies 中添加条目:webvpn.video.cjlu.cn 3. 设置Proxied URL Scheme在Pr">
+<meta property="og:description" content="首先创建服务器设置好后为：然后新建一个基于ssh的解释器 寻找另一台电脑的环境信息，把解释器的路径导入 报错： 先点取消，pycharm这里有bug，如果报错之后解释器就换不了了，弱智pycharm重复上述步骤，选择conda环境 我装在默认位置，大家可以自己找一下，如果不会找可以使用where conda 重点来了！ 这里直接加载环境会报错: 怎么办呢？把C前面的斜杠去掉就好了 问题解决。 注意">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251105020217870.png">
-<meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106001252606.png">
-<meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251106004011869.png">
-<meta property="article:published_time" content="2025-04-16T20:46:01.000Z">
-<meta property="article:modified_time" content="2025-12-11T11:44:32.045Z">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185415483.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185427879.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185601002.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185630691.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185637612.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190413244.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190422307.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190428683.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190436965.png">
+<meta property="article:published_time" content="2025-08-11T12:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-14T13:30:51.592Z">
 <meta property="article:author" content="Obscure">
-<meta property="article:tag" content="Zotero">
-<meta property="article:tag" content="VPN">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20251105020217870.png">
+<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20251214185415483.png">
   
   
   
-  <title>解决Zotero在校园网VPN下抓取失败的问题 - Obscureの小窝</title>
+  <title>Pycharm SSH 远程连接 Windows 环境 - Obscureの小窝</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -205,7 +210,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="解决Zotero在校园网VPN下抓取失败的问题"></span>
+            <span id="subtitle" data-typed-text="Pycharm SSH 远程连接 Windows 环境"></span>
           
         </div>
 
@@ -216,8 +221,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-16 20:46" pubdate>
-          2025年4月16日 晚上
+        <time datetime="2025-08-11 12:00" pubdate>
+          2025年8月11日 中午
         </time>
       </span>
     
@@ -228,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          304 字
+          200 字
         
       </span>
     
@@ -239,7 +244,7 @@
         
         
         
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -276,21 +281,20 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">解决Zotero在校园网VPN下抓取失败的问题</h1>
+            <h1 id="seo-header">Pycharm SSH 远程连接 Windows 环境</h1>
             
             
               <div class="markdown-body">
                 
-                <p>寒暑假在校外，无法内网访问学术网站，只能用VPN，但是这样zotero的抓取规则无法匹配网址，导致抓取失败。如何解决？其实zotero支持代理抓取。以计量大学的VPN为例进行展示：<br><img src="https://qiniu.mingxuan.xin/picgo/20251105020217870.png" srcset="/img/loading.gif" lazyload></p>
-<h5 id="1-打开浏览器的zotero插件"><a href="#1-打开浏览器的zotero插件" class="headerlink" title="1. 打开浏览器的zotero插件"></a>1. 打开浏览器的zotero插件</h5><p><img src="http://qiniu.mingxuan.xin/picgo/20251106001252606.png" srcset="/img/loading.gif" lazyload></p>
-<h5 id="2-在左侧Proxies菜单中设置"><a href="#2-在左侧Proxies菜单中设置" class="headerlink" title="2. 在左侧Proxies菜单中设置"></a>2. 在左侧Proxies菜单中设置</h5><p>在configured Proxies 中添加条目:<code>webvpn.video.cjlu.cn</code></p>
-<h5 id="3-设置Proxied-URL-Scheme"><a href="#3-设置Proxied-URL-Scheme" class="headerlink" title="3. 设置Proxied URL Scheme"></a>3. 设置Proxied URL Scheme</h5><p>在Proxied URL Scheme 中添加: <code>%h-s.video.cjlu.edu.cn:8118/%p</code></p>
-<h5 id="4-再次刷新即可抓取"><a href="#4-再次刷新即可抓取" class="headerlink" title="4. 再次刷新即可抓取"></a>4. 再次刷新即可抓取</h5><p><img src="http://qiniu.mingxuan.xin/picgo/20251106004011869.png" srcset="/img/loading.gif" lazyload></p>
-<h5 id="5-原理"><a href="#5-原理" class="headerlink" title="5. 原理"></a>5. 原理</h5><p>其实proxy上写的很清楚了：</p>
-<figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs erlang-repl">You may use the following variables in your proxy schemes:  <br><span class="hljs-comment">%h - The hostname of the proxied site (e.g., www.example.com)  </span><br><span class="hljs-comment">%p - The path of the proxied page excluding the leading slash (e.g., about/index.html)  </span><br><span class="hljs-comment">%u - Full encoded proxied site url (e.g. https://www.example.com/about/index.html)</span><br></code></pre></td></tr></table></figure>
-<p>您可以在代理方案中使用以下变量：<br>%h-代理站点的主机名（例如<a target="_blank" rel="noopener" href="http://www.example.com)/">www.example.com）</a><br>%p-代理页面的路径，不包括前导斜线（例如about&#x2F;index.html）<br>%u-完整编码的代理站点url（例如。<a target="_blank" rel="noopener" href="https://www.example.com/about/index.html">https://www.example.com/about/index.html</a>)</p>
-<p>以计量大学为例，VPN访问IEEE时,网站长这个样子:<br><code>https://ieeexplore-ieee-org-s.video.cjlu.edu.cn:8118/Xplore/home.jsp</code><br>zotero不认识这个网站，因此需要把代理的源网站告诉他在哪就可以了。其他学校的网站还需要同学们自行摸索。</p>
-
+                <p>首先创建服务器<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185415483.png" srcset="/img/loading.gif" lazyload><br>设置好后为：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185427879.png" srcset="/img/loading.gif" lazyload><br>然后新建一个基于ssh的解释器<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185601002.png" srcset="/img/loading.gif" lazyload></p>
+<p>寻找另一台电脑的环境信息，把解释器的路径导入<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185630691.png" srcset="/img/loading.gif" lazyload></p>
+<p>报错：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185637612.png" srcset="/img/loading.gif" lazyload></p>
+<p>先点取消，pycharm这里有bug，如果报错之后解释器就换不了了，弱智pycharm<br>重复上述步骤，选择conda环境<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190413244.png" srcset="/img/loading.gif" lazyload></p>
+<p>我装在默认位置，大家可以自己找一下，如果不会找可以使用<code>where conda</code><br><img src="https://qiniu.mingxuan.xin/picgo/20251214190422307.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>重点来了！</strong> 这里直接加载环境会报错:<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190428683.png" srcset="/img/loading.gif" lazyload></p>
+<p>怎么办呢？把C前面的斜杠去掉就好了<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190436965.png" srcset="/img/loading.gif" lazyload></p>
+<p>问题解决。</p>
+<h1 id="注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！"><a href="#注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！" class="headerlink" title="注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！"></a>注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！</h1><h1 id="版本：2025-2"><a href="#版本：2025-2" class="headerlink" title="版本：2025.2"></a>版本：2025.2</h1>
                 
               </div>
             
@@ -308,7 +312,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" class="category-chain-item">工具配置</a>
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
   
   
 
@@ -323,9 +327,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Zotero/" class="print-no-link">#Zotero</a>
-      
-        <a href="/tags/VPN/" class="print-no-link">#VPN</a>
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
       
     </div>
   
@@ -337,8 +339,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>解决Zotero在校园网VPN下抓取失败的问题</div>
-      <div>http://06scure.github.io/2025/04/16/20150416/</div>
+      <div>Pycharm SSH 远程连接 Windows 环境</div>
+      <div>http://06scure.github.io/2025/08/11/20250811/</div>
     </div>
     <div class="license-meta">
       
@@ -350,7 +352,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月16日</div>
+          <div>2025年8月11日</div>
         </div>
       
       
@@ -388,15 +390,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/10/15/20251015/" title="Claude Code 部署">
+                      <a href="/2025/08/22/20250822/" title="中国计量大学路由器自动登录脚本">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Claude Code 部署</span>
+                        <span class="hidden-mobile">中国计量大学路由器自动登录脚本</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2025/07/12/20250712/" title="将 Solidwork 画好的板框导入立创EDA">
+                        <span class="hidden-mobile">将 Solidwork 画好的板框导入立创EDA</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>

@@ -1,0 +1,774 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、前置知识1.DDPM 论文：[2006.11239] Denoising Diffusion Probabilistic Models 代码：hojonathanho&#x2F;diffusion: Denoising Diffusion Probabilistic Models  2.DDIM 论文：[2010.02502] Denoising Diffusion Implicit Mode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stable Diffusion代码详解（一）">
+<meta property="og:url" content="http://06scure.github.io/2025/08/24/20250824/index.html">
+<meta property="og:site_name" content="Obscureの小窝">
+<meta property="og:description" content="一、前置知识1.DDPM 论文：[2006.11239] Denoising Diffusion Probabilistic Models 代码：hojonathanho&#x2F;diffusion: Denoising Diffusion Probabilistic Models  2.DDIM 论文：[2010.02502] Denoising Diffusion Implicit Mode">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211911716.png">
+<meta property="article:published_time" content="2025-08-24T12:00:00.000Z">
+<meta property="article:modified_time" content="2025-12-14T13:30:51.592Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="大模型">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20251214211911716.png">
+  
+  
+  
+  <title>Stable Diffusion代码详解（一） - Obscureの小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"06scure.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Stable Diffusion代码详解（一）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-24 12:00" pubdate>
+          2025年8月24日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Stable Diffusion代码详解（一）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、前置知识"><a href="#一、前置知识" class="headerlink" title="一、前置知识"></a>一、前置知识</h2><h5 id="1-DDPM"><a href="#1-DDPM" class="headerlink" title="1.DDPM"></a>1.DDPM</h5><ul>
+<li>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.11239">[2006.11239] Denoising Diffusion Probabilistic Models</a></li>
+<li>代码：<a target="_blank" rel="noopener" href="https://github.com/hojonathanho/diffusion">hojonathanho&#x2F;diffusion: Denoising Diffusion Probabilistic Models</a></li>
+</ul>
+<h5 id="2-DDIM"><a href="#2-DDIM" class="headerlink" title="2.DDIM"></a>2.DDIM</h5><ul>
+<li>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2010.02502">[2010.02502] Denoising Diffusion Implicit Models</a></li>
+</ul>
+<h5 id="3-LDM"><a href="#3-LDM" class="headerlink" title="3. LDM"></a>3. LDM</h5><ul>
+<li>论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2112.10752">[2112.10752] High-Resolution Image Synthesis with Latent Diffusion Models</a></li>
+<li>代码：<a target="_blank" rel="noopener" href="https://github.com/CompVis/latent-diffusion">CompVis&#x2F;latent-diffusion: High-Resolution Image Synthesis with Latent Diffusion Models</a></li>
+</ul>
+<h2 id="二、-简介"><a href="#二、-简介" class="headerlink" title="二、 简介"></a>二、 简介</h2><ul>
+<li>代码地址(v1)：<a target="_blank" rel="noopener" href="https://github.com/CompVis/stable-diffusion">CompVis&#x2F;stable-diffusion: A latent text-to-image diffusion model</a></li>
+<li>代码地址(v2)：<a target="_blank" rel="noopener" href="https://github.com/Stability-AI/stablediffusion">Stability-AI&#x2F;stablediffusion: High-Resolution Image Synthesis with Latent Diffusion Models</a><br> stable diffusion实际上是由LDM改进而来，LDM的主要工作是将端到端的像素级概率扩散过程放到潜空间进行。首先训练了一对VAE自分编码器，将图像映射到潜空间，再进行概率扩散，大大减少了对性能的要求。<blockquote>
+<p>[!note] Page 10686</p>
+<p>We propose to circumvent this drawback by introducing an explicit separation of the compressive from the generative learning phase (see Fig. 2). To achieve this, we utilize an autoencoding model which learns a space that is perceptually equivalent to the image space, but offers significantly reduced computational complexity.</p>
+<hr>
+<p>我们建议通过引入与生成学习阶段的压缩分离来规避这一缺点（见图2）。为了实现这一目标，我们利用了一个自动编码模型，该模型在感知上等同于图像空间，但具有大大降低的计算复杂性。<br>^95Z2VM4LaW8J36UR5p3</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20251214211911716.png" srcset="/img/loading.gif" lazyload></p>
+<p>在stable diffusion v1的版本中，作者首先训练了一个 512 * 512 大小的生成器，提高了分辨率。文本编码器为CLIP ViT-L&#x2F;14。后来Stability-AI和CompVis陆续发了几个版本，现在保留下来的v2版本又进行的加训，模型分辨率提高为 768 * 768 。</p>
+<h2 id="三、-代码结构"><a href="#三、-代码结构" class="headerlink" title="三、 代码结构"></a>三、 代码结构</h2><h4 id="1-文件结构"><a href="#1-文件结构" class="headerlink" title="1. 文件结构"></a>1. 文件结构</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-symbol">stablediffusion:</span>.<br>├─assets<br>│  ├─stable-inpainting<br>│  └─stable-samples<br>│      ├─depth2img<br>│      ├─img2img<br>│      ├─stable-unclip<br>│      ├─txt2img<br>│      │  └─<span class="hljs-number">768</span><br>│      └─upscaling<br>├─checkpoints<br>├─configs<br>│  ├─karlo<br>│  └─stable-<span class="hljs-keyword">diffusion</span><br><span class="hljs-keyword"></span>│      └─intel<br>├─doc<br>├─ldm<br>│  ├─data<br>│  ├─models<br>│  │  └─<span class="hljs-keyword">diffusion</span><br><span class="hljs-keyword"></span>│  │      └─dpm_solver<br>│  └─modules<br>│      ├─<span class="hljs-keyword">diffusionmodules</span><br><span class="hljs-keyword"></span>│      ├─<span class="hljs-keyword">distributions</span><br><span class="hljs-keyword"></span>│      ├─encoders<br>│      ├─image_degradation<br>│      │  └─utils<br>│      ├─karlo<br>│      │  └─kakao<br>│      │      ├─models<br>│      │      └─modules<br>│      │          └─<span class="hljs-keyword">diffusion</span><br><span class="hljs-keyword"></span>│      └─midas<br>│          └─midas<br>└─<span class="hljs-keyword">scripts</span><br><span class="hljs-keyword"></span>    ├─gradio<br>    ├─streamlit<br>    └─tests<br></code></pre></td></tr></table></figure>
+<ul>
+<li>assets 主要是包含样例图和md的存图</li>
+<li>checkpoint 模型权重文件位置</li>
+<li>config 参数调整，这里主要是yaml文件</li>
+<li>doc 文档</li>
+<li>ldm 模型主结构</li>
+<li>scripts 模型使用脚本</li>
+</ul>
+<h4 id="2-文件具体内容解析"><a href="#2-文件具体内容解析" class="headerlink" title="2. 文件具体内容解析"></a>2. 文件具体内容解析</h4><h5 id="ldm-data-utils-py"><a href="#ldm-data-utils-py" class="headerlink" title="- ldm&#x2F;data&#x2F;utils.py"></a>- ldm&#x2F;data&#x2F;utils.py</h5><p>  文件中包含了一个<code>AddMiDaS</code>类,主要是处理MiDaS深度估计输入，将输入图像tensor格式为[-1,1]转换为numpy格式[0,1]，方法主要是做线性映射。</p>
+<h5 id="ldm-models-diffusion-dpm-solver-dpm-solver-py"><a href="#ldm-models-diffusion-dpm-solver-dpm-solver-py" class="headerlink" title="- ldm&#x2F;models&#x2F;diffusion&#x2F;dpm_solver&#x2F;dpm_solver.py"></a>- ldm&#x2F;models&#x2F;diffusion&#x2F;dpm_solver&#x2F;dpm_solver.py</h5><p>文件中包含了一个<code>NoiseScheduleVP</code>类，主要定义噪声调度测量，该类中还描述了连续时间的DPM<code>(Diffusion Probabilistic Model)</code> 调用方式。</p>
+<p>在同文件夹下的sampler.py中调用了该类，在第80行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">ns = NoiseScheduleVP(<span class="hljs-string">&#x27;discrete&#x27;</span>, alphas_cumprod=<span class="hljs-variable language_">self</span>.alphas_cumprod)<br></code></pre></td></tr></table></figure>
+<p>其中：</p>
+<ul>
+<li>在扩散模型的正向过程中，<code>alphas</code> 代表扩散过程的步长控制参数，其累积乘积 <code>alphas_cumprod</code> 用于控制噪声添加的强度。</li>
+</ul>
+<p>文件中将主类写了一个包装函数<code>model_wrapper</code>用于参数传递，支持几种条件<br>文件中的主类为<code>DPM_Solver</code>，该模块主要是提高生成速度，在15-20步的去噪过程可以媲美传统方法(DDIM)100-250步的过程，类中定义了单步扩散，多步扩散，采样等方法，内容很多。</p>
+<h5 id="ldm-models-diffusion-dpm-solver-sampler-py"><a href="#ldm-models-diffusion-dpm-solver-sampler-py" class="headerlink" title="- ldm&#x2F;models&#x2F;diffusion&#x2F;dpm_solver&#x2F;sampler.py"></a>- ldm&#x2F;models&#x2F;diffusion&#x2F;dpm_solver&#x2F;sampler.py</h5><p>本文件是核心采样器，主要是对<code>DPM-Solver(Diffusion Probabilistic Model Solver)</code> 算法进行包装，实现对扩散模型采样过程的加速和优化实现。</p>
+<ul>
+<li>类<code>DPMSolverSampler</code>中，传入参数为扩散模型和设备</li>
+<li><code>register_buffer</code>为注册缓存</li>
+<li><code>sample</code>为采样主方法，传入参数后先检查条件<code>conditioning</code>与<code>batch_size</code>一致。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S</td>
+<td>采样步数</td>
+</tr>
+<tr>
+<td>shape</td>
+<td>生成图像形状(C,H,W)</td>
+</tr>
+<tr>
+<td>conditioning</td>
+<td>条件输入(如文本Embedding)</td>
+</tr>
+<tr>
+<td>x_T</td>
+<td>初始噪声图像</td>
+</tr>
+</tbody></table>
+<ul>
+<li>然后初始化采样图像张量，构建<code>NoiseScheduleVP</code>调度器，构建模型包装器<code>model_fn</code>，创建<code>DPM_Solver</code>开始采样</li>
+<li>返回生成的图像，形状为<code>(B,C,H,W)</code></li>
+</ul>
+<h5 id="ldm-models-diffusion-ddim-py-ddpm-py"><a href="#ldm-models-diffusion-ddim-py-ddpm-py" class="headerlink" title="- ldm&#x2F;models&#x2F;diffusion&#x2F;ddim.py&amp;ddpm.py"></a>- ldm&#x2F;models&#x2F;diffusion&#x2F;ddim.py&amp;ddpm.py</h5><p><code>DDIM(Denoising Diffusion Implicit Models)</code>是对扩散概率模型<code>DDPM(Denoising Diffusion Probabilistic Models)</code>的一种改进。核心总结为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">DDIMSampler</span>(<span class="hljs-title class_ inherited__">object</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>()         <span class="hljs-comment"># 初始化模型与设备</span><br>    <span class="hljs-comment"># 设置传入模型，设置原始训练步数，存储设备与调度策略</span><br>    make_schedule()        <span class="hljs-comment"># 构建采样调度表</span><br>    <span class="hljs-comment"># 构建DDIM的时间步选择表，注册重要一些参数</span><br>    sample()               <span class="hljs-comment"># 高层封装接口，调用 sampling 主过程</span><br>    <span class="hljs-comment"># 外部接口，设置调度表，构造随机初始噪声，调用ddim_sampling()，设置mask和x0</span><br>    ddim_sampling()        <span class="hljs-comment"># 逐步执行 DDIM 推理</span><br>    <span class="hljs-comment"># 核心的去噪过程，循环所有采样时间步，反向执行DDIM采样</span><br>    <span class="hljs-comment"># 调用p_sample_ddim()单步处理</span><br>    <span class="hljs-comment"># 记录intermediates可视化</span><br>    p_sample_ddim()        <span class="hljs-comment"># 单步采样过程（核心计算）</span><br>    encode()               <span class="hljs-comment"># 编码阶段（图像 -&gt; 潜空间）</span><br>    stochastic_encode()    <span class="hljs-comment"># 随机编码图像为 latent（用于图像重构）</span><br>    decode()               <span class="hljs-comment"># 解码阶段（潜空间 -&gt; 图像）</span><br><br></code></pre></td></tr></table></figure>
+<h5 id="ldm-models-diffusion-plms-py"><a href="#ldm-models-diffusion-plms-py" class="headerlink" title="-  ldm&#x2F;models&#x2F;diffusion&#x2F;plms.py"></a>-  ldm&#x2F;models&#x2F;diffusion&#x2F;plms.py</h5><p><code>PLMS (Pseudo Linear Multistep)</code>采样器的模块。<code>PLMS</code> 是对<code> DDIM</code> 的改进，通过多步预测更精确地估计当前时刻的噪声，从而提升采样质量与速度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">PLMSSampler</span>(<span class="hljs-title class_ inherited__">object</span>):<br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, model, schedule=<span class="hljs-string">&quot;linear&quot;</span>, device=torch.device(<span class="hljs-params"><span class="hljs-string">&quot;cuda&quot;</span></span>), **kwargs</span>):<br>	<span class="hljs-comment"># 初始化函数，输入为model模型对象，schedule 时间步调度方式，device 设备</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">make_schedule</span>(<span class="hljs-params">self, ddim_num_steps, ddim_discretize=<span class="hljs-string">&quot;uniform&quot;</span>, ddim_eta=<span class="hljs-number">0.</span>, verbose=<span class="hljs-literal">True</span></span>):<br>	<span class="hljs-comment"># 构造采集所需要的参数（如α，β）</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">sample</span>(<span class="hljs-params">self, S, batch_size, shape, conditioning=<span class="hljs-literal">None</span>, ...</span>)<br>	<span class="hljs-comment"># 采样入口，流程：</span><br>	<span class="hljs-comment"># 1. 检查conditioning 与 batch_size 是否一致</span><br>	<span class="hljs-comment"># 2. 调用 make_schedule() 构造时间调度参数</span><br>    <span class="hljs-comment"># 3. 调用 plms_sampling() 执行实际采样过程</span><br>    <span class="hljs-comment"># 4. 返回最终图像和中间结果</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">plms_sampling</span>(<span class="hljs-params">self, cond, shape, ...</span>)<br>	<span class="hljs-comment"># 使用 PLMS 方法进行图像采样：</span><br>	<span class="hljs-comment"># 1. 初始化噪声图像</span><br>	<span class="hljs-comment"># 2. 遍历时间步（倒序）</span><br>	<span class="hljs-comment"># 3. 每一步调用 p_sample_plms 去噪，并保存中间图像。</span><br>	<span class="hljs-keyword">def</span> <span class="hljs-title function_">p_sample_plms</span>(<span class="hljs-params">self, x, c, t, index, ...</span>)<br>	<span class="hljs-comment"># 该函数完成一小步的去噪采样</span><br></code></pre></td></tr></table></figure>
+<h5 id="ldm-models-diffusion-sampling-util-py"><a href="#ldm-models-diffusion-sampling-util-py" class="headerlink" title="-  ldm&#x2F;models&#x2F;diffusion&#x2F;sampling_util.py"></a>-  ldm&#x2F;models&#x2F;diffusion&#x2F;sampling_util.py</h5><p> <code>append_dims(x, target_dims)</code>给张量 <code>x</code> <strong>在最后面添加维度</strong>，直到它的维度数变成 <code>target_dims</code>。这是为了<strong>广播兼容性</strong>。在很多深度学习中，做乘除操作时要求维度对齐，通过扩展末尾维度可以让张量广播得更自然。<br> <code>norm_thresholding(x0, value)</code>对每个样本 <code>x0[i]</code> 的<strong>L2范数进行下限约束（clamp）</strong>，如果范数太小（&lt; <code>value</code>），就放大它使其不低于这个值。<br> <code>spatial_norm_thresholding(x0, value)</code>对每个像素位置 <code>(b, h, w)</code> 的通道向量 <code>x0[b, :, h, w]</code> 进行 L2 范数的约束。</p>
+<h5 id="ldm-models-autoencoder-py"><a href="#ldm-models-autoencoder-py" class="headerlink" title="-  ldm&#x2F;models&#x2F;autoencoder.py"></a>-  ldm&#x2F;models&#x2F;autoencoder.py</h5><p>自分编码器，把图片编码至潜空间z进行加噪去噪。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, ddconfig, lossconfig, embed_dim, ckpt_path=<span class="hljs-literal">None</span>, ...</span>)<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Encoder,Decoder</code></td>
+<td>图像的编码器与解码器（定义在 <code>ldm.modules.diffusionmodules.model</code>）</td>
+</tr>
+<tr>
+<td><code>quant_conv</code>, <code>post_quant_conv</code></td>
+<td>中间变换：将 encoder 输出的 feature map 映射到高斯分布的均值&#x2F;方差（2×embed_dim）</td>
+</tr>
+<tr>
+<td><code>DiagonalGaussianDistribution</code></td>
+<td>用于建模潜在空间分布 $z∼N(μ,σ)$</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">encode</span>(<span class="hljs-params">self,x</span>):<br></code></pre></td></tr></table></figure>
+<p>输入为image，输出为feature map。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Stable Diffusion代码详解（一）</div>
+      <div>http://06scure.github.io/2025/08/24/20250824/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年8月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/09/12/20250912/" title="VScode实现经过跳板机的代码双向同步">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">VScode实现经过跳板机的代码双向同步</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/08/23/20250823/" title="Gemini-CLI 配置指北">
+                        <span class="hidden-mobile">Gemini-CLI 配置指北</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
