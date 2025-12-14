@@ -22,15 +22,15 @@
     <meta name="description" content="梅花针作为水表的最后一位指针，在水表出厂前，需要检测水表指针的准确性，因此需要对梅花针进行视觉检测。梅花针在外形上具有中心对称的特点，因此传统方法（如关键点匹配等）无法测量其旋转的角度。本文介绍了一种新型梅花针角度测量方法，首先以梅花针的质心为中心进行圆环展开，展开后的梅花针图像近似于信号中的方波。将图像压缩为一维信号，将指针旋转问题转换为信号平移问题，通过求解频域相移求解指针的角度变化。该方法能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="智能水表项目 - 梅花针旋转角度测量方法">
-<meta property="og:url" content="http://06scure.github.io/2025/11/18/20251118/index.html">
-<meta property="og:site_name" content="Obscureの小窝">
+<meta property="og:url" content="http://blog.mingxuan.xin/2025/11/18/20251118/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
 <meta property="og:description" content="梅花针作为水表的最后一位指针，在水表出厂前，需要检测水表指针的准确性，因此需要对梅花针进行视觉检测。梅花针在外形上具有中心对称的特点，因此传统方法（如关键点匹配等）无法测量其旋转的角度。本文介绍了一种新型梅花针角度测量方法，首先以梅花针的质心为中心进行圆环展开，展开后的梅花针图像近似于信号中的方波。将图像压缩为一维信号，将指针旋转问题转换为信号平移问题，通过求解频域相移求解指针的角度变化。该方法能">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251118160404394.png">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251119135228531.jpg">
 <meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20251118193515191.png">
 <meta property="article:published_time" content="2025-11-18T15:50:00.000Z">
-<meta property="article:modified_time" content="2025-12-14T15:27:53.064Z">
+<meta property="article:modified_time" content="2025-12-14T15:31:40.445Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="傅里叶变换">
@@ -40,7 +40,7 @@
   
   
   
-  <title>智能水表项目 - 梅花针旋转角度测量方法 - Obscureの小窝</title>
+  <title>智能水表项目 - 梅花针旋转角度测量方法 - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -78,7 +78,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"06scure.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -523,7 +523,7 @@ mjx-container[display="true"] + br {
   <div class="license-box my-3">
     <div class="license-title">
       <div>智能水表项目 - 梅花针旋转角度测量方法</div>
-      <div>http://06scure.github.io/2025/11/18/20251118/</div>
+      <div>http://blog.mingxuan.xin/2025/11/18/20251118/</div>
     </div>
     <div class="license-meta">
       

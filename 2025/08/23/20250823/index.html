@@ -22,8 +22,8 @@
     <meta name="description" content="1. 前言在ChatGPT更新到GPT-5之后，每日的免费额度变低，对指令的理解不清晰，沟通起来很痛苦，果断寻找新的工具提升生产效率，Gemini-CLI高达每日1000次，100万上下文token的窗口，让AI不再弱智。 2. Node.js安装在部署gemini之前，我们首先需要部署npm。nvm和npm类似conda和python，作为一个版本管理器存在。参考微软文档进行部署，首先下载nvm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gemini-CLI 配置指北">
-<meta property="og:url" content="http://06scure.github.io/2025/08/23/20250823/index.html">
-<meta property="og:site_name" content="Obscureの小窝">
+<meta property="og:url" content="http://blog.mingxuan.xin/2025/08/23/20250823/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
 <meta property="og:description" content="1. 前言在ChatGPT更新到GPT-5之后，每日的免费额度变低，对指令的理解不清晰，沟通起来很痛苦，果断寻找新的工具提升生产效率，Gemini-CLI高达每日1000次，100万上下文token的窗口，让AI不再弱智。 2. Node.js安装在部署gemini之前，我们首先需要部署npm。nvm和npm类似conda和python，作为一个版本管理器存在。参考微软文档进行部署，首先下载nvm">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211037418.png">
@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211801622.png">
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211809612.png">
 <meta property="article:published_time" content="2025-08-23T12:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-14T15:27:53.063Z">
+<meta property="article:modified_time" content="2025-12-14T15:31:40.445Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="Python">
@@ -51,7 +51,7 @@
   
   
   
-  <title>Gemini-CLI 配置指北 - Obscureの小窝</title>
+  <title>Gemini-CLI 配置指北 - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -89,7 +89,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"06scure.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -393,7 +393,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Gemini-CLI 配置指北</div>
-      <div>http://06scure.github.io/2025/08/23/20250823/</div>
+      <div>http://blog.mingxuan.xin/2025/08/23/20250823/</div>
     </div>
     <div class="license-meta">
       
