@@ -19,30 +19,22 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="首先确定好要导出的PCB是零件的哪一面：然后将画好的solidwork文件另存为dxf格式：选择当前即可，然后保存：回到立创EDA中，文件 - 导入 - DXF 导入DXF文件 导入刚刚的文件到板框层 板框层要求一个闭合图像，电路板中的打孔重新用焊盘代替，导入成功">
+    <meta name="description" content="一、前言今天开始正式的视觉框架开发，第一步是构建一个多进程的日志系统。日志系统是大型项目的基石，记录每个模块的正常运行，防止程序突然异常退出却无法定位问题点。 二、Python日志模块日志是在Python自2.7版本就存在的官方模块之一。官方文档地址：日志指南 — Python 3.14.2 文档 1. 日志分级简单的理解日志，就是一个高级的print。log存在几种级别：    级别 何时使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="将 Solidwork 画好的板框导入立创EDA">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/07/12/20250712/index.html">
+<meta property="og:title" content="RKVision开发日志(一)">
+<meta property="og:url" content="http://blog.mingxuan.xin/2025/12/27/20251227/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="首先确定好要导出的PCB是零件的哪一面：然后将画好的solidwork文件另存为dxf格式：选择当前即可，然后保存：回到立创EDA中，文件 - 导入 - DXF 导入DXF文件 导入刚刚的文件到板框层 板框层要求一个闭合图像，电路板中的打孔重新用焊盘代替，导入成功">
+<meta property="og:description" content="一、前言今天开始正式的视觉框架开发，第一步是构建一个多进程的日志系统。日志系统是大型项目的基石，记录每个模块的正常运行，防止程序突然异常退出却无法定位问题点。 二、Python日志模块日志是在Python自2.7版本就存在的官方模块之一。官方文档地址：日志指南 — Python 3.14.2 文档 1. 日志分级简单的理解日志，就是一个高级的print。log存在几种级别：    级别 何时使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185214523.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185257699.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185308609.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185318319.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185324314.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185329684.png">
-<meta property="article:published_time" content="2025-07-12T12:00:00.000Z">
+<meta property="article:published_time" content="2025-12-27T15:42:00.000Z">
 <meta property="article:modified_time" content="2025-12-27T15:43:41.641Z">
 <meta property="article:author" content="Obscure">
-<meta property="article:tag" content="PCB">
-<meta property="article:tag" content="3D建模">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20251214185214523.png">
   
   
   
-  <title>将 Solidwork 画好的板框导入立创EDA - Obscure的个人博客</title>
+  <title>RKVision开发日志(一) - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -208,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="将 Solidwork 画好的板框导入立创EDA"></span>
+            <span id="subtitle" data-typed-text="RKVision开发日志(一)"></span>
           
         </div>
 
@@ -219,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-12 12:00" pubdate>
-          2025年7月12日 中午
+        <time datetime="2025-12-27 15:42" pubdate>
+          2025年12月27日 下午
         </time>
       </span>
     
@@ -231,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          96 字
+          1.2k 字
         
       </span>
     
@@ -242,7 +234,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -279,14 +271,69 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">将 Solidwork 画好的板框导入立创EDA</h1>
+            <h1 id="seo-header">RKVision开发日志(一)</h1>
             
             
               <div class="markdown-body">
                 
-                <p>首先确定好要导出的PCB是零件的哪一面：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185214523.png" srcset="/img/loading.gif" lazyload><br>然后将画好的solidwork文件另存为dxf格式：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185257699.png" srcset="/img/loading.gif" lazyload><br>选择当前即可，然后保存：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185308609.png" srcset="/img/loading.gif" lazyload><br>回到立创EDA中，文件 - 导入 - DXF 导入DXF文件<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185318319.png" srcset="/img/loading.gif" lazyload></p>
-<p>导入刚刚的文件到板框层<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185324314.png" srcset="/img/loading.gif" lazyload></p>
-<p>板框层要求一个闭合图像，电路板中的打孔重新用焊盘代替，导入成功<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185329684.png" srcset="/img/loading.gif" lazyload></p>
+                <h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>今天开始正式的视觉框架开发，第一步是构建一个多进程的日志系统。日志系统是大型项目的基石，记录每个模块的正常运行，防止程序突然异常退出却无法定位问题点。</p>
+<h1 id="二、Python日志模块"><a href="#二、Python日志模块" class="headerlink" title="二、Python日志模块"></a>二、Python日志模块</h1><p>日志是在Python自2.7版本就存在的官方模块之一。官方文档地址：<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.14/howto/logging.html">日志指南 — Python 3.14.2 文档</a></p>
+<h5 id="1-日志分级"><a href="#1-日志分级" class="headerlink" title="1. 日志分级"></a>1. 日志分级</h5><p>简单的理解日志，就是一个高级的print。log存在几种级别：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>何时使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>DEBUG</code></td>
+<td>细节信息，仅当诊断问题时适用。</td>
+</tr>
+<tr>
+<td><code>INFO</code></td>
+<td>确认程序按预期运行。</td>
+</tr>
+<tr>
+<td><code>WARNING</code></td>
+<td>表明有已经或即将发生的意外（例如：磁盘空间不足）。程序仍按预期进行。</td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td>由于严重的问题，程序的某些功能已经不能正常执行</td>
+</tr>
+<tr>
+<td><code>CRITICAL</code></td>
+<td>严重的错误，表明程序已不能继续执行</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>在程序调用中，可以用以下的方式写日志：</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br>logging.warning(<span class="hljs-string">&#x27;Watch out!&#x27;</span>)<br>logging.info(<span class="hljs-string">&#x27;I told you so&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-symbol">WARNING:</span>root:Watch <span class="hljs-keyword">out</span>!<br></code></pre></td></tr></table></figure>
+
+<h5 id="2-日志定位"><a href="#2-日志定位" class="headerlink" title="2. 日志定位"></a>2. 日志定位</h5><p>而在实际开发中，往往是多文件的结构，日志中最好包含文件名。因此可以用以下方式实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br>logger = logging.getLogger(__name__)<br><br>logging.basicConfig(level=logging.INFO)<br>logger.warning(<span class="hljs-string">&#x27;Watch out!&#x27;</span>)<br>logger.info(<span class="hljs-string">&#x27;I told you so&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-variable constant_">WARNING</span><span class="hljs-symbol">:__main__</span><span class="hljs-symbol">:Watch</span> out!<br><span class="hljs-variable constant_">INFO</span><span class="hljs-symbol">:__main__</span><span class="hljs-symbol">:I</span> told you so<br></code></pre></td></tr></table></figure>
+
+<p>上述程序中通过设置<code>logger.basicConfig()</code>的默认配置实现了文件名的打印，减少我们排查代码的负担。<code>logger.basicConfig()</code>是一个日志配置器，功能异常强大。</p>
+<h5 id="3-日志保存"><a href="#3-日志保存" class="headerlink" title="3. 日志保存"></a>3. 日志保存</h5><p>当我们的程序已经稳定的部署在生产端后，突然出现了问题， 需要我们排查，显然不可能去控制台一点点翻。所以<code>logging</code>贴心的提出了在打印控制台的同时保存到文件中，日志信息一式两份。具体的写法参考官方文档：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br>logger = logging.getLogger(__name__)<br>logging.basicConfig(filename=<span class="hljs-string">&#x27;example.log&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>, level=logging.DEBUG)<br>logger.debug(<span class="hljs-string">&#x27;This message should go to the log file&#x27;</span>)<br>logger.info(<span class="hljs-string">&#x27;So should this&#x27;</span>)<br>logger.warning(<span class="hljs-string">&#x27;And this, too&#x27;</span>)<br>logger.error(<span class="hljs-string">&#x27;And non-ASCII stuff, too, like Øresund and Malmö&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>可以看到他是保存到了<code>example.log</code>文件中。</p>
+<h5 id="4-其他"><a href="#4-其他" class="headerlink" title="4. 其他"></a>4. 其他</h5><p>此外还有一些无关紧要的功能，比如说更改日志内容，记录时间戳信息；多模块日志有选择性的聚合等，功能很全，这里就不做过多介绍了。</p>
+<h1 id="三、多进程日志"><a href="#三、多进程日志" class="headerlink" title="三、多进程日志"></a>三、多进程日志</h1><p>众所周知，进程是CPU调度的基本单位。程序从单个硬件单元运行扩展至多个硬件单元并行，可以充分利用硬件，提高程序运行效率。<br>而Python语言中，由于全局解释器锁(<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.14/glossary.html#term-global-interpreter-lock">GIL - global interpreter lock</a>)的存在，同一时刻只有一个线程可以执行 Python 代码。这就导致多线程程序并没有在硬件层面并行运行，限制了程序的性能。<br>与多线程不同的是，多进程绕过了GIL锁，能充分利用多个处理器，但进程之间相对独立，并不会共享变量，这意味着一个多进程程序需要依赖进程间通信（IPC - Inter Process Communication)的方式进行。</p>
+<p>这和日志系统又有什么关系呢？如果每个进程都有一个单独的log，并不利于程序员的调试；而如果写入一个文件，还要考虑多进程访问的冲突问题；而日志聚合到一个主进程，则要考虑进程间通信的问题。</p>
+<p>我最开始是想手搓几个通信通道聚合到主进程中然后记录日志的，但是我是一个比较懒的人，在查资料的时候发现了一个支持多进程日志的模块<a target="_blank" rel="noopener" href="https://github.com/Delgan/loguru">Delgan&#x2F;loguru: Python logging made (stupidly) simple</a>，其内部使用<code>multiprocessing.Queue</code>进行通信。就像多线程开发一样，只需<code>from loguru import logger</code>就可以像引入全局变量一样打日志。为了简化开发，我们就先采用这个库进行。如果以后有性能问题也可以再重新开发日志系统。</p>
+<h1 id="三、多进程架构"><a href="#三、多进程架构" class="headerlink" title="三、多进程架构"></a>三、多进程架构</h1><p>个人理解的多进程程序中，会存在多个<code>if __name__ == &quot;__main__&quot;:</code>，并创建一个管理器去寻找单个模块的main入口，然后程序从这里运行。所以在测试多进程的日志系统之前，我们要先搭建一个多进程的框架。</p>
+<p>进程有几种启动方法，如<code>spawn, fork, forkserver</code>等，参见<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3.14/library/multiprocessing.html#contexts-and-start-methods">multiprocessing — 基于进程的并行 — Python 3.14.2 文档</a>，为了多平台运行和调试的方便，直接使用<code>spawn</code>方法新建进程即可。</p>
 
                 
               </div>
@@ -320,9 +367,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/PCB/" class="print-no-link">#PCB</a>
-      
-        <a href="/tags/3D%E5%BB%BA%E6%A8%A1/" class="print-no-link">#3D建模</a>
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
       
     </div>
   
@@ -334,8 +379,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>将 Solidwork 画好的板框导入立创EDA</div>
-      <div>http://blog.mingxuan.xin/2025/07/12/20250712/</div>
+      <div>RKVision开发日志(一)</div>
+      <div>http://blog.mingxuan.xin/2025/12/27/20251227/</div>
     </div>
     <div class="license-meta">
       
@@ -347,7 +392,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年7月12日</div>
+          <div>2025年12月27日</div>
         </div>
       
       
@@ -385,18 +430,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/11/20250811/" title="Pycharm SSH 远程连接 Windows 环境">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pycharm SSH 远程连接 Windows 环境</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/30/20250630/" title="Tmux 常用指令">
-                        <span class="hidden-mobile">Tmux 常用指令</span>
+                      <a href="/2025/11/18/20251118/" title="智能水表项目 - 梅花针旋转角度测量方法">
+                        <span class="hidden-mobile">智能水表项目 - 梅花针旋转角度测量方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
