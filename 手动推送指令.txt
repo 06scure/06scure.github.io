@@ -1,0 +1,6 @@
+cd /home/Data/hexo/
+rm -r /home/Data/hexo/*
+git clone https://mix.acc.aurorajc.dev/https://github.com/06scure/06scure.github.io.git
+mv 06scure.github.io/*  /home/Data/hexo/
+rm -r 06scure.github.io
+docker exec hexo-blog hexo g
