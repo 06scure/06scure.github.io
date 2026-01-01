@@ -19,39 +19,23 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 前言在ChatGPT更新到GPT-5之后，每日的免费额度变低，对指令的理解不清晰，沟通起来很痛苦，果断寻找新的工具提升生产效率，Gemini-CLI高达每日1000次，100万上下文token的窗口，让AI不再弱智。 2. Node.js安装在部署gemini之前，我们首先需要部署npm。nvm和npm类似conda和python，作为一个版本管理器存在。参考微软文档进行部署，首先下载nvm">
+    <meta name="description" content="一、Python多进程我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gemini-CLI 配置指北">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/08/23/20250823/index.html">
+<meta property="og:title" content="RKVision开发日志(三)">
+<meta property="og:url" content="http://blog.mingxuan.xin/2025/12/30/20251230/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="1. 前言在ChatGPT更新到GPT-5之后，每日的免费额度变低，对指令的理解不清晰，沟通起来很痛苦，果断寻找新的工具提升生产效率，Gemini-CLI高达每日1000次，100万上下文token的窗口，让AI不再弱智。 2. Node.js安装在部署gemini之前，我们首先需要部署npm。nvm和npm类似conda和python，作为一个版本管理器存在。参考微软文档进行部署，首先下载nvm">
+<meta property="og:description" content="一、Python多进程我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211037418.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190436965.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211043094.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211048441.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211058222.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211140782.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211148588.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211154055.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211201427.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211206810.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211747876.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211752594.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211757715.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211801622.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214211809612.png">
-<meta property="article:published_time" content="2025-08-23T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-01T14:19:28.470Z">
+<meta property="article:published_time" content="2025-12-30T15:54:00.000Z">
+<meta property="article:modified_time" content="2026-01-01T14:19:28.471Z">
 <meta property="article:author" content="Obscure">
-<meta property="article:tag" content="大模型">
 <meta property="article:tag" content="Python">
+<meta property="article:tag" content="瑞芯微">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20251214211037418.png">
   
   
   
-  <title>Gemini-CLI 配置指北 - Obscure的个人博客</title>
+  <title>RKVision开发日志(三) - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -217,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Gemini-CLI 配置指北"></span>
+            <span id="subtitle" data-typed-text="RKVision开发日志(三)"></span>
           
         </div>
 
@@ -228,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-23 12:00" pubdate>
-          2025年8月23日 中午
+        <time datetime="2025-12-30 15:54" pubdate>
+          2025年12月30日 下午
         </time>
       </span>
     
@@ -240,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.1k 字
         
       </span>
     
@@ -251,7 +235,7 @@
         
         
         
-          10 分钟
+          9 分钟
         
       </span>
     
@@ -288,63 +272,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Gemini-CLI 配置指北</h1>
+            <h1 id="seo-header">RKVision开发日志(三)</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>在ChatGPT更新到GPT-5之后，每日的免费额度变低，对指令的理解不清晰，沟通起来很痛苦，果断寻找新的工具提升生产效率，Gemini-CLI高达每日1000次，100万上下文token的窗口，让AI不再弱智。</p>
-<h2 id="2-Node-js安装"><a href="#2-Node-js安装" class="headerlink" title="2. Node.js安装"></a>2. Node.js安装</h2><p>在部署gemini之前，我们首先需要部署npm。nvm和npm类似conda和python，作为一个版本管理器存在。参考<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/dev-environment/javascript/nodejs-on-windows">微软文档</a>进行部署，首先下载nvm，[下载地址](<a target="_blank" rel="noopener" href="https://github.com/coreybutler/nvm-windows/releases">Releases · coreybutler&#x2F;nvm-windows</a>)在Windows端下载.exe即可。</p>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20251214211037418.png" srcset="/img/loading.gif" lazyload></p>
-<p>软件不大，只有5M，全部默认安装即可。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190436965.png" srcset="/img/loading.gif" lazyload><br>安装成功。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211043094.png" srcset="/img/loading.gif" lazyload></p>
-<p>接下来安装Node.js。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nvm install latest<br></code></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">24.6.0<br>Downloading node.js version 24.6.0 (64-bit)...<br>Extracting node and npm...<br>Complete<br>Installation complete.<br>If you want to use this version, <span class="hljs-built_in">type</span>:<br><br>nvm use 24.6.0<br></code></pre></td></tr></table></figure>
-<p>然后我们激活刚刚安装的Node环境。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看Node版本</span><br>nvm <span class="hljs-built_in">ls</span><br><span class="hljs-comment">#激活版本</span><br>nvm use 24.6.0<br><span class="hljs-comment">#验证安装的版本</span><br>npm --version<br></code></pre></td></tr></table></figure>
-<p>powershell可能会禁用脚本，如果无法运行npm，就用CMD。或者参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/5062435150">npm : 无法加载文件 C:\Program Files\nodejs\npm.ps1，因为在此系统上禁止运行脚本。 - 知乎</a>启动。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211048441.png" srcset="/img/loading.gif" lazyload>
-	</p>
-<h2 id="3-Gemini-CLI-部署"><a href="#3-Gemini-CLI-部署" class="headerlink" title="3. Gemini CLI 部署"></a>3. Gemini CLI 部署</h2><p>接下来继续安装Gemini CLI</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install -g @google/gemini-cli@latest<br></code></pre></td></tr></table></figure>
-<p>这边没给cmd设置代理，下载的比较慢，5M下载了5分钟。<br>下载好之后我们要先设置一些全局变量，可以考虑在windows环境变量中设置，或者可以set。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211058222.png" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> HTTP_PROXY=http://127.0.0.1:7897/   <span class="hljs-comment">#代理地址</span><br><span class="hljs-built_in">set</span> HTTPS_PROXY=http://127.0.0.1:7897/  <span class="hljs-comment">#同上 </span><br><span class="hljs-built_in">set</span> GOOGLE_CLOUD_PROJECT=你的项目ID<br><span class="hljs-built_in">set</span> GEMINI_API_KEY=你的APIKey<br></code></pre></td></tr></table></figure>
-<ul>
-<li><p>怎么获取项目ID？<br> 首先访问<a target="_blank" rel="noopener" href="https://console.cloud.google.com/">谷歌控制台</a>,如果没有项目则创建一个项目，这里会有项目ID。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211140782.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-<li><p>怎样获取APIKey?<br> 访问：<a target="_blank" rel="noopener" href="https://aistudio.google.com/apikey">Get API key | Google AI Studio</a>这里需要注意，Google AI Studio不支持香港澳门，梯子不要挂到那些地方。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211148588.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-</ul>
-<p> 在这里为刚刚的项目申请一个API，然后复制API到环境变量中。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211154055.png" srcset="/img/loading.gif" lazyload></p>
-<p> 万事俱备，我们可以直接运行一下gemini了，为了防止终端未加载环境变量，记得把终端重启一下再运行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gemini<br></code></pre></td></tr></table></figure>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20251214211201427.png" srcset="/img/loading.gif" lazyload></p>
-<p>这里直接选择1，登录即可。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211206810.png" srcset="/img/loading.gif" lazyload></p>
-<p>成功载入。</p>
-<h2 id="4-代码实战"><a href="#4-代码实战" class="headerlink" title="4. 代码实战"></a>4. 代码实战</h2><p>在写具体代码之前，Gemini有很多小毛病，比如说他很”犟“，喜欢读取缓存而不是重新读取文件，导致我们自己修改的代码被他删掉。因此我们需要先设置一个全局预设词。</p>
-<p>在用户的文件夹下如<code>C:\Users\Obscure\.gemini</code>新建一个GEMINI.md，并输入以下内容：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs markdown"><span class="hljs-section">## Gemini Added Memories</span><br><span class="hljs-bullet">-</span> 请使用中文进行思考和沟通。<br><span class="hljs-bullet">-</span> 对于复杂代码修改，优先使用<span class="hljs-code">`write_file`</span>而非<span class="hljs-code">`replace`</span>。<br><span class="hljs-bullet">-</span> 进行代码修改时，必须使用‘读取-修改-重写’的完整流程，绝不允许因图方便而使用部分内容覆写文件，导致代码丢失。<br><span class="hljs-bullet">-</span> 保持良好的代码书写习惯，遵守PEP484规范，并适当的为代码添加注释，提高可读性。<br></code></pre></td></tr></table></figure>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20251214211747876.png" srcset="/img/loading.gif" lazyload></p>
-<p>接下来，我们以<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/vggt">facebookresearch&#x2F;vggt: [CVPR 2025 Best Paper Award] VGGT: Visual Geometry Grounded Transformer</a>的代码为例，去学习使用Gemini-CLI。<br>在项目目录下右键，在终端中打开。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211752594.png" srcset="/img/loading.gif" lazyload></p>
-<p>然后运行gemini。提示：Using: 1 GEMINI.md file，代表我们刚刚设置的全局prompt生效了。对于一个崭新的项目，首先是要让AI理解他。我们执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">/init<br></code></pre></td></tr></table></figure>
-<p>Gemini会去阅读整个项目的文档，然后在项目目录下生成一个GEMINI.md去总结整个项目。<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211757715.png" srcset="/img/loading.gif" lazyload></p>
-<p>这里我们直接回车，他就创建好了。接下来，我们需要阅读整个源码，但是看不太懂，怎么办呢？让AI帮我们写注释。比如说我想阅读VGGT的特征提取部分，所以我们可以这样说：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs swift">请用中文帮我给<span class="hljs-meta">@vggt</span><span class="hljs-regexp">/models/</span>aggregator.py 的注释写完整<br></code></pre></td></tr></table></figure>
-<p>这里涉及到了一个用法<code>@</code>，<code>@</code>可以用来喂给AI特定的文件，因此他在操作之前，会先读取我们<code>@</code>的文件或是文件夹，这方便他理解整个代码的含义。当他修改完之后，我们可以选择在<code>3. 编译器中查看</code>:<br><img src="https://qiniu.mingxuan.xin/picgo/20251214211801622.png" srcset="/img/loading.gif" lazyload></p>
-<p>查看后可以选择修改。<br>也可以选择在vscode中直接运行gemini，记得在插件市场安装Gemini CLI Companion，这样就非常方便了。</p>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20251214211809612.png" srcset="/img/loading.gif" lazyload></p>
-<p>还有一些我们常用的指令，当一天的工作结束后，可以选择保存会话，第二天继续。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 用于保存和读取会话</span><br>/chat save [名称]<br>/chat resume [名称]<br></code></pre></td></tr></table></figure>
-<p>当上下文长度过长，AI的处理速度变慢之后，可以考虑压缩上下文，加快速度，节省token。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#用于压缩token</span><br>/compress<br></code></pre></td></tr></table></figure>
+                <h1 id="一、Python多进程"><a href="#一、Python多进程" class="headerlink" title="一、Python多进程"></a>一、Python多进程</h1><p>我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程。</p>
+<p>多进程的创建方式有很多种，官方文档<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/multiprocessing.html">multiprocessing — 基于进程的并行 — Python 3.14.2 文档</a><br>推荐的方式都是写一个函数，然后由<code>process(target, args)</code>调用。其中:<code>target</code>是进程函数，<code>args</code>是需要初始化时传递的参数。</p>
+<p>而<code>process</code>对象需要调用<code>start</code>方法启动，<code>join</code>方法停止。这就是最简单的进程用法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;hello&#x27;</span>, name)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    p = Process(target=f, args=(<span class="hljs-string">&#x27;bob&#x27;</span>,))<br>    p.start()<br>    p.join()<br></code></pre></td></tr></table></figure>
 
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/dev-environment/javascript/nodejs-on-windows">在本机 Windows 上设置 Node.js | Microsoft Learn</a></li>
-<li><a target="_blank" rel="noopener" href="https://gemini-cli.doczh.com/">Gemini CLI 中文文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/5062435150">npm : 无法加载文件 C:\Program Files\nodejs\npm.ps1，因为在此系统上禁止运行脚本。 - 知乎</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1930940169525138787">别再搜了！这才是 Gemini CLI 登录报错的终极解决方案！ - 知乎</a></li>
-<li><a target="_blank" rel="noopener" href="https://vgg-t.github.io/">VGGT: Visual Geometry Grounded Transformer</a></li>
-</ul>
+<p>但对于我们来说，一个函数并不能很好的描述具体的任务。<del>已经身为高级程序员，当然选择使用面向对象的思想进行啦！</del>所以当然是选择用<code>class BaseProcess(multiprocessing.Process):</code>的方法去写进程啦！<br>但似乎大家都没有采用面向对象的方式去重写<code>Process</code>对象，至少官方文档中只是用函数的方式添加进程，这又是为什么呢？</p>
+<p>由于多进程并不共享内存，当一个多进程对象被实例化后，他具体在哪个进程执行的呢？经过测试，结论为：<code>__init__</code>在原进程执行，<code>run</code>在新进程中执行。这意味着如果在<code>__init__</code>指定好一些变量后，在新进程创建后会丢失！比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyProcess</span>(<span class="hljs-title class_ inherited__">Process</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.cap = cv2.VideoCapture(<span class="hljs-number">0</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self</span>):<br>        ...<br><br></code></pre></td></tr></table></figure>
+<p>在这种情况下，对于新进程而言，<code>self.cap</code>是空的，显然不是我们想要的。因此，在多进程程序中，要时刻注意变量初始化的位置！！！</p>
+<p>最后我想聊一下启动方式的问题，比如windows中支持<code>spawn</code>,Linux支持<code>fork</code>等。我们的项目实际上对程序启动的时间没有过高要求，为了调试方便，后面统一使用<code>spawn</code>的启动方法。程序设计时，也尽量使用消息管道进行进程通信。</p>
+<h1 id="二、多进程基类"><a href="#二、多进程基类" class="headerlink" title="二、多进程基类"></a>二、多进程基类</h1><p>python中为多进程的信息同步提供了一个<code>Manager</code>管理器，他是一个单独的进程用于分发各个进程的通信。对于我们的项目来说，这部分额外的开销显得没有必要。可以自己手写消息队列进行信息传递。</p>
+<p>对于多进程类，第一步是要写一个基类，方便后续添共性的内容，这部分依旧参考<code>frigate</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseProcess</span>(mp.Process):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    进程基类: </span><br><span class="hljs-string">    该类封装了退出、优先级等功能, 方便外部管理器进行调度;</span><br><span class="hljs-string">    该类重新封装了 start 方法, 添加了两个钩子函数, 方便在进程启动前后执行</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,</span><br><span class="hljs-params">        stop_event: MpEvent,    </span><br><span class="hljs-params">        priority: <span class="hljs-built_in">int</span>,</span><br><span class="hljs-params">        *,</span><br><span class="hljs-params">        name: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">        target: <span class="hljs-type">Optional</span>[<span class="hljs-type">Callable</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">        args: <span class="hljs-built_in">tuple</span> = (<span class="hljs-params"></span>),</span><br><span class="hljs-params">        kwargs: <span class="hljs-built_in">dict</span> = &#123;&#125;,</span><br><span class="hljs-params">        daemon: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">bool</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">    </span>):<br>        <span class="hljs-variable language_">self</span>.priority = priority<br>        <span class="hljs-variable language_">self</span>.stop_event = stop_event<br>        <span class="hljs-built_in">super</span>().__init__(<br>            name=name, target=target, args=args, kwargs=kwargs, daemon=daemon<br>        )<br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        <span class="hljs-variable language_">self</span>.before_start()<br>        <span class="hljs-built_in">super</span>().start(*args, **kwargs)<br>        <span class="hljs-variable language_">self</span>.after_start()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">before_start</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">pass</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">after_start</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">pass</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">before_run</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-comment"># if platform.system() == &quot;Linux&quot;:</span><br>        <span class="hljs-comment">#     os.nice(self.priority)</span><br>        setup_logging()<br>        signal.signal(signal.SIGINT, signal.SIG_IGN)<br>        logger.info(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.name&#125;</span>进程正在启动...&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>在子类中，可以重写<code>before_start</code>和<code>after_start</code>方法添加功能，很方便。<br>另外提一嘴<code>before_run</code>，<code>run</code>方法是在新的进程中进行，所以无法写钩子函数，在这种情况下，只能写一个函数在<code>run</code>方法开头调用。<code>before_run</code>现在的主要功能是开启日志，屏蔽系统的信号，把控制功能交给主进程管理。比如<code>ctrl+C</code>关闭程序，如果这里不屏蔽，会导致所有进程都收到退出信号，无法执行<code>finally</code>的内容，程序异常退出，这是不能接受的。</p>
 
                 
               </div>
@@ -363,7 +309,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" class="category-chain-item">工具配置</a>
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
   
   
 
@@ -378,9 +324,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
-      
         <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/" class="print-no-link">#瑞芯微</a>
       
     </div>
   
@@ -392,8 +338,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Gemini-CLI 配置指北</div>
-      <div>http://blog.mingxuan.xin/2025/08/23/20250823/</div>
+      <div>RKVision开发日志(三)</div>
+      <div>http://blog.mingxuan.xin/2025/12/30/20251230/</div>
     </div>
     <div class="license-meta">
       
@@ -405,7 +351,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年8月23日</div>
+          <div>2025年12月30日</div>
         </div>
       
       
@@ -443,18 +389,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/24/20250824/" title="Stable Diffusion代码详解（一）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Stable Diffusion代码详解（一）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/22/20250822/" title="中国计量大学路由器自动登录脚本">
-                        <span class="hidden-mobile">中国计量大学路由器自动登录脚本</span>
+                      <a href="/2025/12/28/20251228/" title="RKVision开发日志(二)">
+                        <span class="hidden-mobile">RKVision开发日志(二)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
