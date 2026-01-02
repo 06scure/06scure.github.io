@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>RKVision开发日志(四)</title>
+    <link href="/2026/01/01/20260101/"/>
+    <url>/2026/01/01/20260101/</url>
+    
+    <content type="html"><![CDATA[<h1 id="一、相机进程基类"><a href="#一、相机进程基类" class="headerlink" title="一、相机进程基类"></a>一、相机进程基类</h1><p>相机进程继承进程类，主要负责：</p><ol><li>读取配置文件，根据配置文件设置的<code>width</code>,<code>height</code>,<code>fps</code>配置相机</li><li>开启相机捕获进程，将帧数据写入一段共享内存中，同时将帧号、时间戳写入队列</li><li>监听消息队列，执行命令</li></ol><p>需要提前设计：</p><ol><li>不同的相机硬件所需的media_pipline不同，把这部分需要写一个方法，方便后续子类重写</li><li>执行的命令包括：停止图像采集进程，开启&#x2F;关闭预览图像生成，开启&#x2F;关闭图像保存</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>嵌入式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>瑞芯微</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RKVision开发日志(三)</title>
     <link href="/2025/12/30/20251230/"/>
     <url>/2025/12/30/20251230/</url>

@@ -19,22 +19,23 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 报错信息OSError You seem to have cloned a repository without having git-lfs installed. Please install git-lfs and run git lfs install followed by git lfs pull in the folder you cloned. 操作系统错误：您似乎在没有安装g">
+    <meta name="description" content="一、相机进程基类相机进程继承进程类，主要负责：  读取配置文件，根据配置文件设置的width,height,fps配置相机 开启相机捕获进程，将帧数据写入一段共享内存中，同时将帧号、时间戳写入队列 监听消息队列，执行命令  需要提前设计：  不同的相机硬件所需的media_pipline不同，把这部分需要写一个方法，方便后续子类重写 执行的命令包括：停止图像采集进程，开启&#x2F;关闭预览图像生">
 <meta property="og:type" content="article">
-<meta property="og:title" content="报错：OSError You seem to have cloned a repository without">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/06/28/20250628/index.html">
+<meta property="og:title" content="RKVision开发日志(四)">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/01/01/20260101/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="1. 报错信息OSError You seem to have cloned a repository without having git-lfs installed. Please install git-lfs and run git lfs install followed by git lfs pull in the folder you cloned. 操作系统错误：您似乎在没有安装g">
+<meta property="og:description" content="一、相机进程基类相机进程继承进程类，主要负责：  读取配置文件，根据配置文件设置的width,height,fps配置相机 开启相机捕获进程，将帧数据写入一段共享内存中，同时将帧号、时间戳写入队列 监听消息队列，执行命令  需要提前设计：  不同的相机硬件所需的media_pipline不同，把这部分需要写一个方法，方便后续子类重写 执行的命令包括：停止图像采集进程，开启&#x2F;关闭预览图像生">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-06-28T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-02T07:10:28.677Z">
+<meta property="article:published_time" content="2026-01-01T22:25:00.000Z">
+<meta property="article:modified_time" content="2026-01-02T07:10:28.678Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Python">
+<meta property="article:tag" content="瑞芯微">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>报错：OSError You seem to have cloned a repository without - Obscure的个人博客</title>
+  <title>RKVision开发日志(四) - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="报错：OSError You seem to have cloned a repository without"></span>
+            <span id="subtitle" data-typed-text="RKVision开发日志(四)"></span>
           
         </div>
 
@@ -211,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-28 12:00" pubdate>
-          2025年6月28日 中午
+        <time datetime="2026-01-01 22:25" pubdate>
+          2026年1月1日 晚上
         </time>
       </span>
     
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          168 字
+          158 字
         
       </span>
     
@@ -271,25 +272,22 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">报错：OSError You seem to have cloned a repository without</h1>
+            <h1 id="seo-header">RKVision开发日志(四)</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1. 报错信息"></a>1. 报错信息</h2><p>OSError You seem to have cloned a repository without having git-lfs installed. Please install git-lfs and run git lfs install followed by git lfs pull in the folder you cloned.</p>
-<p>操作系统错误：您似乎在没有安装git lfs的情况下克隆了一个存储库。<br>请在克隆的文件夹中安装git lfs并运行“git lfs install”，然后运行“git lf pull”。</p>
-<h2 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h2><p>git clone预训练模型的时候clone下来的只是一个指针，难怪秒下完，还是要用git lfs下载…</p>
-<p>使用的是服务器环境，因此可以用conda git-lfs部署：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -c conda-forge git-lfs<br></code></pre></td></tr></table></figure>
-<p>安装好之后，使用命令查看版本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs --version<br></code></pre></td></tr></table></figure>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">git</span>-lfs/<span class="hljs-number">3</span>.<span class="hljs-number">7</span>.<span class="hljs-number">0</span> (GitHub; linux amd64; go <span class="hljs-number">1</span>.<span class="hljs-number">24</span>.<span class="hljs-number">4</span>)<br></code></pre></td></tr></table></figure>
-<p>git lfs初始化：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs install<br></code></pre></td></tr></table></figure>
-<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs erlang">Git LFS initialized.<br></code></pre></td></tr></table></figure>
-<p>之后进入模型的文件夹目录，运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git lfs pull<br></code></pre></td></tr></table></figure>
-<p>即可下载模型，问题解决。</p>
+                <h1 id="一、相机进程基类"><a href="#一、相机进程基类" class="headerlink" title="一、相机进程基类"></a>一、相机进程基类</h1><p>相机进程继承进程类，主要负责：</p>
+<ol>
+<li>读取配置文件，根据配置文件设置的<code>width</code>,<code>height</code>,<code>fps</code>配置相机</li>
+<li>开启相机捕获进程，将帧数据写入一段共享内存中，同时将帧号、时间戳写入队列</li>
+<li>监听消息队列，执行命令</li>
+</ol>
+<p>需要提前设计：</p>
+<ol>
+<li>不同的相机硬件所需的media_pipline不同，把这部分需要写一个方法，方便后续子类重写</li>
+<li>执行的命令包括：停止图像采集进程，开启&#x2F;关闭预览图像生成，开启&#x2F;关闭图像保存</li>
+</ol>
 
                 
               </div>
@@ -308,7 +306,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
   
   
 
@@ -325,6 +323,8 @@
       
         <a href="/tags/Python/" class="print-no-link">#Python</a>
       
+        <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/" class="print-no-link">#瑞芯微</a>
+      
     </div>
   
 </div>
@@ -335,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>报错：OSError You seem to have cloned a repository without</div>
-      <div>http://blog.mingxuan.xin/2025/06/28/20250628/</div>
+      <div>RKVision开发日志(四)</div>
+      <div>http://blog.mingxuan.xin/2026/01/01/20260101/</div>
     </div>
     <div class="license-meta">
       
@@ -348,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月28日</div>
+          <div>2026年1月1日</div>
         </div>
       
       
@@ -386,18 +386,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/29/20250629/" title="报错: Weights only load failed. This file can still be loaded">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">报错: Weights only load failed. This file can still be loaded</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/27/20250627/" title="报错：Cannot set attribute &#39;src&#39; directly.">
-                        <span class="hidden-mobile">报错：Cannot set attribute &#39;src&#39; directly.</span>
+                      <a href="/2025/12/30/20251230/" title="RKVision开发日志(三)">
+                        <span class="hidden-mobile">RKVision开发日志(三)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
