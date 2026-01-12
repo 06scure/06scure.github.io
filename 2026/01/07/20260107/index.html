@@ -19,22 +19,23 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 报错信息1234567891011121314151617181920212223242526272829303132333435363738394041424344WARNING[XFORMERS]: xFormers can&#x27;t load C++&#x2F;CUDA extensions. xFormers was built for:    PyTorch 2.4.1+cu121 wi">
+    <meta name="description" content="一、FFMPEG经过上一次的梳理，大致的视频流规划如下： 12345[Camera] -&gt; [Tee 分流器]   ├─&gt; [Queue] -&gt; [Valve (录制开关)] -&gt; [mpph264enc (硬编码)] -&gt; [mp4mux] -&gt; [filesink]   ├─&gt; [Queue] -&gt; [rkrga (硬件缩放)] -&gt; [a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="报错：Cannot set attribute &#39;src&#39; directly.">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/06/27/20250627/index.html">
+<meta property="og:title" content="RKVision开发日志(五)">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/01/07/20260107/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="1. 报错信息1234567891011121314151617181920212223242526272829303132333435363738394041424344WARNING[XFORMERS]: xFormers can&#x27;t load C++&#x2F;CUDA extensions. xFormers was built for:    PyTorch 2.4.1+cu121 wi">
+<meta property="og:description" content="一、FFMPEG经过上一次的梳理，大致的视频流规划如下： 12345[Camera] -&gt; [Tee 分流器]   ├─&gt; [Queue] -&gt; [Valve (录制开关)] -&gt; [mpph264enc (硬编码)] -&gt; [mp4mux] -&gt; [filesink]   ├─&gt; [Queue] -&gt; [rkrga (硬件缩放)] -&gt; [a">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-06-27T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-12T09:12:46.257Z">
+<meta property="article:published_time" content="2026-01-07T22:04:01.000Z">
+<meta property="article:modified_time" content="2026-01-12T09:12:46.258Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Python">
+<meta property="article:tag" content="瑞芯微">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>报错：Cannot set attribute &#39;src&#39; directly. - Obscure的个人博客</title>
+  <title>RKVision开发日志(五) - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="报错：Cannot set attribute &#39;src&#39; directly."></span>
+            <span id="subtitle" data-typed-text="RKVision开发日志(五)"></span>
           
         </div>
 
@@ -211,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-27 12:00" pubdate>
-          2025年6月27日 中午
+        <time datetime="2026-01-07 22:04" pubdate>
+          2026年1月7日 晚上
         </time>
       </span>
     
@@ -223,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          349 字
+          1.1k 字
         
       </span>
     
@@ -234,7 +235,7 @@
         
         
         
-          3 分钟
+          10 分钟
         
       </span>
     
@@ -271,24 +272,48 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">报错：Cannot set attribute &#39;src&#39; directly.</h1>
+            <h1 id="seo-header">RKVision开发日志(五)</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1. 报错信息"></a>1. 报错信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>WARNING[XFORMERS]: xFormers can<span class="hljs-string">&#x27;t load C++/CUDA extensions. xFormers was built for:</span><br><span class="hljs-string"></span><br><span class="hljs-string">    PyTorch 2.4.1+cu121 with CUDA 1201 (you have 2.7.1+cu126)</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Python  3.9.20 (you have 3.9.23)</span><br><span class="hljs-string"></span><br><span class="hljs-string">  Please reinstall xformers (see https://github.com/facebookresearch/xformers#installing-xformers)</span><br><span class="hljs-string"></span><br><span class="hljs-string">  Memory-efficient attention, SwiGLU, sparse and more won&#x27;</span>t be available.<br><br>  Set XFORMERS_MORE_DETAILS=1 <span class="hljs-keyword">for</span> more details<br><br>Traceback (most recent call last):<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 1030, <span class="hljs-keyword">in</span> gcdimport<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 1007, <span class="hljs-keyword">in</span> findand_load<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 972, <span class="hljs-keyword">in</span> findand_load_unlocked<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 228, <span class="hljs-keyword">in</span> callwith_frames_removed<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 1030, <span class="hljs-keyword">in</span> gcdimport<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 1007, <span class="hljs-keyword">in</span> findand_load<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 986, <span class="hljs-keyword">in</span> findand_load_unlocked<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 680, <span class="hljs-keyword">in</span> loadunlocked<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap_external&gt;&quot;</span>, line 850, <span class="hljs-keyword">in</span> exec_module<br><br>  File <span class="hljs-string">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line 228, <span class="hljs-keyword">in</span> callwith_frames_removed<br><br>AttributeError: Cannot <span class="hljs-built_in">set</span> attribute <span class="hljs-string">&#x27;src&#x27;</span> directly. Use <span class="hljs-string">&#x27;_unsafe_update_src()&#x27;</span> and manually clear .<span class="hljs-built_in">hash</span> of all callersinstead.<br><br>The above exception was the direct cause of the following exception:<br><br>Traceback (most recent call last):<br><br>RuntimeError: Failed to import diffusers.models.autoencoders.autoencoder_kl because of the following error (look up to see its traceback):<br><br>Cannot <span class="hljs-built_in">set</span> attribute <span class="hljs-string">&#x27;src&#x27;</span> directly. Use <span class="hljs-string">&#x27; _unsafe_update_src() &#x27;</span> and manually clear .<span class="hljs-built_in">hash</span> of all callersinstead.<br></code></pre></td></tr></table></figure>
+                <h1 id="一、FFMPEG"><a href="#一、FFMPEG" class="headerlink" title="一、FFMPEG"></a>一、FFMPEG</h1><p>经过上一次的梳理，大致的视频流规划如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs text">[Camera] -&gt; [Tee 分流器]<br>   ├─&gt; [Queue] -&gt; [Valve (录制开关)] -&gt; [mpph264enc (硬编码)] -&gt; [mp4mux] -&gt; [filesink]<br>   ├─&gt; [Queue] -&gt; [rkrga (硬件缩放)] -&gt; [appsink (预览图)] -&gt; 写入共享内存A<br>   └─&gt; [Queue] -&gt; [appsink (原图)] -&gt; 写入共享内存B<br><br></code></pre></td></tr></table></figure>
 
-<p>运行时错误：由于以下错误，无法导入diffusers.models.autoencoders.autoencoder_kl（查找以查看其回溯）：无法直接设置属性“src”。使用“_unsafe_update_src（）”并手动清除所有调用者的.hash。</p>
-<h2 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h2><p>warning先提示xformer版本不兼容，参照官方文档进行重新安装，我这里是cuda12.6版本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># [linux &amp; win] cuda 12.6 version</span><br>pip3 install -U xformers --index-url https://download.pytorch.org/whl/cu126<br></code></pre></td></tr></table></figure>
+<p>现有调用ffmpeg的路线有：</p>
+<ol>
+<li>用python的subprocess调用，这种方法相当于再创建一个进程，首先会破坏我们现在的代码结构，camera进程将只做监听，属实是浪费，其次我们这三个管道，需要拉起三个进程，实在是灾难</li>
+<li>PyAV库 这个库的star比较少，而且作者开篇就说有很多缺陷，AI给我的意见是这个库可以很深的嵌入ffmpeg，可以先考虑，先研究一下官方的库</li>
+<li>官方的库Python-ffmpeg，AI给我的意见是功能比较少，只能构造管线，我先研究一下</li>
+</ol>
+<h1 id="二、Python-ffmpeg"><a href="#二、Python-ffmpeg" class="headerlink" title="二、Python-ffmpeg"></a>二、Python-ffmpeg</h1><h5 id="1-绘制"><a href="#1-绘制" class="headerlink" title="1. 绘制"></a>1. 绘制</h5><p>单独把这一趴拿出来谈是因为最近的调试中发现有<strong>对时间戳记录的需求</strong>，为此可以用ffmpeg简单的实现overlay一下datetime，很棒的功能！</p>
+<p><a target="_blank" rel="noopener" href="https://kkroening.github.io/ffmpeg-python/#ffmpeg.drawtext" title="Permalink to this definition">ffmpeg. <strong>drawtext</strong> (<em>stream</em>, <em>text&#x3D;None</em>, <em>x&#x3D;0</em>, <em>y&#x3D;0</em>, <em>escape_text&#x3D;True</em>, <em>** kwargs</em>)</a></p>
+<p>Draw a text string or text from a specified file on top of a video, using the libfreetype library.<br>使用 libfreetype 库在视频上绘制文本字符串或来自指定文件的文本。</p>
+<p>To enable compilation of this filter, you need to configure FFmpeg with <code>--enable-libfreetype</code>. To enable default font fallback and the font option you need to configure FFmpeg with <code>--enable-libfontconfig</code>. To enable the text_shaping option, you need to configure FFmpeg with <code>--enable-libfribidi</code>.<br>要启用此滤镜的编译，您需要使用 <code>--enable-libfreetype</code> 配置 FFmpeg。要启用默认字体回退和字体选项，您需要使用 <code>--enable-libfontconfig</code> 配置 FFmpeg。要启用文本整形选项，您需要使用 <code>--enable-libfribidi</code> 配置 FFmpeg。</p>
+<p>然后就没了！github仓库4年没有更新，多达479个open的issue，实在是太半成品了…</p>
+<h1 id="三、-原生ffmpeg"><a href="#三、-原生ffmpeg" class="headerlink" title="三、 原生ffmpeg"></a>三、 原生ffmpeg</h1><p>力竭了，还是返璞归真一下吧，仔细思考了一下跑命令行的subprocess是最佳选择，可以同时拉起三个进程，不需要的时候直接kill，把调度权交给系统…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">Camera(NV12,1632x1224@30fps)<br>   |<br>   v<br> FFmpeg[Process A]<br>   |<br>   +--&gt; [Process B] -&gt; NV12 -&gt; RKRGA to BGR -&gt; [Process Algo(completed)]<br>   |<br>   +--&gt; [Process C] -&gt; RKMpp H264/H265 -&gt; file/output.mp4<br>   |<br>   +--&gt; [Process D] -&gt; RKRGA resize to 544x408@10fps -&gt; RKMpp to MJPEG -&gt; WEB<br></code></pre></td></tr></table></figure>
 
-<p>显然由于某些原因还需要换源：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><span class="hljs-comment"># [linux &amp; win] cuda 12.6 version</span><br>pip3 install -U xformers --index-url https://mirrors.nju.edu.cn/whl/cu126<br></code></pre></td></tr></table></figure>
+<p>用别人的代码太困难，还是选择改自己的吧。然后恶补一下ffmpeg的用法，这样也符合我们程序的逻辑，在控制进程拉起ffmpeg的相关控制相机，就是之前写的相机进程和ipc白写了(QAQ)<br>板子上的源码clone和编译参考：<a target="_blank" rel="noopener" href="https://doc.embedfire.com/linux/rk356x/quick_start/zh/latest/lubancat_rk_software_hardware/software/ffmpeg/ffmpeg.html">5. 安装带硬编码版本的ffmpeg — 快速使用手册—基于LubanCat-RK356x系列板卡 文档</a><br>考虑到mpp被ffmpeg封掉了，需要替换一下新的仓库地址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> --depth=1 https://github.com/HermanChen/mpp.git rkmpp<br></code></pre></td></tr></table></figure>
 
-<p>南大源似乎并没有更新xformers，这里使用的官方指令安装，不然会提示安装torch2.4版本的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>ERROR: Could not find a version that satisfies the requirement torch==2.4.1 (from xformers) (from versions: none)<br>ERROR: No matching distribution found <span class="hljs-keyword">for</span> torch==2.4.1<br></code></pre></td></tr></table></figure>
+<p>此外测试例程的时候，一直在报错，仔细观察了一下发现只有0.03fps…修改成1&#x2F;30就好了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#进行推流，设备节点/dev/video0，30帧</span><br>ffmpeg \<br>-f v4l2 \<br>-video_size 1632x1224 \<br>-framerate 1/30 \<br>-pixel_format nv24 \<br>-i /dev/video0 \<br>-vf <span class="hljs-string">&quot;format=yuv420p&quot;</span> \<br>-c:v h264_rkmpp \<br>-b:v 4000k \<br>-g 60 \<br>-f rtsp \<br>-rtsp_transport tcp \<br>-listen 1 \<br>rtsp://127.0.0.1:8554/live<br></code></pre></td></tr></table></figure>
+<p>根据官方文档：<a target="_blank" rel="noopener" href="https://ffmpeg.org/ffmpeg.html#Video-Options">《ffmpeg 文档》 — ffmpeg Documentation</a>，把这个参数改成<code>-r 30/1</code>也可以，注意30也不可以…神奇的bug…</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">ffmpeg \<br>-f v4l2 \<br>-video_size 1632x1224 \<br>-r 30/1 \<br>-pixel_format nv12 \<br>-i /dev/video0 \<br>-c:v h264_rkmpp \<br>-b:v 4000k \<br>-g 60 \<br>-f rtsp \<br>-rtsp_transport tcp \<br>-listen 1 \<br>rtsp://127.0.0.1:8554/live<br></code></pre></td></tr></table></figure>
 
-<p>使用官方地址顺利更新到了xformers的0.0.31版本，问题解决。</p>
+<p>和GLM友好交流的时候，他提到tee似乎无法实现共享内存之类的功能，而且tee是阻塞式的，这意味着消费者进程如果无法正常读取，相机读流就会卡住，如果要在命令行操作就要写bash做转发，想想就头痛</p>
+<p>我是一个想得多而做得少的开发者，总是在想，有没有更好的方案，总是在评估方案的可行性复杂性与性能，这导致我一直在拖累进度<br>看<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/36292298/answer/67049956">尤雨溪的知乎</a>，大佬当年写Vue2的时候也是边摸索边写，大不了再重构嘛，明天写的代码永远比今天写的好<br>今天和老师探讨了一下，还可以用ctypes封装cpp的接口，可以为所欲为了…管理内存实现0拷贝不是梦<br>但是我的能力有限，时间也有限，我还得考虑毕业论文的问题… 把这些事情交给后人来做吧</p>
+<h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5><ul>
+<li><a target="_blank" rel="noopener" href="https://chengzhaoxi.xyz/617530f3.html">ffmpeg-python的基本用法 | 潮汐朝夕</a></li>
+<li><a target="_blank" rel="noopener" href="https://kkroening.github.io/ffmpeg-python/">ffmpeg-python: Python bindings for FFmpeg — ffmpeg-python documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kkroening/ffmpeg-python">kkroening&#x2F;ffmpeg-python: Python bindings for FFmpeg - with complex filtering support</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc.embedfire.com/linux/rk356x/quick_start/zh/latest/lubancat_rk_software_hardware/software/ffmpeg/ffmpeg.html">5. 安装带硬编码版本的ffmpeg — 快速使用手册—基于LubanCat-RK356x系列板卡 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/PyAV-Org/PyAV">PyAV-Org&#x2F;PyAV: ﻿﻿Pythonic bindings for FFmpeg’s libraries.</a></li>
+<li><a target="_blank" rel="noopener" href="https://pyav.basswood-io.com/docs/stable/overview/caveats.html">注意事项 — PyAV 16.0.1 文档 — Caveats — PyAV 16.0.1 documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://deepwiki.com/nyanmisaka/ffmpeg-rockchip">nyanmisaka&#x2F;ffmpeg-rockchip | DeepWiki</a></li>
+<li><a target="_blank" rel="noopener" href="https://trac.ffmpeg.org/wiki/Creating%20multiple%20outputs">创建多个输出 – FFmpeg — Creating multiple outputs – FFmpeg</a></li>
+</ul>
 
                 
               </div>
@@ -307,7 +332,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
   
   
 
@@ -324,6 +349,8 @@
       
         <a href="/tags/Python/" class="print-no-link">#Python</a>
       
+        <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/" class="print-no-link">#瑞芯微</a>
+      
     </div>
   
 </div>
@@ -334,8 +361,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>报错：Cannot set attribute &#39;src&#39; directly.</div>
-      <div>http://blog.mingxuan.xin/2025/06/27/20250627/</div>
+      <div>RKVision开发日志(五)</div>
+      <div>http://blog.mingxuan.xin/2026/01/07/20260107/</div>
     </div>
     <div class="license-meta">
       
@@ -347,7 +374,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月27日</div>
+          <div>2026年1月7日</div>
         </div>
       
       
@@ -385,18 +412,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/28/20250628/" title="报错：OSError You seem to have cloned a repository without">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">报错：OSError You seem to have cloned a repository without</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/16/20250416/" title="解决Zotero在校园网VPN下抓取失败的问题">
-                        <span class="hidden-mobile">解决Zotero在校园网VPN下抓取失败的问题</span>
+                      <a href="/2026/01/05/20260105/" title="RKVision开发日志(五)">
+                        <span class="hidden-mobile">RKVision开发日志(五)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
