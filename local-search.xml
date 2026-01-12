@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>RKVision开发日志(八)</title>
+    <link href="/2026/01/09/20260109/"/>
+    <url>/2026/01/09/20260109/</url>
+    
+    <content type="html"><![CDATA[<p>最近生病，事情又多，脱了好几天，9号创建的博客，12号才开始写…</p><h1 id="一、GStreamer"><a href="#一、GStreamer" class="headerlink" title="一、GStreamer"></a>一、GStreamer</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">gst-launch-1.0 v4l2src device=/dev/video0 ! video/x-raw,width=1632,height=1224,framerate=30/1 \<br>! videoconvert \<br>! videoscale add-borders=<span class="hljs-literal">true</span> \<br>! video/x-raw,width=1632,height=1232,format=NV12 \<br>! mpph264enc ! queue ! h264parse ! rtspclientsink location=rtsp://127.0.0.1:8554/live<br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">gst-launch-1.0 v4l2src device=/dev/video0  !  video/x-raw,width=1632,height=1224,framerate=30/1 ! <span class="hljs-built_in">tee</span> name=t \<br>t. ! queue ! videoconvert ! autovideosink \<br>t. ! videoconvert ! mpph264enc ! queue ! h264parse  ! rtspclientsink location=rtsp://127.0.0.1:8554/live<br></code></pre></td></tr></table></figure><h5 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h5>]]></content>
+    
+    
+    <categories>
+      
+      <category>嵌入式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>瑞芯微</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RKVision开发日志(七)</title>
     <link href="/2026/01/07/20260107/"/>
     <url>/2026/01/07/20260107/</url>
