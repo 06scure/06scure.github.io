@@ -19,23 +19,24 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、Python多进程我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程">
+    <meta name="description" content="众所周知windows不兼容gnome，需要自行安装。pip install 需要编译，查阅了相关资料，咨询了AI，下面是安装过程： Getting Started — PyGObject官方教程推荐msys32，需要装一个新的python解释器，目测这个东西像一个linux虚拟机一样的东西 令人高兴的是conda支持直接安装，那我们接下来就开始吧 首先，启动conda-forge： 12cond">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RKVision开发日志(三)">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/12/30/20251230/index.html">
+<meta property="og:title" content="PyGObject安装记录">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/01/16/20260116/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="一、Python多进程我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程">
+<meta property="og:description" content="众所周知windows不兼容gnome，需要自行安装。pip install 需要编译，查阅了相关资料，咨询了AI，下面是安装过程： Getting Started — PyGObject官方教程推荐msys32，需要装一个新的python解释器，目测这个东西像一个linux虚拟机一样的东西 令人高兴的是conda支持直接安装，那我们接下来就开始吧 首先，启动conda-forge： 12cond">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-12-30T15:54:00.000Z">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260116225920368.png">
+<meta property="article:published_time" content="2026-01-16T22:43:00.000Z">
 <meta property="article:modified_time" content="2026-01-17T17:09:00.237Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Python">
-<meta property="article:tag" content="瑞芯微">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20260116225920368.png">
   
   
   
-  <title>RKVision开发日志(三) - Obscure的个人博客</title>
+  <title>PyGObject安装记录 - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="RKVision开发日志(三)"></span>
+            <span id="subtitle" data-typed-text="PyGObject安装记录"></span>
           
         </div>
 
@@ -212,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-30 15:54" pubdate>
-          2025年12月30日 下午
+        <time datetime="2026-01-16 22:43" pubdate>
+          2026年1月16日 晚上
         </time>
       </span>
     
@@ -224,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          196 字
         
       </span>
     
@@ -235,7 +236,7 @@
         
         
         
-          9 分钟
+          2 分钟
         
       </span>
     
@@ -272,25 +273,23 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">RKVision开发日志(三)</h1>
+            <h1 id="seo-header">PyGObject安装记录</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="一、Python多进程"><a href="#一、Python多进程" class="headerlink" title="一、Python多进程"></a>一、Python多进程</h1><p>我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程。</p>
-<p>多进程的创建方式有很多种，官方文档<a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/multiprocessing.html">multiprocessing — 基于进程的并行 — Python 3.14.2 文档</a><br>推荐的方式都是写一个函数，然后由<code>process(target, args)</code>调用。其中:<code>target</code>是进程函数，<code>args</code>是需要初始化时传递的参数。</p>
-<p>而<code>process</code>对象需要调用<code>start</code>方法启动，<code>join</code>方法停止。这就是最简单的进程用法。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> multiprocessing <span class="hljs-keyword">import</span> Process<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">f</span>(<span class="hljs-params">name</span>):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;hello&#x27;</span>, name)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    p = Process(target=f, args=(<span class="hljs-string">&#x27;bob&#x27;</span>,))<br>    p.start()<br>    p.join()<br></code></pre></td></tr></table></figure>
+                <p>众所周知windows不兼容gnome，需要自行安装。pip install 需要编译，查阅了相关资料，咨询了AI，下面是安装过程：</p>
+<p><a target="_blank" rel="noopener" href="https://pygobject.gnome.org/getting_started.html#windows-logo-windows">Getting Started — PyGObject</a>官方教程推荐msys32，需要装一个新的python解释器，目测这个东西像一个linux虚拟机一样的东西</p>
+<p>令人高兴的是conda支持直接安装，那我们接下来就开始吧</p>
+<p>首先，启动conda-forge：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda config --add channels conda-forge<br>conda config --<span class="hljs-built_in">set</span> channel_priority strict<br></code></pre></td></tr></table></figure>
+<p>然后进行安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda install -y pygobject gstreamer gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav<br></code></pre></td></tr></table></figure>
 
-<p>但对于我们来说，一个函数并不能很好的描述具体的任务。<del>已经身为高级程序员，当然选择使用面向对象的思想进行啦！</del>所以当然是选择用<code>class BaseProcess(multiprocessing.Process):</code>的方法去写进程啦！<br>但似乎大家都没有采用面向对象的方式去重写<code>Process</code>对象，至少官方文档中只是用函数的方式添加进程，这又是为什么呢？</p>
-<p>由于多进程并不共享内存，当一个多进程对象被实例化后，他具体在哪个进程执行的呢？经过测试，结论为：<code>__init__</code>在原进程执行，<code>run</code>在新进程中执行。这意味着如果在<code>__init__</code>指定好一些变量后，在新进程创建后会丢失！比如：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyProcess</span>(<span class="hljs-title class_ inherited__">Process</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.cap = cv2.VideoCapture(<span class="hljs-number">0</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self</span>):<br>        ...<br><br></code></pre></td></tr></table></figure>
-<p>在这种情况下，对于新进程而言，<code>self.cap</code>是空的，显然不是我们想要的。因此，在多进程程序中，要时刻注意变量初始化的位置！！！</p>
-<p>最后我想聊一下启动方式的问题，比如windows中支持<code>spawn</code>,Linux支持<code>fork</code>等。我们的项目实际上对程序启动的时间没有过高要求，为了调试方便，后面统一使用<code>spawn</code>的启动方法。程序设计时，也尽量使用消息管道进行进程通信。</p>
-<h1 id="二、多进程基类"><a href="#二、多进程基类" class="headerlink" title="二、多进程基类"></a>二、多进程基类</h1><p>python中为多进程的信息同步提供了一个<code>Manager</code>管理器，他是一个单独的进程用于分发各个进程的通信。对于我们的项目来说，这部分额外的开销显得没有必要。可以自己手写消息队列进行信息传递。</p>
-<p>对于多进程类，第一步是要写一个基类，方便后续添共性的内容，这部分依旧参考<code>frigate</code>。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseProcess</span>(mp.Process):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    进程基类: </span><br><span class="hljs-string">    该类封装了退出、优先级等功能, 方便外部管理器进行调度;</span><br><span class="hljs-string">    该类重新封装了 start 方法, 添加了两个钩子函数, 方便在进程启动前后执行</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,</span><br><span class="hljs-params">        stop_event: MpEvent,    </span><br><span class="hljs-params">        priority: <span class="hljs-built_in">int</span>,</span><br><span class="hljs-params">        *,</span><br><span class="hljs-params">        name: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">        target: <span class="hljs-type">Optional</span>[<span class="hljs-type">Callable</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">        args: <span class="hljs-built_in">tuple</span> = (<span class="hljs-params"></span>),</span><br><span class="hljs-params">        kwargs: <span class="hljs-built_in">dict</span> = &#123;&#125;,</span><br><span class="hljs-params">        daemon: <span class="hljs-type">Optional</span>[<span class="hljs-built_in">bool</span>] = <span class="hljs-literal">None</span>,</span><br><span class="hljs-params">    </span>):<br>        <span class="hljs-variable language_">self</span>.priority = priority<br>        <span class="hljs-variable language_">self</span>.stop_event = stop_event<br>        <span class="hljs-built_in">super</span>().__init__(<br>            name=name, target=target, args=args, kwargs=kwargs, daemon=daemon<br>        )<br>        <br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start</span>(<span class="hljs-params">self, *args, **kwargs</span>):<br>        <span class="hljs-variable language_">self</span>.before_start()<br>        <span class="hljs-built_in">super</span>().start(*args, **kwargs)<br>        <span class="hljs-variable language_">self</span>.after_start()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">before_start</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">pass</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">after_start</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-keyword">pass</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">before_run</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-comment"># if platform.system() == &quot;Linux&quot;:</span><br>        <span class="hljs-comment">#     os.nice(self.priority)</span><br>        setup_logging()<br>        signal.signal(signal.SIGINT, signal.SIG_IGN)<br>        logger.info(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.name&#125;</span>进程正在启动...&quot;</span>)<br></code></pre></td></tr></table></figure>
-<p>在子类中，可以重写<code>before_start</code>和<code>after_start</code>方法添加功能，很方便。<br>另外提一嘴<code>before_run</code>，<code>run</code>方法是在新的进程中进行，所以无法写钩子函数，在这种情况下，只能写一个函数在<code>run</code>方法开头调用。<code>before_run</code>现在的主要功能是开启日志，屏蔽系统的信号，把控制功能交给主进程管理。比如<code>ctrl+C</code>关闭程序，如果这里不屏蔽，会导致所有进程都收到退出信号，无法执行<code>finally</code>的内容，程序异常退出，这是不能接受的。</p>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20260116225920368.png" srcset="/img/loading.gif" lazyload><br>看起来是成功了，测试一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">(rkvision) PS D:\Projects\rkvision&gt; python -c <span class="hljs-string">&quot;import gi; gi.require_version(&#x27;Gst&#x27;,&#x27;1.0&#x27;); from gi.repository import Gst, GLib; Gst.init(None); print(&#x27;Gst:&#x27;, Gst.version())&quot;</span><br>Gst: (major=1, minor=26, micro=10, nano=0)<br><br>(rkvision) PS D:\Projects\rkvision&gt; gst-launch-1.0 --version<br>gst-launch-1.0 version 1.26.10<br>GStreamer 1.26.10<br></code></pre></td></tr></table></figure>
+
+<p>解决问题</p>
 
                 
               </div>
@@ -309,7 +308,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" class="category-chain-item">工具配置</a>
   
   
 
@@ -326,8 +325,6 @@
       
         <a href="/tags/Python/" class="print-no-link">#Python</a>
       
-        <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/" class="print-no-link">#瑞芯微</a>
-      
     </div>
   
 </div>
@@ -338,8 +335,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>RKVision开发日志(三)</div>
-      <div>http://blog.mingxuan.xin/2025/12/30/20251230/</div>
+      <div>PyGObject安装记录</div>
+      <div>http://blog.mingxuan.xin/2026/01/16/20260116/</div>
     </div>
     <div class="license-meta">
       
@@ -351,7 +348,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月30日</div>
+          <div>2026年1月16日</div>
         </div>
       
       
@@ -389,9 +386,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/01/01/20260101/" title="RKVision开发日志(四)">
+                      <a href="/2026/01/17/20260117/" title="RKVision开发日志(十)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RKVision开发日志(四)</span>
+                        <span class="hidden-mobile">RKVision开发日志(十)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -399,8 +396,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/12/28/20251228/" title="RKVision开发日志(二)">
-                        <span class="hidden-mobile">RKVision开发日志(二)</span>
+                      <a href="/2026/01/15/20260115/" title="RKVision开发日志(九)">
+                        <span class="hidden-mobile">RKVision开发日志(九)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
