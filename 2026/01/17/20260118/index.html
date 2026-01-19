@@ -19,32 +19,23 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="首先创建服务器设置好后为：然后新建一个基于ssh的解释器 寻找另一台电脑的环境信息，把解释器的路径导入 报错： 先点取消，pycharm这里有bug，如果报错之后解释器就换不了了，弱智pycharm重复上述步骤，选择conda环境 我装在默认位置，大家可以自己找一下，如果不会找可以使用where conda 重点来了！ 这里直接加载环境会报错: 怎么办呢？把C前面的斜杠去掉就好了 问题解决。 注意">
+    <meta name="description" content="一、Tee测试又又又简单封装了一下…每次新建一条支路都要重写tee，queue, valve 太麻烦了，封装成了一个_add_branch 123456789101112131415161718192021222324252627282930313233def _add_branch(self, downstream_bin: Gst.Element, drop: bool &#x3D; True):">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pycharm SSH 远程连接 Windows 环境">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/08/11/20250811/index.html">
+<meta property="og:title" content="RKVision开发日志(十一)">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/01/17/20260118/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="首先创建服务器设置好后为：然后新建一个基于ssh的解释器 寻找另一台电脑的环境信息，把解释器的路径导入 报错： 先点取消，pycharm这里有bug，如果报错之后解释器就换不了了，弱智pycharm重复上述步骤，选择conda环境 我装在默认位置，大家可以自己找一下，如果不会找可以使用where conda 重点来了！ 这里直接加载环境会报错: 怎么办呢？把C前面的斜杠去掉就好了 问题解决。 注意">
+<meta property="og:description" content="一、Tee测试又又又简单封装了一下…每次新建一条支路都要重写tee，queue, valve 太麻烦了，封装成了一个_add_branch 123456789101112131415161718192021222324252627282930313233def _add_branch(self, downstream_bin: Gst.Element, drop: bool &#x3D; True):">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185415483.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185427879.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185601002.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185630691.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214185637612.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190413244.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190422307.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190428683.png">
-<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20251214190436965.png">
-<meta property="article:published_time" content="2025-08-11T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-19T04:44:23.542Z">
+<meta property="article:published_time" content="2026-01-17T14:53:01.000Z">
+<meta property="article:modified_time" content="2026-01-19T04:44:23.543Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Python">
+<meta property="article:tag" content="瑞芯微">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20251214185415483.png">
   
   
   
-  <title>Pycharm SSH 远程连接 Windows 环境 - Obscure的个人博客</title>
+  <title>RKVision开发日志(十一) - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -210,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Pycharm SSH 远程连接 Windows 环境"></span>
+            <span id="subtitle" data-typed-text="RKVision开发日志(十一)"></span>
           
         </div>
 
@@ -221,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-11 12:00" pubdate>
-          2025年8月11日 中午
+        <time datetime="2026-01-17 14:53" pubdate>
+          2026年1月17日 下午
         </time>
       </span>
     
@@ -233,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          200 字
+          950 字
         
       </span>
     
@@ -244,7 +235,7 @@
         
         
         
-          2 分钟
+          8 分钟
         
       </span>
     
@@ -281,20 +272,30 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Pycharm SSH 远程连接 Windows 环境</h1>
+            <h1 id="seo-header">RKVision开发日志(十一)</h1>
             
             
               <div class="markdown-body">
                 
-                <p>首先创建服务器<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185415483.png" srcset="/img/loading.gif" lazyload><br>设置好后为：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185427879.png" srcset="/img/loading.gif" lazyload><br>然后新建一个基于ssh的解释器<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185601002.png" srcset="/img/loading.gif" lazyload></p>
-<p>寻找另一台电脑的环境信息，把解释器的路径导入<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185630691.png" srcset="/img/loading.gif" lazyload></p>
-<p>报错：<br><img src="https://qiniu.mingxuan.xin/picgo/20251214185637612.png" srcset="/img/loading.gif" lazyload></p>
-<p>先点取消，pycharm这里有bug，如果报错之后解释器就换不了了，弱智pycharm<br>重复上述步骤，选择conda环境<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190413244.png" srcset="/img/loading.gif" lazyload></p>
-<p>我装在默认位置，大家可以自己找一下，如果不会找可以使用<code>where conda</code><br><img src="https://qiniu.mingxuan.xin/picgo/20251214190422307.png" srcset="/img/loading.gif" lazyload></p>
-<p><strong>重点来了！</strong> 这里直接加载环境会报错:<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190428683.png" srcset="/img/loading.gif" lazyload></p>
-<p>怎么办呢？把C前面的斜杠去掉就好了<br><img src="https://qiniu.mingxuan.xin/picgo/20251214190436965.png" srcset="/img/loading.gif" lazyload></p>
-<p>问题解决。</p>
-<h1 id="注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！"><a href="#注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！" class="headerlink" title="注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！"></a>注意：问题没有解决，虽然能读到远端的conda目录了，但是后台依旧有BUG，即使得到环境地址仍然不能解析解释器，pycharm直接装死了！</h1><h1 id="版本：2025-2"><a href="#版本：2025-2" class="headerlink" title="版本：2025.2"></a>版本：2025.2</h1>
+                <h1 id="一、Tee测试"><a href="#一、Tee测试" class="headerlink" title="一、Tee测试"></a>一、Tee测试</h1><p>又又又简单封装了一下…<br>每次新建一条支路都要重写tee，queue, valve 太麻烦了，封装成了一个<code>_add_branch</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">_add_branch</span>(<span class="hljs-params">self, downstream_bin: Gst.Element, drop: <span class="hljs-built_in">bool</span> = <span class="hljs-literal">True</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    添加分支</span><br><span class="hljs-string">    @param name: 分支名称</span><br><span class="hljs-string">    @param downstream_bin: 下游处理单元</span><br><span class="hljs-string">    @param drop: 阀门初始状态, True: 丢弃; False: 放行</span><br><span class="hljs-string"></span><br><span class="hljs-string">    @ return: 分支的阀门</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    name = downstream_bin.get_name()<br>    q = Gst.ElementFactory.make(<span class="hljs-string">&quot;queue&quot;</span>, <span class="hljs-string">f&quot;q_<span class="hljs-subst">&#123;name&#125;</span>&quot;</span>)<br>    v = Gst.ElementFactory.make(<span class="hljs-string">&quot;valve&quot;</span>, <span class="hljs-string">f&quot;v_<span class="hljs-subst">&#123;name&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> <span class="hljs-built_in">all</span>([q, v, downstream_bin]):<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;Failed to create branch <span class="hljs-subst">&#123;name&#125;</span>&quot;</span>)<br><br>    v.set_property(<span class="hljs-string">&quot;drop&quot;</span>, drop)<br><br>    <span class="hljs-variable language_">self</span>.pipeline.add(q)<br>    <span class="hljs-variable language_">self</span>.pipeline.add(v)<br>    <span class="hljs-variable language_">self</span>.pipeline.add(downstream_bin)<br><br>    tee_pad = <span class="hljs-variable language_">self</span>.tee.get_request_pad(<span class="hljs-string">&quot;src_%u&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> tee_pad:<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;Failed to request tee pad for <span class="hljs-subst">&#123;name&#125;</span>&quot;</span>)<br>    <span class="hljs-keyword">if</span> tee_pad.link(q.get_static_pad(<span class="hljs-string">&quot;sink&quot;</span>)) != Gst.PadLinkReturn.OK:<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;tee -&gt; q_<span class="hljs-subst">&#123;name&#125;</span> link failed&quot;</span>)<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> q.link(v):<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;q_<span class="hljs-subst">&#123;name&#125;</span> -&gt; v_<span class="hljs-subst">&#123;name&#125;</span> link failed&quot;</span>)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> v.link(downstream_bin):<br>        <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;v_<span class="hljs-subst">&#123;name&#125;</span> -&gt; <span class="hljs-subst">&#123;name&#125;</span>_bin link failed&quot;</span>)<br><br>    <span class="hljs-variable language_">self</span>.branches[name] = &#123;<span class="hljs-string">&quot;valve&quot;</span>: v, <span class="hljs-string">&quot;bin&quot;</span>: downstream_bin&#125;<br></code></pre></td></tr></table></figure>
+
+<p>主管道中就非常简单的两句话了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">        <span class="hljs-variable language_">self</span>.display_bin = DisplayBin(name = <span class="hljs-string">&quot;displaybin&quot;</span>, config=<span class="hljs-variable language_">self</span>.config, gst_config=<span class="hljs-variable language_">self</span>.gst_config)<br>        <span class="hljs-variable language_">self</span>._add_branch(<span class="hljs-variable language_">self</span>.display_bin, drop=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+<p>主管道中依旧定义好了源和分流器，新的管道从这里直接接入就可以了，非常方便</p>
+<h1 id="二、control测试"><a href="#二、control测试" class="headerlink" title="二、control测试"></a>二、control测试</h1><p>为了实现外部进程动态的开关，我写了一个控制接口：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">control_branch</span>(<span class="hljs-params">self, name: <span class="hljs-built_in">str</span>, enabled: <span class="hljs-built_in">bool</span></span>):<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    控制分支的阀门状态</span><br><span class="hljs-string">    @param name: 分支名称</span><br><span class="hljs-string">    @param enabled: True: 放行; False: 丢弃</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">_do</span>():<br>        <span class="hljs-comment"># 关</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> enabled:<br>            <span class="hljs-variable language_">self</span>.branches[name][<span class="hljs-string">&quot;valve&quot;</span>].set_property(<span class="hljs-string">&quot;drop&quot;</span>, <span class="hljs-literal">True</span>)<br>            <span class="hljs-variable language_">self</span>.branches[name][<span class="hljs-string">&quot;bin&quot;</span>].set_state(Gst.State.NULL)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>        <span class="hljs-comment"># 开</span><br>        <span class="hljs-variable language_">self</span>.branches[name][<span class="hljs-string">&quot;bin&quot;</span>].set_state(Gst.State.PLAYING)<br>        <span class="hljs-variable language_">self</span>.branches[name][<span class="hljs-string">&quot;valve&quot;</span>].set_property(<span class="hljs-string">&quot;drop&quot;</span>, <span class="hljs-literal">False</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br>        <br>    GLib.idle_add(_do)<br>    logger.info(<span class="hljs-string">f&quot;Branch &#x27;<span class="hljs-subst">&#123;name&#125;</span>&#x27; set to <span class="hljs-subst">&#123;<span class="hljs-string">&#x27;ENABLED&#x27;</span> <span class="hljs-keyword">if</span> enabled <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;DISABLED&#x27;</span>&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>我在主管道中，维护了一个字典：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-variable language_">self</span>.branches = &#123;&#125;  <span class="hljs-comment"># name -&gt; &#123;&quot;valve&quot;: v, &quot;bin&quot;: downstream_bin&#125;</span><br></code></pre></td></tr></table></figure>
+<p>当外部控制阀门开关的时候，只需知道需要开关支路的名字，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pipeline.control_branch(<span class="hljs-string">&quot;displaybin&quot;</span>, <span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
+<p>就可以实现开关了。需要注意的是，这里给的参数是<code>enabled</code>，gst中的valve组件这个参数是<code>drop</code>，True的时候代表扔掉（不放行），False的时候代表不扔（放行），逻辑上过于反人类，封装control的时候取了一下反。<br>吐槽一下，gst的接口名称设计的过于反人类，前面的src_pad，sink_pad也很令人费解</p>
+<h1 id="三、嵌入主程序"><a href="#三、嵌入主程序" class="headerlink" title="三、嵌入主程序"></a>三、嵌入主程序</h1><p>gst这里自然是要嵌入到相机进程中的，最后绑定到web接口上控制。在前几天我就一直在想这个问题，control进程作为主进程，为了不空跑，最好的方案是用异步函数去监听前端发来的请求，但是这不就和fastapi重合了吗？fastapi后端也是异步的等待触发，那我为什么要单独写一个control进程呢？之前可能考虑qt的交互问题，问题是qt也可以去调用request命令去做http请求呀</p>
+<p>既然如此，那就尝试重构一下主进程吧，为了做依赖注入，还是要写服务层…</p>
+<p>写到这里感觉很多东西都是工程化的必然选择，之前vibe coding的时候都是看ai写，然后自己理解，感觉很多地方没什么用，现在自己写起来，自己曾经删掉的东西最后又要慢慢加回来，经常写一会要推到重来一次，反反复复的重构代码的感觉很好又很不好</p>
+<p>为了不和之前的control进程冲突，我打算还是先写一个backend，里面启动一个fastapi服务器，其中backend.py负责一些start，当然这部分可以放到main中实现，这个后面再慢慢学习慢慢写，这样也不用再去监听退出事件了</p>
+
                 
               </div>
             
@@ -312,7 +313,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
   
   
 
@@ -329,6 +330,8 @@
       
         <a href="/tags/Python/" class="print-no-link">#Python</a>
       
+        <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/" class="print-no-link">#瑞芯微</a>
+      
     </div>
   
 </div>
@@ -339,8 +342,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Pycharm SSH 远程连接 Windows 环境</div>
-      <div>http://blog.mingxuan.xin/2025/08/11/20250811/</div>
+      <div>RKVision开发日志(十一)</div>
+      <div>http://blog.mingxuan.xin/2026/01/17/20260118/</div>
     </div>
     <div class="license-meta">
       
@@ -352,7 +355,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年8月11日</div>
+          <div>2026年1月17日</div>
         </div>
       
       
@@ -390,9 +393,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/22/20250822/" title="中国计量大学路由器自动登录脚本">
+                      <a href="/2026/01/17/20260117/" title="RKVision开发日志(十)">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">中国计量大学路由器自动登录脚本</span>
+                        <span class="hidden-mobile">RKVision开发日志(十)</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -400,8 +403,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/12/20250712/" title="将 Solidwork 画好的板框导入立创EDA">
-                        <span class="hidden-mobile">将 Solidwork 画好的板框导入立创EDA</span>
+                      <a href="/2026/01/16/20260116/" title="PyGObject安装记录">
+                        <span class="hidden-mobile">PyGObject安装记录</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
