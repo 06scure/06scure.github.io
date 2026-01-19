@@ -227,15 +227,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/01/17/20260117/" target="_self">
-          RKVision开发日志(十)
+        <a href="/2026/01/18/20260118/" target="_self">
+          RKVision开发日志(十一)
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/17/20260117/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/18/20260118/" target="_self">
         <div>
-          一、DEMO实现接下来自己手写一个管线，实现： 1234567891011source   |   v  tee   |   +--&gt; queue -&gt; videoconvert BGR -&gt; appsink(algo.py)   |   +--&gt; queue -&gt; mpph264enc -&gt; filesink -&gt; output.mp4   |   +-
+          一、Tee测试又又又简单封装了一下…每次新建一条支路都要重写tee，queue, valve 太麻烦了，封装成了一个_add_branch 123456789101112131415161718192021222324252627282930313233def _add_branch(self, downstream_bin: Gst.Element, drop: bool = True):
         </div>
       </a>
 
@@ -243,8 +243,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-17 16:53" pubdate>
-              2026-01-17
+            <time datetime="2026-01-18 14:53" pubdate>
+              2026-01-18
             </time>
           </div>
         
@@ -290,15 +290,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2026/01/17/20260118/" target="_self">
-          RKVision开发日志(十一)
+        <a href="/2026/01/17/20260117/" target="_self">
+          RKVision开发日志(十)
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/17/20260118/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/17/20260117/" target="_self">
         <div>
-          一、Tee测试又又又简单封装了一下…每次新建一条支路都要重写tee，queue, valve 太麻烦了，封装成了一个_add_branch 123456789101112131415161718192021222324252627282930313233def _add_branch(self, downstream_bin: Gst.Element, drop: bool = True):
+          一、DEMO实现接下来自己手写一个管线，实现： 1234567891011source   |   v  tee   |   +--&gt; queue -&gt; videoconvert BGR -&gt; appsink(algo.py)   |   +--&gt; queue -&gt; mpph264enc -&gt; filesink -&gt; output.mp4   |   +-
         </div>
       </a>
 
@@ -306,7 +306,7 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-17 14:53" pubdate>
+            <time datetime="2026-01-17 16:53" pubdate>
               2026-01-17
             </time>
           </div>
