@@ -19,15 +19,15 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="新建了测试文件，今天打算用调用API打开、关闭相机">
+    <meta name="description" content="新建了测试文件，今天打算用调用API打开、关闭相机 今天的主要工作是把web跑起来之后，封装了几个简单的接口，并能从外部控制相机的打开与关闭，因为fastapi在上一版本中已经很熟悉了，所以内容其实并没有多少，主要是做调试工作，比如会有一些偶发性闪退，我已经改掉了。这里主要是想聊聊控制链的逻辑 一、服务层最开始设计程序架构的时候我是试图把服务层去掉的，为什么要封装一下？代码跳来跳去的，又乱又不好理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RKVision开发日志(十二)">
 <meta property="og:url" content="http://blog.mingxuan.xin/2026/01/19/20260119/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="新建了测试文件，今天打算用调用API打开、关闭相机">
+<meta property="og:description" content="新建了测试文件，今天打算用调用API打开、关闭相机 今天的主要工作是把web跑起来之后，封装了几个简单的接口，并能从外部控制相机的打开与关闭，因为fastapi在上一版本中已经很熟悉了，所以内容其实并没有多少，主要是做调试工作，比如会有一些偶发性闪退，我已经改掉了。这里主要是想聊聊控制链的逻辑 一、服务层最开始设计程序架构的时候我是试图把服务层去掉的，为什么要封装一下？代码跳来跳去的，又乱又不好理">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-01-19T12:44:01.000Z">
-<meta property="article:modified_time" content="2026-01-20T08:11:19.182Z">
+<meta property="article:modified_time" content="2026-01-20T10:00:16.676Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="Python">
 <meta property="article:tag" content="瑞芯微">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          21 字
+          1.1k 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -278,6 +278,29 @@
               <div class="markdown-body">
                 
                 <p>新建了测试文件，今天打算用调用API打开、关闭相机</p>
+<p>今天的主要工作是把web跑起来之后，封装了几个简单的接口，并能从外部控制相机的打开与关闭，因为fastapi在上一版本中已经很熟悉了，所以内容其实并没有多少，主要是做调试工作，比如会有一些偶发性闪退，我已经改掉了。这里主要是想聊聊控制链的逻辑</p>
+<h1 id="一、服务层"><a href="#一、服务层" class="headerlink" title="一、服务层"></a>一、服务层</h1><p>最开始设计程序架构的时候我是试图把服务层去掉的，为什么要封装一下？代码跳来跳去的，又乱又不好理解。今天开始写控制链的时候才发现有点问题。当我想由http发起请求控制整个程序的时候，首先是在route.py的路由层把http的链接和要执行的函数&#x2F;方法绑定，这个步骤叫路由，为了程序的简洁性和代码的可读性，路由层一般不去直接写业务逻辑，而是会绑定到其他其他函数，否则这个文件会很臃肿，而且逻辑混乱。但是路由层不做具体逻辑，要到哪里实现呢？答案是服务层。服务层其实也是个中间层，他也是接着调用底层更具体的逻辑。那服务层又能做什么呢？</p>
+<ol>
+<li><p>异常捕获<br> 当底层代码出现问题时，可以在服务层抛出异常，但是http也有完善的错误码，为了避免服务层过于臃肿，我把这部分移动到了路由层</p>
+</li>
+<li><p>幂等性&#x2F;状态管理<br>这个高大上的词是刚和ai学的，举个例子解释就是，当相机在开着的时候，不能再去触发start，在相机stop之后才能start。同时用户控制的时候，可能网页卡住了，就会连点好几下“开启相机”，但是服务器接收的时候，要把这几个action视为一个，所谓的并发问题。不过在我们的应用场景下应该不会遇到。</p>
+</li>
+<li><p>生命周期管理<br>简单的说就是一个底层挂了可以清理掉资源重启一下，提供一个restart方法就好了，功能更强大了</p>
+</li>
+<li><p>封装底层逻辑<br> 实现对用户友好的接口，方便调用</p>
+</li>
+</ol>
+<h1 id="二、依赖注入"><a href="#二、依赖注入" class="headerlink" title="二、依赖注入"></a>二、依赖注入</h1><p>这是一个简化服务层和路由层链接的方法，这里只聊如何链接的，后续可以按照这个范式去连，至于好处，我认为看起来比之前更节省了一些，其次不用在将各个文件中分散创造单例了，api层在调用的时候会自动识别单例是否被创建，如果没有就会自动创建，动态加载资源，为CPU减负。</p>
+<p>首先新建一个service文件，如<code>camera_service</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CameraService</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,</span><br><span class="hljs-params">                 config: AppConfig</span>) -&gt; <span class="hljs-literal">None</span>:<br>        <span class="hljs-variable language_">self</span>.config = config<br>        <span class="hljs-variable language_">self</span>._state: CameraState = CameraState.STOPPED<br>        <span class="hljs-variable language_">self</span>._lock = RLock()<br>        <span class="hljs-variable language_">self</span>._pipeline = GStreamerPipeline(<span class="hljs-variable language_">self</span>.config.cameras[<span class="hljs-number">2</span>]) <span class="hljs-comment"># 暂时写死</span><br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">start</span>(<span class="hljs-params">self</span>) -&gt; CameraStatus:<br>        <span class="hljs-keyword">with</span> <span class="hljs-variable language_">self</span>._lock:<br>            <span class="hljs-keyword">try</span>:<br>                <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>._state <span class="hljs-keyword">is</span> CameraState.RUNNING:<br>                    <span class="hljs-keyword">return</span> CameraStatus(ok=<span class="hljs-literal">False</span>, message=<span class="hljs-string">&quot;摄像头已在运行&quot;</span>, status=<span class="hljs-variable language_">self</span>._state)<br>                <span class="hljs-variable language_">self</span>._pipeline.start()<br>                <span class="hljs-variable language_">self</span>._state = CameraState.RUNNING<br>                <span class="hljs-keyword">return</span> CameraStatus(ok=<span class="hljs-literal">True</span>, message=<span class="hljs-string">&quot;摄像头已启动&quot;</span>, status=<span class="hljs-variable language_">self</span>._state)<br>            <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>                <span class="hljs-variable language_">self</span>._state = CameraState.STOPPED<br>                <span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;启动摄像头失败: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>) <span class="hljs-keyword">from</span> e<br></code></pre></td></tr></table></figure>
+<p>其中用lock防止了并发的问题，state用于保存状态，在代码中用try-except包裹抛出异常</p>
+<p>在fastapi实例化之前加入一个生命周期管理器<code>lifespan</code>，在启动web服务时就会自动实例化一个<code>camera_service</code>单例，并在web服务结束后调用close方法退出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">@asynccontextmanager</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">lifespan</span>(<span class="hljs-params">app: FastAPI</span>):<br>    <span class="hljs-comment"># 启动时创建服务单例</span><br>    app.state.camera_service = CameraService(config)<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">yield</span><br>    <span class="hljs-keyword">finally</span>:<br>        <span class="hljs-comment"># 关闭时清理资源</span><br>        svc: CameraService = app.state.camera_service<br>        svc.close()<br><br>app = FastAPI(lifespan=lifespan)<br></code></pre></td></tr></table></figure>
+
+<p>最后，在路由层包装为依赖注入函数，并在对应的方法中调用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_camera_service</span>(<span class="hljs-params">request: Request</span>) -&gt; CameraService:<br>    <span class="hljs-keyword">return</span> request.app.state.camera_service<br><br><span class="hljs-meta">@router.post(<span class="hljs-params"><span class="hljs-string">&quot;/api/camera/start&quot;</span>, response_model=CameraStatus, summary=<span class="hljs-string">&quot;启动摄像头&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_camera</span>(<span class="hljs-params">service: CameraService = Depends(<span class="hljs-params">get_camera_service</span>)</span>):<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">return</span> service.start()<br>    <span class="hljs-keyword">except</span> RuntimeError <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">raise</span> HTTPException(status_code=<span class="hljs-number">500</span>, detail=<span class="hljs-built_in">str</span>(e))<br></code></pre></td></tr></table></figure>
+
+<h1 id="三、相机进程"><a href="#三、相机进程" class="headerlink" title="三、相机进程"></a>三、相机进程</h1><p>经过测试，在主进程中启动gstreamer启动关闭相机已经没有问题，为了防止可能的问题，还是分一下进程比较好。封装到一个进程后，在发生崩溃后可以实现重启进程。</p>
 
                 
               </div>
