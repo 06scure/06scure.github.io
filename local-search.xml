@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>RKVision开发日志(十二)</title>
+    <link href="/2026/01/19/20260119/"/>
+    <url>/2026/01/19/20260119/</url>
+    
+    <content type="html"><![CDATA[<p>新建了测试文件，今天打算用调用API打开、关闭相机</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>嵌入式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Python</tag>
+      
+      <tag>瑞芯微</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>RKVision开发日志(十一)</title>
     <link href="/2026/01/18/20260118/"/>
     <url>/2026/01/18/20260118/</url>
