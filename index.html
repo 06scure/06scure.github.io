@@ -227,6 +227,69 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/01/21/20260121/" target="_self">
+          RKVision开发日志(十二)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/21/20260121/" target="_self">
+        <div>
+          再次感慨一下代码水平和项目管理还是差的太远太远了，想着用更好一点的框架，更成熟一点的驱动，有没有更好的方案，到头来写了改改了写，浪费时间 昨天重新简单规划了一下框架，今天在开始之前先简单规划一下需要修改的内容 之前相机进程之前是写的opencv的capture直接读取，这次改成用gst读取，并封装restart，这意味着要跨进程传递命令。  首先写一个进程间通信通道，实现主进程和相机进程通信，并控
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-21 14:08" pubdate>
+              2026-01-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Python/">#Python</a>
+            
+              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2026/01/19/20260119/" target="_self">
           RKVision开发日志(十二)
         </a>
@@ -747,69 +810,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2026-01-03 00:00" pubdate>
               2026-01-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/01/20260101/" target="_self">
-          RKVision开发日志(四)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/01/20260101/" target="_self">
-        <div>
-          一、相机进程基类相机进程继承进程类，主要负责：  读取配置文件，根据配置文件设置的width,height,fps配置相机 开启相机捕获进程，将帧数据写入一段共享内存中，同时将帧号、时间戳写入队列 监听消息队列，执行命令  需要提前设计：  不同的相机硬件所需的media_pipline不同，把这部分需要写一个方法，方便后续子类重写 执行的命令包括：停止图像采集进程，开启&#x2F;关闭预览图像生
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-01 22:25" pubdate>
-              2026-01-01
             </time>
           </div>
         

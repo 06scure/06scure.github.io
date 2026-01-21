@@ -1,0 +1,739 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="再次感慨一下代码水平和项目管理还是差的太远太远了，想着用更好一点的框架，更成熟一点的驱动，有没有更好的方案，到头来写了改改了写，浪费时间 昨天重新简单规划了一下框架，今天在开始之前先简单规划一下需要修改的内容 之前相机进程之前是写的opencv的capture直接读取，这次改成用gst读取，并封装restart，这意味着要跨进程传递命令。  首先写一个进程间通信通道，实现主进程和相机进程通信，并控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RKVision开发日志(十二)">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/01/21/20260121/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
+<meta property="og:description" content="再次感慨一下代码水平和项目管理还是差的太远太远了，想着用更好一点的框架，更成熟一点的驱动，有没有更好的方案，到头来写了改改了写，浪费时间 昨天重新简单规划了一下框架，今天在开始之前先简单规划一下需要修改的内容 之前相机进程之前是写的opencv的capture直接读取，这次改成用gst读取，并封装restart，这意味着要跨进程传递命令。  首先写一个进程间通信通道，实现主进程和相机进程通信，并控">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-01-21T14:08:00.000Z">
+<meta property="article:modified_time" content="2026-01-21T17:43:31.270Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="瑞芯微">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>RKVision开发日志(十二) - Obscure的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="RKVision开发日志(十二)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2026-01-21 14:08" pubdate>
+          2026年1月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">RKVision开发日志(十二)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>再次感慨一下代码水平和项目管理还是差的太远太远了，想着用更好一点的框架，更成熟一点的驱动，有没有更好的方案，到头来写了改改了写，浪费时间</p>
+<p>昨天重新简单规划了一下框架，今天在开始之前先简单规划一下需要修改的内容</p>
+<p>之前相机进程之前是写的opencv的capture直接读取，这次改成用gst读取，并封装restart，这意味着要跨进程传递命令。</p>
+<ol>
+<li>首先写一个进程间通信通道，实现主进程和相机进程通信，并控制相机进程，并封装控制指令</li>
+<li>主进程建立一个子线程接收回传回的状态信息</li>
+<li>修改相机进程，实现进程开启、关闭、重启，并创建监听子线程</li>
+<li>修改service,lifespan, 对外暴露接口</li>
+<li>本地测试，上机测试</li>
+</ol>
+<h1 id="一、命令-状态IPC"><a href="#一、命令-状态IPC" class="headerlink" title="一、命令&#x2F;状态IPC"></a>一、命令&#x2F;状态IPC</h1><p>主进程和子进程点对点通信可以依赖queue，这里就不用python的multiprocess manager了</p>
+<p>主进程 –control–&gt; 子进程<br>子进程 –status–&gt; 主进程</p>
+<p>先归纳一下主进程对相机进程可能的控制指令: </p>
+<table>
+<thead>
+<tr>
+<th>CMD命令</th>
+<th>Message消息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开启&#x2F;关闭</td>
+<td>相机路径</td>
+</tr>
+<tr>
+<td>获取&#x2F;设置参数</td>
+<td>参数字典</td>
+</tr>
+<tr>
+<td>子进程返回的信息：</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>status状态</th>
+<th>Message消息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开启&#x2F;关闭相机</td>
+<td>OK&#x2F;ERR</td>
+<td>None</td>
+</tr>
+<tr>
+<td>获取&#x2F;设置参数</td>
+<td>OK&#x2F;ERR</td>
+<td>参数</td>
+</tr>
+<tr>
+<td>分析了一下，主进程对算法进程的消息大致上也差不多，可以开始编写</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义指令枚举</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CommandEnum</span>(<span class="hljs-built_in">str</span>, Enum):<br>    START = <span class="hljs-string">&quot;start&quot;</span><br>    STOP = <span class="hljs-string">&quot;stop&quot;</span><br>    GET = <span class="hljs-string">&quot;get_params&quot;</span><br>    SET = <span class="hljs-string">&quot;set_params&quot;</span><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StatusEnum</span>(<span class="hljs-built_in">str</span>, Enum):<br>    OK = <span class="hljs-string">&quot;ok&quot;</span><br>    ERR = <span class="hljs-string">&quot;err&quot;</span><br><br><span class="hljs-comment"># 3. 定义控制消息模型 (主 -&gt; 子)</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ControlMessage</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    cmd: CommandEnum<br>    params: <span class="hljs-type">Optional</span>[<span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Any</span>]] = <span class="hljs-literal">None</span>  <span class="hljs-comment"># 携带参数</span><br><br><span class="hljs-comment"># 4. 定义状态消息模型 (子 -&gt; 主)</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">StatusMessage</span>(<span class="hljs-title class_ inherited__">BaseModel</span>):<br>    status: StatusEnum<br>    msg: <span class="hljs-type">Optional</span>[<span class="hljs-type">Any</span>] = <span class="hljs-literal">None</span>        <span class="hljs-comment"># 携带数据,如果出错，记录错误信息</span><br></code></pre></td></tr></table></figure>
+
+<p>接下来，封装为endpoint和manager，初始化后分发给进程两端</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MasterPoint</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    进程间通信端点</span><br><span class="hljs-string">    负责单个进程的IPC通信</span><br><span class="hljs-string">    在各个子进程中初始化该端点</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,</span><br><span class="hljs-params">                 recv_queue:Queue,</span><br><span class="hljs-params">                 send_queue:Queue</span>):<br>        <span class="hljs-variable language_">self</span>.recv_queue = recv_queue<br>        <span class="hljs-variable language_">self</span>.send_queue = send_queue<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">self, msg: ControlMessage</span>):<br>        <span class="hljs-variable language_">self</span>.send_queue.put(msg)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">recv</span>(<span class="hljs-params">self</span>) -&gt; StatusMessage:<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.recv_queue.get(timeout=<span class="hljs-number">1</span>)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">close</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-variable language_">self</span>.recv_queue.close()<br>        <span class="hljs-variable language_">self</span>.send_queue.close()<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SlavePoint</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    进程间通信端点</span><br><span class="hljs-string">    负责单个进程的IPC通信</span><br><span class="hljs-string">    在各个子进程中初始化该端点</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,</span><br><span class="hljs-params">                 recv_queue:Queue,</span><br><span class="hljs-params">                 send_queue:Queue</span>):<br>        <span class="hljs-variable language_">self</span>.recv_queue = recv_queue<br>        <span class="hljs-variable language_">self</span>.send_queue = send_queue<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">self, msg: StatusMessage</span>):<br>        <span class="hljs-variable language_">self</span>.send_queue.put(msg)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">recv</span>(<span class="hljs-params">self</span>) -&gt; ControlMessage:<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.recv_queue.get(timeout=<span class="hljs-number">1</span>)<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ChannelManager</span>:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    进程间的IPC通道</span><br><span class="hljs-string">    负责主进程与子进程之间的控制与数据传输</span><br><span class="hljs-string">    维护两个消息队列:</span><br><span class="hljs-string">    主进程 --control--&gt; 子进程</span><br><span class="hljs-string">    子进程 --status--&gt; 主进程</span><br><span class="hljs-string">    在控制进程中初始化该管理器</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,</span><br><span class="hljs-params">                 maxsize = <span class="hljs-number">0</span></span>):<br>        <span class="hljs-variable language_">self</span>.maxsize = maxsize<br>        <span class="hljs-variable language_">self</span>.master2slave = Queue(maxsize=<span class="hljs-variable language_">self</span>.maxsize)<br>        <span class="hljs-variable language_">self</span>.slave2master = Queue(maxsize=<span class="hljs-variable language_">self</span>.maxsize)<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">create</span>(<span class="hljs-params">self</span>) -&gt; <span class="hljs-type">Tuple</span>[MasterPoint, SlavePoint]:<br>        <span class="hljs-comment"># 主进程：收 slave2master，发 master2slave</span><br>        master = MasterPoint(<span class="hljs-variable language_">self</span>.slave2master, <span class="hljs-variable language_">self</span>.master2slave)<br>        <span class="hljs-comment"># 子进程：收 master2slave，发 slave2master</span><br>        slave  = SlavePoint(<span class="hljs-variable language_">self</span>.master2slave, <span class="hljs-variable language_">self</span>.slave2master)<br>        <span class="hljs-keyword">return</span> master, slave<br><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">refresh</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 关闭旧队列</span><br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">hasattr</span>(<span class="hljs-variable language_">self</span>, <span class="hljs-string">&#x27;master2slave&#x27;</span>):<br>                <span class="hljs-variable language_">self</span>.master2slave.close()<br>        <span class="hljs-keyword">except</span> Exception:<br>            <span class="hljs-keyword">pass</span><br>        <br>        <span class="hljs-keyword">try</span>:<br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">hasattr</span>(<span class="hljs-variable language_">self</span>, <span class="hljs-string">&#x27;slave2master&#x27;</span>):<br>                <span class="hljs-variable language_">self</span>.slave2master.close()<br>        <span class="hljs-keyword">except</span> Exception:<br>            <span class="hljs-keyword">pass</span><br>            <br>        <span class="hljs-comment"># 创建新队列</span><br>        <span class="hljs-variable language_">self</span>.master2slave = Queue(maxsize=<span class="hljs-variable language_">self</span>.maxsize)<br>        <span class="hljs-variable language_">self</span>.slave2master = Queue(maxsize=<span class="hljs-variable language_">self</span>.maxsize)<br><br></code></pre></td></tr></table></figure>
+<p>和之前相机与算法的通信通道大同小异，这里不多赘述了。接下来写到进程管理器中，并测试</p>
+<p>没什么问题</p>
+<h1 id="二、配套代码"><a href="#二、配套代码" class="headerlink" title="二、配套代码"></a>二、配套代码</h1><p>这样不太好测试，所以顺便把manager、service写了，并由web调用</p>
+<p>说实话有点后悔没用multiprocess.manager了，跨进程调用很麻烦，而且还自定义通信内容，两边要分别解码，平白增加了很多代码量</p>
+<p>简单记录一下传递链：</p>
+<p>在API层做依赖注入，把start绑定到了<code>camera_service.start()</code>上</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># API层</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_camera_service</span>(<span class="hljs-params">request: Request</span>) -&gt; CameraService:<br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    获取相机单例</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-keyword">return</span> request.app.state.camera_service<br><br><span class="hljs-meta">@router.post(<span class="hljs-params"><span class="hljs-string">&quot;/api/camera/start&quot;</span>, response_model=CameraStatus, summary=<span class="hljs-string">&quot;启动摄像头&quot;</span></span>)</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">def</span> <span class="hljs-title function_">start_camera</span>(<span class="hljs-params">service: CameraService = Depends(<span class="hljs-params">get_camera_service</span>)</span>):<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">return</span> service.start()<br>    <span class="hljs-keyword">except</span> RuntimeError <span class="hljs-keyword">as</span> e:<br>        <span class="hljs-keyword">raise</span> HTTPException(status_code=<span class="hljs-number">500</span>, detail=<span class="hljs-built_in">str</span>(e))<br></code></pre></td></tr></table></figure>
+
+<p>在service层实现了状态管理，并调用<code>manager.send_message</code>，向相机进程发送了命令，其实到这里职责也很清晰，但是这个命令就已经稍微有点难崩了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># service层</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">start</span>(<span class="hljs-params">self</span>) -&gt; CameraStatus:<br>	<span class="hljs-keyword">with</span> <span class="hljs-variable language_">self</span>._lock:<br>		<span class="hljs-keyword">try</span>:<br>			<span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>._state <span class="hljs-keyword">is</span> CameraState.RUNNING:<br>				<span class="hljs-keyword">return</span> CameraStatus(ok=<span class="hljs-literal">False</span>, message=<span class="hljs-string">&quot;摄像头已在运行&quot;</span>, status=<span class="hljs-variable language_">self</span>._state)<br>			<span class="hljs-variable language_">self</span>.process_manager.send_message(<span class="hljs-string">&quot;camera&quot;</span>, ControlMessage(cmd=CommandEnum.START))<br>			<span class="hljs-variable language_">self</span>._state = CameraState.RUNNING<br>			<span class="hljs-keyword">return</span> CameraStatus(ok=<span class="hljs-literal">True</span>, message=<span class="hljs-string">&quot;摄像头已启动&quot;</span>, status=<span class="hljs-variable language_">self</span>._state)<br>		<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>			<span class="hljs-variable language_">self</span>._state = CameraState.STOPPED<br>			<span class="hljs-keyword">raise</span> RuntimeError(<span class="hljs-string">f&quot;启动摄像头失败: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>) <span class="hljs-keyword">from</span> e<br></code></pre></td></tr></table></figure>
+
+
+<p>然后在管理器中，发送指令的命令长这个样子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">send_message</span>(<span class="hljs-params">self, process_name: <span class="hljs-built_in">str</span>, message: ControlMessage</span>):<br>        <span class="hljs-comment"># 负责给对应进程发送消息</span><br>        <span class="hljs-variable language_">self</span>.process_dict[process_name].send(message)<br></code></pre></td></tr></table></figure>
+
+<p>然后在相机进程中解析命令:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">parse_control</span>(<span class="hljs-params">self</span>):<br>	<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">	解析指令</span><br><span class="hljs-string">	&quot;&quot;&quot;</span><br>	<span class="hljs-keyword">try</span>:<br>		recv = <span class="hljs-variable language_">self</span>.from_backend.recv()            <br>		<span class="hljs-keyword">if</span> recv.cmd == CommandEnum.START:<br>			<span class="hljs-variable language_">self</span>.pipeline.start()<br>		<span class="hljs-keyword">elif</span> recv.cmd == CommandEnum.STOP:<br>			<span class="hljs-variable language_">self</span>.pipeline.stop()<br>		<span class="hljs-keyword">elif</span> recv.cmd == CommandEnum.SET:<br>			<span class="hljs-keyword">if</span> recv.params <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> <span class="hljs-string">&quot;displaybin&quot;</span> <span class="hljs-keyword">in</span> recv.params:<br>				<span class="hljs-keyword">if</span> recv.params[<span class="hljs-string">&quot;displaybin&quot;</span>]:<br>					<span class="hljs-variable language_">self</span>.pipeline.control_branch(<span class="hljs-string">&quot;displaybin&quot;</span>, <span class="hljs-literal">True</span>)<br>				<span class="hljs-keyword">else</span>:<br>					<span class="hljs-variable language_">self</span>.pipeline.control_branch(<span class="hljs-string">&quot;displaybin&quot;</span>, <span class="hljs-literal">False</span>)<br>		<span class="hljs-variable language_">self</span>.from_backend.send(StatusMessage(status=StatusEnum.OK, msg=<span class="hljs-string">&quot;相机控制指令已处理&quot;</span>))<br><br>	<span class="hljs-keyword">except</span> Empty:<br>		<span class="hljs-comment"># 捕获超时异常</span><br>		<span class="hljs-comment"># 这里表示“这一轮没有收到消息”，什么都不用做，直接返回</span><br>		<span class="hljs-keyword">pass</span><br>		<br>	<span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>		logger.exception(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.name&#125;</span>解析指令发生异常: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>到这里就很不优雅了，做了一个非常丑陋的指令解析，最后发送了gst指令的管道</p>
+<p>和AI沟通了一下，有注册器方法，RPC方法等，这样在服务层就可以跨进程调用方法了，研究一下，明天写</p>
+<p>明天争取把gst的AppBin写出来，这样就可以作为一个比较完整的demo进行演示了</p>
+<p>又是这样…白天写一天代码有缺陷，晚上想想又给推翻了….</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/" class="print-no-link">#Python</a>
+      
+        <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/" class="print-no-link">#瑞芯微</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>RKVision开发日志(十二)</div>
+      <div>http://blog.mingxuan.xin/2026/01/21/20260121/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2026年1月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2026/01/19/20260119/" title="RKVision开发日志(十二)">
+                        <span class="hidden-mobile">RKVision开发日志(十二)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
