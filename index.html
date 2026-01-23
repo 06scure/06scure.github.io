@@ -227,6 +227,69 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/01/22/20260122/" target="_self">
+          RKVision开发日志(十三)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/22/20260122/" target="_self">
+        <div>
+          现在的方案中，以开启相机为例，我要在&#x2F;api&#x2F;camera&#x2F;start上发送{“action”: “start”}，然后在相机进程if action &#x3D;&#x3D; “start”:，然后再去执行实际的start代码，这至少需要维护两对字典，可以说是非常的丑陋了 ZMQ确实是更好的通信方案，今天白天有点事情，今晚突击修改一下吧，希望在明天之前修改好并演示 今
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-22 19:45" pubdate>
+              2026-01-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Python/">#Python</a>
+            
+              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2026/01/21/20260121/" target="_self">
           RKVision开发日志(十二)
         </a>
@@ -747,69 +810,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2026-01-05 11:52" pubdate>
               2026-01-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/03/20260103/" target="_self">
-          RKVision开发日志(五)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/03/20260103/" target="_self">
-        <div>
-          一、相机进程类完善目前已经实现了基本的传递图像的功能，接下来需要完善：  增加预览图功能，并要考虑不同平台下的硬件加速功能(RGA) 增加存图功能，要求同上 定义一些功能，方便外部进程调用  不过暂时我没有瑞芯微的设备调试，前两个还无法做到，但是需要预留重写的接口。 另外昨天写的并没有考虑锁的问题，如果一边在读一边在写同一片地址空间会出问题。 而且后续可能需要兼容其他形式的数据格式，比如采用编码的
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-03 00:00" pubdate>
-              2026-01-03
             </time>
           </div>
         
