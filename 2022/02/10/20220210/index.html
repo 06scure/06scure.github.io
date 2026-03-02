@@ -1,0 +1,1393 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、名词汇总1.核心网与接入网   名词 定义    核心网 核心网部分就是位于网络子系统内，核心网的主要作用是把A口上来的呼叫请求或数据请求，接续到不同的网络上。   接入网 所谓接入网是指核心网络到用户终端之间的所有设备，其长度一般为几百米到几公里，因而被形象地称为”最后一公里”。   个人理解，核心网和接入网的定义比较好理解，就像是快递公司，会把一座城市的快递收集起来，这部分是接入网，再根据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大唐杯学习笔记(1)—— 5G网络架构与组网部署">
+<meta property="og:url" content="http://blog.mingxuan.xin/2022/02/10/20220210/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
+<meta property="og:description" content="一、名词汇总1.核心网与接入网   名词 定义    核心网 核心网部分就是位于网络子系统内，核心网的主要作用是把A口上来的呼叫请求或数据请求，接续到不同的网络上。   接入网 所谓接入网是指核心网络到用户终端之间的所有设备，其长度一般为几百米到几公里，因而被形象地称为”最后一公里”。   个人理解，核心网和接入网的定义比较好理解，就像是快递公司，会把一座城市的快递收集起来，这部分是接入网，再根据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/e711f88c1ded3e5a3f23cdfd797eed5d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f698ab5dba8e8104466f823eb3cf11ba.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/25a39c42ffe780cb9f1f19ce0952d5a8.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/19af504f922fc26bf2d26c60cb2bc97a.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a5d11303af9efdd71d1a6b2f8e9b962d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/3dd67169c0b75822ab1e6ad585fc09d7.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/754a91a59bd442d03446a7d4fd17b440.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0f0be71dc08e77823a2a04fa2840ba96.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/5e69e1d95e3ff212fd8955cd2c21d4e2.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/069d31bebb14453aaffad1619aec4d00.png">
+<meta property="article:published_time" content="2022-02-10T19:41:36.000Z">
+<meta property="article:modified_time" content="2026-03-02T13:24:54.707Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="5G">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/e711f88c1ded3e5a3f23cdfd797eed5d.png">
+  
+  
+  
+  <title>大唐杯学习笔记(1)—— 5G网络架构与组网部署 - Obscure的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="大唐杯学习笔记(1)—— 5G网络架构与组网部署"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-10 19:41" pubdate>
+          2022年2月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">大唐杯学习笔记(1)—— 5G网络架构与组网部署</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、名词汇总"><a href="#一、名词汇总" class="headerlink" title="一、名词汇总"></a>一、名词汇总</h2><h5 id="1-核心网与接入网"><a href="#1-核心网与接入网" class="headerlink" title="1.核心网与接入网"></a>1.核心网与接入网</h5><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>核心网</td>
+<td>核心网部分就是位于网络子系统内，核心网的主要作用是把A口上来的呼叫请求或数据请求，接续到不同的网络上。</td>
+</tr>
+<tr>
+<td>接入网</td>
+<td>所谓接入网是指核心网络到用户终端之间的所有设备，其长度一般为几百米到几公里，因而被形象地称为”最后一公里”。</td>
+</tr>
+<tr>
+<td>个人理解，核心网和接入网的定义比较好理解，就像是快递公司，会把一座城市的快递收集起来，这部分是接入网，再根据快递的信息处理其下一步应该发往哪个城市，这个快递公司的工作就是核心网。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="2-5G网络架构"><a href="#2-5G网络架构" class="headerlink" title="2.5G网络架构"></a>2.5G网络架构</h5><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SA组网</td>
+<td>(Standalone)5G独立组网</td>
+</tr>
+<tr>
+<td>NSA组网</td>
+<td>(Non-Standalone)5G非独立组网</td>
+</tr>
+<tr>
+<td>NB</td>
+<td>3G基站代称</td>
+</tr>
+<tr>
+<td>eNB</td>
+<td>4G基站代称</td>
+</tr>
+<tr>
+<td>gNB</td>
+<td>5G基站代称</td>
+</tr>
+<tr>
+<td>en-gNB</td>
+<td>承载部分4G业务的5G基站代称</td>
+</tr>
+<tr>
+<td>gn-eNB</td>
+<td>承载部分5G业务的4G基站代称</td>
+</tr>
+<tr>
+<td>5GC</td>
+<td>5G核心网</td>
+</tr>
+<tr>
+<td>NG-（R）AN</td>
+<td>由多个与5GC连接的gNB组成的(无线)接入网</td>
+</tr>
+<tr>
+<td>NG接口</td>
+<td>无线接入网和5G核心网之间的接口</td>
+</tr>
+<tr>
+<td>Xn接口</td>
+<td>NG-RAN节点（gNB或ng-eNB）之间的网络接口</td>
+</tr>
+<tr>
+<td>学习网络就要学习他的发展过程。经济基础决定上层建筑，在建设5G的过程中不可能把3G、4G的基站全拆了换成5G。他是逐步演进逐步替换的过程。因此现在的5G组网也借助了4G的一些物理设备。有部分4G设备构成的5G网络就是NSA了。</td>
+<td></td>
+</tr>
+<tr>
+<td>从整个网络发展上看，很多新技术新协议的出现都要兼容老的一些协议，主要是我们的互联网过于庞大，想要进行迭代更新，也要考虑一些经济和一些现实问题。</td>
+<td></td>
+</tr>
+<tr>
+<td>NG接口分为NG-C接口控制面接口和NG-U接口用户面接口。</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="https://i-blog.csdnimg.cn/blog_migrate/e711f88c1ded3e5a3f23cdfd797eed5d.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="3-核心网架构演进"><a href="#3-核心网架构演进" class="headerlink" title="3.核心网架构演进"></a>3.核心网架构演进</h5><h6 id="1-2G核心网"><a href="#1-2G核心网" class="headerlink" title="(1)2G核心网"></a>(1)2G核心网</h6><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PCM</td>
+<td>脉冲编码调制</td>
+</tr>
+<tr>
+<td>TDM</td>
+<td>时分复用技术</td>
+</tr>
+<tr>
+<td>分组通信</td>
+<td>利用无线信道以分组方式传送数据或话音信息的通信</td>
+</tr>
+<tr>
+<td>PDH</td>
+<td>准同步数字系列，美日采用μ律，欧洲和我国采用A律</td>
+</tr>
+<tr>
+<td>SDH</td>
+<td>同步数字体系，PDH改进型，速度更快，统一了光接口</td>
+</tr>
+<tr>
+<td>X.25</td>
+<td>是目前使用最广泛的分组交换协议</td>
+</tr>
+<tr>
+<td>ATM</td>
+<td>异步传递方式，采用统计时分复用</td>
+</tr>
+<tr>
+<td>STM</td>
+<td>同步传递方式，采用时分复用</td>
+</tr>
+</tbody></table>
+<h6 id="1-3G，4G核心网"><a href="#1-3G，4G核心网" class="headerlink" title="(1)3G，4G核心网"></a>(1)3G，4G核心网</h6><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MPLS</td>
+<td>多协议标签交换，用于不同的包转发和包交换技术，面向连接</td>
+</tr>
+<tr>
+<td>SDN</td>
+<td>软件定义网络，将数据与控制相分离</td>
+</tr>
+<tr>
+<td>NFV</td>
+<td>网络功能虚拟化</td>
+</tr>
+<tr>
+<td>Open Stack</td>
+<td>一个云计算平台项目，覆盖了网络、虚拟化、操作系统、服务器等各个方面</td>
+</tr>
+<tr>
+<td><img src="https://i-blog.csdnimg.cn/blog_migrate/f698ab5dba8e8104466f823eb3cf11ba.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="4-4G核心网架构"><a href="#4-4G核心网架构" class="headerlink" title="4.4G核心网架构"></a>4.4G核心网架构</h5><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LTE</td>
+<td>长期演进技术，3G与4G技术之间的过渡</td>
+</tr>
+<tr>
+<td>UE</td>
+<td>终端</td>
+</tr>
+<tr>
+<td>Uu</td>
+<td>空中接口</td>
+</tr>
+<tr>
+<td>E-UTRAN</td>
+<td>演进的UMTS陆地无线接入网，即LTE移动通信无线网络</td>
+</tr>
+<tr>
+<td>S1-U</td>
+<td>eNodeB（基站）与 EPC（分组核心网）之间的通讯接口，-U同上表示用户数据部分</td>
+</tr>
+<tr>
+<td>GW-U</td>
+<td>Gateway是网关，百度上有GW-S表示服务网关，猜测这里表示用户(User)网关</td>
+</tr>
+<tr>
+<td>SGi</td>
+<td>与外部数据网络对接</td>
+</tr>
+<tr>
+<td>HSS</td>
+<td>归属用户服务器，负责管理用户的签约数据及移动用户的位置信息</td>
+</tr>
+<tr>
+<td>MME</td>
+<td>移动性管理实体，负责处理信令</td>
+</tr>
+<tr>
+<td>SGW</td>
+<td>服务网关，负责处理业务流</td>
+</tr>
+<tr>
+<td>CG</td>
+<td>计费网关&#x2F;计费网关，负责完成计费话单的检错、纠错和话单的合并,并完成话单格式的转换</td>
+</tr>
+<tr>
+<td>PGW</td>
+<td>分组数据网网关，负责分组数据包路由和转发；3GPP和非3GPP网络间的Anchor功能；P地址分配等</td>
+</tr>
+<tr>
+<td>PCRF</td>
+<td>策略和计费规则功能，是业务数据流和IP承载资源的策略和计费控制判决单元</td>
+</tr>
+<tr>
+<td>从图中可以很好的看出数据和控制分离。</td>
+<td></td>
+</tr>
+<tr>
+<td><img src="https://i-blog.csdnimg.cn/blog_migrate/25a39c42ffe780cb9f1f19ce0952d5a8.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="5-5G核心网架构"><a href="#5-5G核心网架构" class="headerlink" title="5.5G核心网架构"></a>5.5G核心网架构</h5><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UE</td>
+<td>终端</td>
+</tr>
+<tr>
+<td>AN</td>
+<td>接入网</td>
+</tr>
+<tr>
+<td>UPF</td>
+<td>用户面功能</td>
+</tr>
+<tr>
+<td>DN</td>
+<td>数据中心</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>网元功能体</td>
+</tr>
+<tr>
+<td>NSSF</td>
+<td>网络切片选择功能</td>
+</tr>
+<tr>
+<td>NEF</td>
+<td>网络开放功能</td>
+</tr>
+<tr>
+<td>NRF</td>
+<td>网络仓储功能，支持服务发现功能</td>
+</tr>
+<tr>
+<td>PCF</td>
+<td>策略控制功能，主要功能是使用统一的策略框架来管理网络行为</td>
+</tr>
+<tr>
+<td>UDM</td>
+<td>统一数据管理，通过生成3GPPAKA身份验证凭据，通过对SUPI的存储和管理，对用户进行识别处理，对用户进行合法性验证</td>
+</tr>
+<tr>
+<td>AF</td>
+<td>应用功能，指应用层的各种服务</td>
+</tr>
+<tr>
+<td>AUSF</td>
+<td>鉴权服务器功能，处理3GPP接入和非3GPP接入的认证请求</td>
+</tr>
+<tr>
+<td>AMF</td>
+<td>接入和移动管理功能，负责注册管理，连接管理，可达性管理，移动性管理等功能</td>
+</tr>
+<tr>
+<td>SMF</td>
+<td>会话管理功能，负责会话建立，修改和释放等</td>
+</tr>
+<tr>
+<td><img src="https://i-blog.csdnimg.cn/blog_migrate/19af504f922fc26bf2d26c60cb2bc97a.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="6-5G接入网网架构"><a href="#6-5G接入网网架构" class="headerlink" title="6.5G接入网网架构"></a>6.5G接入网网架构</h5><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CU</td>
+<td>集中单元</td>
+</tr>
+<tr>
+<td>DU</td>
+<td>分布单元</td>
+</tr>
+<tr>
+<td><img src="https://i-blog.csdnimg.cn/blog_migrate/a5d11303af9efdd71d1a6b2f8e9b962d.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="7-主要网元功能"><a href="#7-主要网元功能" class="headerlink" title="7.主要网元功能"></a>7.主要网元功能</h5><table>
+<thead>
+<tr>
+<th>名词</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小区</td>
+<td>在蜂窝移动通信系统中，其中的一个基站或基站的一部分，与大区相对应</td>
+</tr>
+<tr>
+<td>移动锚点</td>
+<td>当用户在不同接入系统之间移动时，可以保证该网元分配的用户地址保持不变</td>
+</tr>
+<tr>
+<td>PDU</td>
+<td>协议数据单元</td>
+</tr>
+<tr>
+<td>N接口</td>
+<td>5G网元直接的通信接口，例如N1,N22等</td>
+</tr>
+<tr>
+<td>Nplink</td>
+<td>交换机上的一种端口，在点到多点系统中，由分散点到集中点的传输链路。例如：在移动通信中，由移动台到基站的链路</td>
+</tr>
+<tr>
+<td>移动台</td>
+<td>移动终端设备</td>
+</tr>
+<tr>
+<td>QoS</td>
+<td>服务质量，虽然翻译成服务质量，但是他是用来解决网络延迟和阻塞等问题的一种技术</td>
+</tr>
+<tr>
+<td>ul&#x2F;dl</td>
+<td>up link&#x2F;down link 上行&#x2F;下行链路</td>
+</tr>
+<tr>
+<td>SDF</td>
+<td>service data flow 服务数据流</td>
+</tr>
+<tr>
+<td>NAS</td>
+<td>非接入层 作为核心网与用户设备之间的功能层。该层支持在这两者之间的信令和数据传输</td>
+</tr>
+<tr>
+<td>信令</td>
+<td>控制信号</td>
+</tr>
+<tr>
+<td>SM</td>
+<td>服务消息</td>
+</tr>
+<tr>
+<td>SMS</td>
+<td>短信消息</td>
+</tr>
+<tr>
+<td>SMSF</td>
+<td>短信消息管理功能</td>
+</tr>
+<tr>
+<td>GTP</td>
+<td>GPRS隧道协议</td>
+</tr>
+<tr>
+<td>RRC</td>
+<td>无线资源控制层</td>
+</tr>
+<tr>
+<td>PDCP</td>
+<td>分组数据汇聚协议</td>
+</tr>
+<tr>
+<td>RLC</td>
+<td>无线链路控制协议</td>
+</tr>
+</tbody></table>
+<h2 id="二、5G主要网元功能"><a href="#二、5G主要网元功能" class="headerlink" title="二、5G主要网元功能"></a>二、5G主要网元功能</h2><h5 id="1-用户面功能UPF-User-Plane-Function"><a href="#1-用户面功能UPF-User-Plane-Function" class="headerlink" title="1.用户面功能UPF(User Plane Function)"></a>1.用户面功能UPF(User Plane Function)</h5><ul>
+<li>gNodeB间切换的本地移动锚点(适用时)</li>
+<li>连接到移动通信网络的外部PDU会话点</li>
+<li>基于N接口切换过程中，数据包路由与转发</li>
+<li>数据包检查和用户面部分的策略计费</li>
+<li>合法的监听拦截(集合)</li>
+<li>流量使用情况报告</li>
+<li>Uplink支持路由流量到一个数据网络</li>
+<li>分支点以支持多类的PDU会话</li>
+<li>对用户平面的QoS处理，例如包过滤、门控、ul&#x2F;dl速率执行</li>
+<li>Uplink流量验证(SDF到QoS流映射)</li>
+<li>上下行链路上传输级别的数据包标记</li>
+<li>下行数据包缓冲和下行数据通知触发</li>
+</ul>
+<h5 id="2-会话管理功能SMF-Session-Management-Function"><a href="#2-会话管理功能SMF-Session-Management-Function" class="headerlink" title="2.会话管理功能SMF(Session Management Function)"></a>2.会话管理功能SMF(Session Management Function)</h5><ul>
+<li>会话的建立修改删除</li>
+<li>包括tunnel maintain between UPF and AN node（UPF和节点之间的隧道维护）</li>
+<li>UE IP地址的分配和管理</li>
+<li>DHCPv4（服务器和客户端）和DHCPv6（服务器和客户端）功能</li>
+<li>选择控制用户面功能</li>
+<li>QoS策略与控制，终止策略与控制</li>
+<li>合法监听</li>
+<li>Termination of SM parts of NAS messages（终止NAS消息的SM部分）</li>
+<li>下行数据的通知</li>
+<li>漫游功能</li>
+</ul>
+<h5 id="3-访问和移动性管理功能AMF-Access-and-Mobility-Management-Function"><a href="#3-访问和移动性管理功能AMF-Access-and-Mobility-Management-Function" class="headerlink" title="3.访问和移动性管理功能AMF(Access and Mobility Management Function)"></a>3.访问和移动性管理功能AMF(Access and Mobility Management Function)</h5><ul>
+<li>NAS信令及信令的加密和完整性保护</li>
+<li>终止运行RAN网络接口(N2)</li>
+<li>注册管理</li>
+<li>连接管理</li>
+<li>NAS移动性管理</li>
+<li>合法的截距(用于AMF事件和对Ll系统的接口)</li>
+<li>为在UE和SMF之间的SM消息提供传输</li>
+<li>路由SM消息的透明代理</li>
+<li>访问验证</li>
+<li>在UE和SMSF之间提供SMS消息的传输</li>
+<li>用户鉴权及密钥管理</li>
+<li>承载管理功能，包括专用承载建立过程</li>
+</ul>
+<h5 id="4-gNB-en-gNB（基站）"><a href="#4-gNB-en-gNB（基站）" class="headerlink" title="4.gNB&#x2F;en-gNB（基站）"></a>4.gNB&#x2F;en-gNB（基站）</h5><ul>
+<li>中央单元-控制面CU-C(Central Unit - Control plane)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接口管理(Interface Management)</td>
+<td>包括:Xn&#x2F;NG&#x2F;F1&#x2F;E1等接口链路管理、接口消息处理(如:NG-AP)和数据处理(如:GTP-U)</td>
+</tr>
+<tr>
+<td>连接管理(Connection Management)</td>
+<td>单连接、双连接、多连接和D2D</td>
+</tr>
+<tr>
+<td>流量导向(Traffic Steering)</td>
+<td>系统内和系统间的负载均衡</td>
+</tr>
+<tr>
+<td>切片支持(Slice Support)</td>
+<td>系统内和系统间的切片资源动态管理</td>
+</tr>
+</tbody></table>
+<ul>
+<li>中央单元-用户面CU-U(Central Unit - User plane)<br> 主要功能：数据包的处理和转换</li>
+<li>分布单元(Distributed Unit)<br>  主要功能：资源的调度 传输模式的转换 信道映射</li>
+<li>有源天线处理单元 - 天线AAU-RF(Active Antenna Unit - Radio Frequency)<br>  主要功能：信号的收发 Massive MIMO天线处理 频率与时间同步 AAS实现机制</li>
+</ul>
+<h2 id="三、5G接口主要功能"><a href="#三、5G接口主要功能" class="headerlink" title="三、5G接口主要功能"></a>三、5G接口主要功能</h2><h5 id="1-NG接口主要功能"><a href="#1-NG接口主要功能" class="headerlink" title="1.NG接口主要功能"></a>1.NG接口主要功能</h5><table>
+<thead>
+<tr>
+<th>NG-C接口功能与流程</th>
+<th>具体描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PDU会话管理过程</td>
+<td>完成PDU会话的NG-RAN资源建立，释放或修改过程</td>
+</tr>
+<tr>
+<td>UE上下文管理过程</td>
+<td>完成UE上下文建立，释放或修改过程</td>
+</tr>
+<tr>
+<td>NAS发送过程</td>
+<td>完成AMF和UE间的NAS信令数据透传过程； 初始UE消息(NG-RAN node发起)、上行NAS传输(NG-RAN node发起)、上行NAS传输(NG-RAN node发起)、下行NAS传输(AMF发起)、NAS无法传输指示(NG-RAN node发起)、重新路由NAS请求(AMF发起)</td>
+</tr>
+<tr>
+<td>UE移动性管理过程</td>
+<td>完成UE移动切换的准备，执行或取消过程；切换准备、切换资源分配、切换通知、路径切换请求、上下行RAN状态转发、切换取消</td>
+</tr>
+<tr>
+<td>寻呼过程</td>
+<td>完成寻呼区域内向NG-RAN节点发送寻呼请求过程</td>
+</tr>
+<tr>
+<td>AMF管理过程</td>
+<td>完成AMF告知NG-RAN节点AMF状态和去激活与指定UE NGAP UE组合过程 ；AMF状态指示、NGAP组合去激活(FFS)</td>
+</tr>
+<tr>
+<td>NG接口管理过程</td>
+<td>完成NG接口管理过程；NG建立、NG重置、RAN配置更新、AMF配置更新、错误指示</td>
+</tr>
+</tbody></table>
+<p>NG-U接口主要功能：</p>
+<ul>
+<li>NG-U接口在NG-RAN节点和UPF之间提供非保证的用户平面PDU传送；</li>
+<li>协议栈传输网络层建立在lP传输上；</li>
+<li>GTP-U在UDPIIP之上用于承载NG-RAN节点和UPF之间的用户面PDU。</li>
+</ul>
+<h5 id="2-Xn接口主要功能"><a href="#2-Xn接口主要功能" class="headerlink" title="2.Xn接口主要功能"></a>2.Xn接口主要功能</h5><table>
+<thead>
+<tr>
+<th>Xn-C接口功能与流程</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Xn建立功能</td>
+<td>允许两个NG-RAN nodes间Xn接口的初始建立，包括应用层数据交互</td>
+</tr>
+<tr>
+<td>差错指示功能</td>
+<td>允许应用层上一般错误情况上报</td>
+</tr>
+<tr>
+<td>Xn重置功能</td>
+<td>允许NG-RAN node告知另一个NG-RAN node其已经从非正常失败状态恢复，第二个node内需要删除与第一个node相关的所有上下文(应用层数据除外)并释放伴生资源</td>
+</tr>
+<tr>
+<td>Xn配置数据更新功能</td>
+<td>允许两个NG-RAN nodes随时更新应用层数据</td>
+</tr>
+<tr>
+<td>切换准备功能</td>
+<td>允许源和目的NG-RAN node间的信息交互从而完成给定UE到目的NG-RAN node初始切换</td>
+</tr>
+<tr>
+<td>切换取消功能</td>
+<td>允许通知已准备好的目的NG-RAN node准备的切换不进行，同时释放切换准备期间的资源分配</td>
+</tr>
+<tr>
+<td>恢复UE上下文功能</td>
+<td>允许NG-RAN node从其他node恢复UE上下文</td>
+</tr>
+<tr>
+<td>RAN寻呼功能</td>
+<td>允许NG-RAN node初始化非激活态UE的寻呼功能</td>
+</tr>
+<tr>
+<td>数据转发控制功能</td>
+<td>允许源和目的NG-RAN nodes间用于数据转发传输承载的建立和释放</td>
+</tr>
+<tr>
+<td>双链接功能</td>
+<td>使能NG-RAN中辅助节点内额外资源的使用</td>
+</tr>
+<tr>
+<td>Xn-U接口主要功能：</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>Xn-U接口提供用户平面PDU的非保证传送，并支持分离Xn接口为无线网络功能和传输网络功能，以促进未来技术的引入；</li>
+<li>数据转发功能，允许NG-RAN节点间数据转发从而支持双连接和移动性操作；</li>
+<li>流控制功能，允许NG-RAN节点接收第二个节点的用户面数据从而提供数据流相关的反馈信息。</li>
+</ul>
+<h5 id="3-E1接口主要功能"><a href="#3-E1接口主要功能" class="headerlink" title="3.E1接口主要功能"></a>3.E1接口主要功能</h5><p>E1接口管理功能：</p>
+<ul>
+<li>错误指示（gNB-CU-UP或者gNB-CU-CP向gNB-CU-CP或者gNB-CU-CP 发出错误指示)；</li>
+<li>复位功能用于gNB-CU-UP与gNB-CU-CP建立之后和发生故障事件之后初始化对等实体；</li>
+<li>gNB-CU-UP与gNB-CU-CP之间应用层数据的互操作；</li>
+<li>gNB-CU-UP配置更新: gNB-CU-UP将NRCGl、s - nssai、PLMN-ID和gNB-CU-UP支持的QoS信息通知给gNB-CU-CP。</li>
+</ul>
+<p>E1上下文管理功能：</p>
+<ul>
+<li>上下文承载建立（ gNB-CU-CP ) ;</li>
+<li>上下文承载修改与释放（可以由gNB-CU或gNB-DU发起)；</li>
+<li>QoS流映射(gNB-CU执行)；</li>
+<li>下行数据通知（ gNB-CU-UP发起)；</li>
+<li>承载不活动通知；</li>
+<li>数据使用情况报告（gNB-CU-UP发起)。</li>
+</ul>
+<p>TE ID分配功能(gNB-CU-UP)：</p>
+<ul>
+<li>F1-U UL GTP TEID、S1-U DL GTP TEID、NG-U DL GTP TEID X2-U DL&#x2F;UL GTP<br>TEID、Xn-D DL&#x2F;UL GTP TEID</li>
+</ul>
+<h5 id="4-F1接口主要功能"><a href="#4-F1接口主要功能" class="headerlink" title="4.F1接口主要功能"></a>4.F1接口主要功能</h5><p>F1接口管理功能：</p>
+<ul>
+<li>F1接口管理功能错误指示；</li>
+<li>复位功能用于在节点建立之后和发生故障事件之后初始化对等实体；</li>
+</ul>
+<p>系统信息管理功能：</p>
+<ul>
+<li>系统广播信息的调度在gNB-DU中执行，gNB-DU负责NR-MIB、SIB1的编码，gNB-CU负责其他SI消息的编码。</li>
+</ul>
+<p>F1 UE上下文管理功能：</p>
+<ul>
+<li>基于接纳控制准则、由gNB-CU发起并由gNB-DU接受或拒绝F1 UE上下文的建立；</li>
+<li>UE上下文的修改(可以由gNB-CU或gNB-DU发起)；</li>
+<li>QoS流和无线承载之间的映射(gNB-CU执行)；</li>
+<li>管理建立,修改和释放DRB和SRB资源（DRB资源的建立和修改由gNB-CU触发)。</li>
+</ul>
+<p>RRC消息传送功能：</p>
+<ul>
+<li>RRC消息通过F1-C传送，gNB-CU负责用gNB-DU提供的辅助信息对专用RRC消息进行编码。</li>
+</ul>
+<p>F1-U接口主要功能功能：</p>
+<ul>
+<li>用户数据传输(Transfer of user data)；</li>
+<li>CU和DU之间传输用户数据；</li>
+<li>流量控制功能（Flow control function)；</li>
+<li>控制下行用户数据流向DU。</li>
+</ul>
+<h5 id="5-Uu接口主要功能"><a href="#5-Uu接口主要功能" class="headerlink" title="5.Uu接口主要功能"></a>5.Uu接口主要功能</h5><p><img src="https://i-blog.csdnimg.cn/blog_migrate/3dd67169c0b75822ab1e6ad585fc09d7.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/754a91a59bd442d03446a7d4fd17b440.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h2 id="四、SA与NSA组网"><a href="#四、SA与NSA组网" class="headerlink" title="四、SA与NSA组网"></a>四、SA与NSA组网</h2><h5 id="1-常用的NSA组网方式"><a href="#1-常用的NSA组网方式" class="headerlink" title="1.常用的NSA组网方式"></a>1.常用的NSA组网方式</h5><p><img src="https://i-blog.csdnimg.cn/blog_migrate/0f0be71dc08e77823a2a04fa2840ba96.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://i-blog.csdnimg.cn/blog_migrate/5e69e1d95e3ff212fd8955cd2c21d4e2.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/069d31bebb14453aaffad1619aec4d00.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h5 id="2-NSA与SA组网方案对比"><a href="#2-NSA与SA组网方案对比" class="headerlink" title="2.NSA与SA组网方案对比"></a>2.NSA与SA组网方案对比</h5><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>非独立NR(NSA)架构</th>
+<th>独立NR(SA)架构</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>支持功能</td>
+<td>仅支持eMBB</td>
+<td>全部5G功能</td>
+</tr>
+<tr>
+<td>LTE现网</td>
+<td>需要升级LTE基站以及核心网支持NSA</td>
+<td>不影响现网LTE</td>
+</tr>
+<tr>
+<td>终端</td>
+<td>5G NR下需要提供Customized 4G NAS UE with 5G RRC；eLTE理论支持LTE终端</td>
+<td>5G NR下使用5G UE；LTE终端继续使用在LTE网络下</td>
+</tr>
+<tr>
+<td>5G新频NR以及天线</td>
+<td>全部新加，不管高低频</td>
+<td>全部新加，不管高低频</td>
+</tr>
+<tr>
+<td>核心网</td>
+<td>初期只需要升级现网EPC，后期可以选择新建5G核心网支持eLTE</td>
+<td>新加5G核心网</td>
+</tr>
+<tr>
+<td>初期成本</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>后期维护成本</td>
+<td>高（升级软件需要升级LTE基站）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>组网</td>
+<td>复杂(需要考虑到LTE的链路)</td>
+<td>简单</td>
+</tr>
+<tr>
+<td>IOT对接</td>
+<td>不需要5GNR接入与核心网跨异厂家IOT测试LTE或eLTE跟升级后的EPC IOT需要对接验证</td>
+<td>需要5G NR与5G核心网跨异厂家IOT测试成熟loT需要很长时间</td>
+</tr>
+<tr>
+<td>演进</td>
+<td>可以通过升级与网络调整变成SA</td>
+<td>SA是最终模式</td>
+</tr>
+</tbody></table>
+<h2 id="五、MR-DC技术"><a href="#五、MR-DC技术" class="headerlink" title="五、MR-DC技术"></a>五、MR-DC技术</h2><p>MR-DC(Multi-RAT Dual Connectivity，多接入网技术双连接)是指一部终端可以同时连接4G网络和5G网络，同时使用两个网络进行业务，此时终端需要具备至少两个MAC实体，支持双发双收。对应不同的网络架构，双连接有不同的名称。</p>
+<table>
+<thead>
+<tr>
+<th>核心网</th>
+<th>主节点</th>
+<th>辅节点</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPC</td>
+<td>E-UTRA</td>
+<td>E-UTRA</td>
+<td>DC</td>
+</tr>
+<tr>
+<td>EPC</td>
+<td>E-UTRA</td>
+<td>NR</td>
+<td>EN-DC</td>
+</tr>
+<tr>
+<td>5GC</td>
+<td>NG-RAN E-UTRA</td>
+<td>NR</td>
+<td>NGEN-DC</td>
+</tr>
+<tr>
+<td>5GC</td>
+<td>NR</td>
+<td>E-UTRA</td>
+<td>NE-DC</td>
+</tr>
+<tr>
+<td>5GC</td>
+<td>NR</td>
+<td>NR</td>
+<td>NR-DC</td>
+</tr>
+</tbody></table>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>2021年参加过一次大唐杯，基本没准备，随便玩了玩。今年把比赛准备时间调到了寒假，也算是给了一定的复习和准备时间。（主要是考研太累了学会别的放松放松哈哈哈）去年的学习过程中感觉出干听课的效率极低，今年稍微下点功夫，多百度、多记笔记，不管怎样多学点知识，毕竟以考研为主，不指望能拿什么奖。另外感觉我大三的专业课水平并不能支撑我学习5G的知识，对我来说有种空中楼阁的感觉，尽量做到有据可考，但是难免写出来的东西也很幼稚~</p>
+<h2 id="七、参考资料"><a href="#七、参考资料" class="headerlink" title="七、参考资料"></a>七、参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45022086/article/details/108751296">5GC中名词解释_蟹老板不会CPP的博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86143276">5G系统中无线接入网中接口的定义和功能</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/dingyun00196932/article/details/46548699">LTE网络主要接口信息</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/LaoYuanPython/article/details/105394978">老猿学5G随笔：RAN、RAT以及anchor移动性锚点的概念</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/158742066">5G网络结构核心网侧接口介绍</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" class="category-chain-item">网络通信</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/5G/" class="print-no-link">#5G</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>大唐杯学习笔记(1)—— 5G网络架构与组网部署</div>
+      <div>http://blog.mingxuan.xin/2022/02/10/20220210/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/18/20220218/" title="大唐杯学习笔记(2)—— 5G网络频谱划分与应用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">大唐杯学习笔记(2)—— 5G网络频谱划分与应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/11/20211211/" title="电磁场与电磁波公式总结">
+                        <span class="hidden-mobile">电磁场与电磁波公式总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

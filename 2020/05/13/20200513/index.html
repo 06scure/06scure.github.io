@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、AD转换器的分类直接A&#x2F;D转换器 并行比较型  优点：转换速度快，内含寄存器，无需附加采样-保持电路。 缺点：需要很多电压比较器和触发器，高分辨率较难制造。  反馈比较型  分为计数型和逐次比较型，计数型又称为双积分型。 其中，计数型且转换速度不高，转换时间长，但价格便宜；逐次比较型使用对分搜索法，因此转换速度要比计数型快很多。(ADC0804和XPT2046都属于逐次比较型)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机学习笔记——AD转换">
+<meta property="og:url" content="http://blog.mingxuan.xin/2020/05/13/20200513/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
+<meta property="og:description" content="一、AD转换器的分类直接A&#x2F;D转换器 并行比较型  优点：转换速度快，内含寄存器，无需附加采样-保持电路。 缺点：需要很多电压比较器和触发器，高分辨率较难制造。  反馈比较型  分为计数型和逐次比较型，计数型又称为双积分型。 其中，计数型且转换速度不高，转换时间长，但价格便宜；逐次比较型使用对分搜索法，因此转换速度要比计数型快很多。(ADC0804和XPT2046都属于逐次比较型)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/596378d51a4822117495fa7964e34f50.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/2a3c7b3ffff5b3045de53a6d6ed5d552.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a8c5c1c060f5627a2c0011b2b225268b.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/31d1f58a45a6098cbb221d95a7491bd8.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/6995ae45b7626c1184ee83dfabd961c1.png">
+<meta property="article:published_time" content="2020-05-13T19:14:52.000Z">
+<meta property="article:modified_time" content="2026-03-02T13:24:54.706Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="单片机">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/596378d51a4822117495fa7964e34f50.png">
+  
+  
+  
+  <title>51单片机学习笔记——AD转换 - Obscure的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="51单片机学习笔记——AD转换"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-05-13 19:14" pubdate>
+          2020年5月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">51单片机学习笔记——AD转换</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、AD转换器的分类"><a href="#一、AD转换器的分类" class="headerlink" title="一、AD转换器的分类"></a>一、AD转换器的分类</h2><h5 id="直接A-D转换器"><a href="#直接A-D转换器" class="headerlink" title="直接A&#x2F;D转换器"></a>直接A&#x2F;D转换器</h5><ul>
+<li><p>并行比较型</p>
+<p> 优点：转换速度快，内含寄存器，无需附加采样-保持电路。<br> 缺点：需要很多电压比较器和触发器，高分辨率较难制造。</p>
+</li>
+<li><p>反馈比较型</p>
+<p> 分为计数型和逐次比较型，计数型又称为双积分型。<br> 其中，计数型且转换速度不高，转换时间长，但价格便宜；逐次比较型使用对分搜索法，因此转换速度要比计数型快很多。(ADC0804和XPT2046都属于逐次比较型)</p>
+</li>
+</ul>
+<h5 id="间接A-D转换器"><a href="#间接A-D转换器" class="headerlink" title="间接A&#x2F;D转换器"></a>间接A&#x2F;D转换器</h5><ul>
+<li>V-T(电压-时间) </li>
+<li>V-F(电压-频率)</li>
+</ul>
+<h2 id="二、A-D转换器主要参数指标"><a href="#二、A-D转换器主要参数指标" class="headerlink" title="二、A&#x2F;D转换器主要参数指标"></a>二、A&#x2F;D转换器主要参数指标</h2><h6 id="1-分辨率"><a href="#1-分辨率" class="headerlink" title="1.分辨率"></a>1.分辨率</h6><p>分辨率为A&#x2F;D转换器对输入信号的分辨能力，其计算公式如下，其中n为A&#x2F;D转换器的位数：<br>$$分辨率&#x3D;\frac{1}{2^{n}}$$<br>当A&#x2F;D转换器支持输入负电压时，第一位代表正负，则分辨率的计算公式为：<br>$$分辨率&#x3D;\frac{1}{2^{n-1}}$$<br>可以求得模拟电压的最小值如下， 满刻度为输入的模拟电压最大值：<br>$$ 变化最小值&#x3D;满刻度\times 分辨率$$</p>
+<h6 id="2-转换误差"><a href="#2-转换误差" class="headerlink" title="2.转换误差"></a>2.转换误差</h6><p>转换误差表示A&#x2F;D转换器实际输出的数字量与理论输出量的区别。分为量化误差、偏移误差和满刻度误差。其中偏移误差和满刻度误差合称为非线性误差。</p>
+<h6 id="3-转换精度"><a href="#3-转换精度" class="headerlink" title="3.转换精度"></a>3.转换精度</h6><p>转换精度为实际模拟量输入与理论模拟输入之差的最大值。对于A&#x2F;D转换器而言，可以在每个阶梯的水平中点进行测量，它包括了所有误差。</p>
+<h6 id="4-转换时间"><a href="#4-转换时间" class="headerlink" title="4.转换时间"></a>4.转换时间</h6><p>即完成一次A&#x2F;D转换所需要的时间（包括稳定时间）。而转换时间的倒数为转换速率，即每秒转换的次数。</p>
+<h2 id="三、ADC0804"><a href="#三、ADC0804" class="headerlink" title="三、ADC0804"></a>三、ADC0804</h2><h6 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h6><p>ADC0804是逐次比较型A&#x2F;D转换器，共有20个引脚，分辨率为8位，输入电压范围为0-5V，模数转换时间大约100us。价格便宜，应用广泛。</p>
+<h6 id="1-引脚详情"><a href="#1-引脚详情" class="headerlink" title="1.引脚详情"></a>1.引脚详情</h6><p><img src="https://i-blog.csdnimg.cn/blog_migrate/596378d51a4822117495fa7964e34f50.png" srcset="/img/loading.gif" lazyload alt="ADC0804管脚图"></p>
+<table>
+<thead>
+<tr>
+<th>引脚</th>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>$\overline{CS}$</td>
+<td>片选信号输入端，当输入低电平，表明A&#x2F;D被选中</td>
+</tr>
+<tr>
+<td>2</td>
+<td>$\overline{RD}$</td>
+<td>读信号输入端，低电平输出端有效</td>
+</tr>
+<tr>
+<td>3</td>
+<td>$\overline{WR}$</td>
+<td>写信号输入端，低电平启用A&#x2F;D转换</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CLK</td>
+<td>时钟信号输入端</td>
+</tr>
+<tr>
+<td>5</td>
+<td>$\overline{INTR}$</td>
+<td>A&#x2F;D转换结束信号，低电平表示转换完成</td>
+</tr>
+<tr>
+<td>6-7</td>
+<td>V<del>IN</del>(+),V<del>IN</del>(-)</td>
+<td>两模拟信号输入端，可接收单极性，双极性和差模输入信号</td>
+</tr>
+<tr>
+<td>8</td>
+<td>AGND</td>
+<td>模拟信号地</td>
+</tr>
+<tr>
+<td>9</td>
+<td>V<del>REF</del>&#x2F;2</td>
+<td>参考电平输入端，决定量化单位</td>
+</tr>
+<tr>
+<td>10</td>
+<td>DGND</td>
+<td>数字信号地</td>
+</tr>
+<tr>
+<td>11-18</td>
+<td>DB7-DB0</td>
+<td>具有三态特性的数字信号输出口</td>
+</tr>
+<tr>
+<td>19</td>
+<td>CLKR</td>
+<td>内部时钟发生器外接电阻端</td>
+</tr>
+<tr>
+<td>20</td>
+<td>V<del>CC</del>(V<del>REF</del>)</td>
+<td>芯片输入电源，为5V</td>
+</tr>
+</tbody></table>
+<h6 id="2-时序图"><a href="#2-时序图" class="headerlink" title="2.时序图"></a>2.时序图</h6><ul>
+<li>启动时序图<br><img src="https://i-blog.csdnimg.cn/blog_migrate/2a3c7b3ffff5b3045de53a6d6ed5d552.png" srcset="/img/loading.gif" lazyload alt="启动时序图"></li>
+<li>读取时序图<br><img src="https://i-blog.csdnimg.cn/blog_migrate/a8c5c1c060f5627a2c0011b2b225268b.png" srcset="/img/loading.gif" lazyload alt="读取时序图"></li>
+</ul>
+<h6 id="3-例程：电位器A-D转换"><a href="#3-例程：电位器A-D转换" class="headerlink" title="3.例程：电位器A&#x2F;D转换"></a>3.例程：电位器A&#x2F;D转换</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;reg52.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;intrins.h&gt;</span></span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> u16;	  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> u8;<br><br>sbit dula = P2^<span class="hljs-number">6</span>;		<span class="hljs-comment">//U1锁存端</span><br>sbit wela = P2^<span class="hljs-number">7</span>;		<span class="hljs-comment">//U2锁存端</span><br>sbit adwr = P3^<span class="hljs-number">6</span>;		<span class="hljs-comment">//A/D的WR端口 </span><br>sbit adrd = P3^<span class="hljs-number">7</span>;		<span class="hljs-comment">//A/D的RD端口</span><br><br>u8 code table[<span class="hljs-number">10</span>]=&#123;<span class="hljs-number">0x3f</span>,<span class="hljs-number">0x06</span>,<span class="hljs-number">0x5b</span>,<span class="hljs-number">0x4f</span>,<span class="hljs-number">0x66</span>,<span class="hljs-number">0x6d</span>,<span class="hljs-number">0x7d</span>,<span class="hljs-number">0x07</span>,<span class="hljs-number">0x7f</span>,<span class="hljs-number">0x6f</span>&#125;;<span class="hljs-comment">//显示0~9的值</span><br>u8 bai,shi,ge;				<span class="hljs-comment">//用于显示AD转换后的值</span><br><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">AD_Init</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//A/D初始化函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">AD_read</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//A/D读取函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">delay</span><span class="hljs-params">(u16)</span>;			<span class="hljs-comment">//延时函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">display</span><span class="hljs-params">(u8,u8,u8)</span>;		<span class="hljs-comment">//数码管显示函数</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>	AD_Init();<br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;	<br>		AD_read();<br>	&#125;<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">AD_Init</span><span class="hljs-params">()</span>				<span class="hljs-comment">//A/D初始化函数</span><br>&#123;<br>	wela=<span class="hljs-number">1</span>;<br>	P0=<span class="hljs-number">0x7f</span>;				<span class="hljs-comment">//置CS片选为0，启动ADC0804</span><br>	wela=<span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">AD_read</span><span class="hljs-params">()</span>				<span class="hljs-comment">//A/D读取函数</span><br>&#123;<br>	u8 i，adval;			<span class="hljs-comment">//循环变量i,读取变量adval</span><br>	adwr=<span class="hljs-number">1</span>;					<span class="hljs-comment">//WR口先为高电平</span><br>	_nop_();				<span class="hljs-comment">//_nop_函数位于intrins.h头文件中，作用是延时一个机器周期的时间</span><br>	adwr=<span class="hljs-number">0</span>;					<span class="hljs-comment">//延时一段时间后，WR口置低</span><br>	_nop_();				<span class="hljs-comment">//又延时一段时间后</span><br>	adwr=<span class="hljs-number">1</span>;					<span class="hljs-comment">//WR口拉高 ADC0804被启动</span><br>	<span class="hljs-comment">//由于连续读取数据，因此CS片选不必要反复操作</span><br>	<span class="hljs-comment">//由于INTR由硬件控制，因此也不需要操作</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">10</span>;i&gt;<span class="hljs-number">0</span>;i--)		<span class="hljs-comment">//TX-1C实验板AID工作频率较低，所以启动转换要多留点时间用来转换</span><br>		display(bai,shi,ge);<span class="hljs-comment">//把显示部分放这里的原因也是为了延长转换时间</span><br>	P1=<span class="hljs-number">0xff</span>;				<span class="hljs-comment">//读取P1口之前先给其写全1</span><br>	adrd=<span class="hljs-number">1</span>;					<span class="hljs-comment">//先使RD拉高</span><br>	_nop_();				<span class="hljs-comment">//延时一段时间</span><br>	adrd=<span class="hljs-number">0</span>;					<span class="hljs-comment">//RD拉低</span><br>	_nop_();				<span class="hljs-comment">//再延时一段时间</span><br>	adval=P1;				<span class="hljs-comment">//AD数据读取赋给P1口</span><br>	adrd=<span class="hljs-number">1</span>;					<span class="hljs-comment">//马上把RD拉高</span><br>	bai=adval/<span class="hljs-number">100</span>;			<span class="hljs-comment">//分出百，十和个位</span><br>	shi=adval% <span class="hljs-number">100</span>/<span class="hljs-number">10</span>;<br>	ge=adval% <span class="hljs-number">10</span>;<br>&#125;	<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">delay</span><span class="hljs-params">(u16 ms)</span>					<span class="hljs-comment">//延时函数</span><br>&#123;<br>	u16 i,j;<br>	<span class="hljs-keyword">for</span>(i=ms;i&gt;<span class="hljs-number">0</span>;i--)<br>	<span class="hljs-keyword">for</span>(j=<span class="hljs-number">110</span>;j&gt;<span class="hljs-number">0</span>;j--);<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">display</span><span class="hljs-params">(u8 bai,u8 shi,u8 ge)</span>	<span class="hljs-comment">//数码管显示函数</span><br>&#123;<br>	<span class="hljs-comment">/*百位*/</span><br>	dula=<span class="hljs-number">1</span>;<br>	P0=table[bai];<br>	dula=<span class="hljs-number">0</span>;<br>	P0=<span class="hljs-number">0xff</span>;<br>	wela=<span class="hljs-number">1</span>;<br>	P0=<span class="hljs-number">0x7e</span>;<br>	wela=<span class="hljs-number">0</span>;<br>	delay(<span class="hljs-number">5</span>);<br><br>	<span class="hljs-comment">/*十位*/</span><br>	dula=<span class="hljs-number">1</span>;<br>	P0=table[shi];<br>	dula=<span class="hljs-number">0</span>;<br>	P0=<span class="hljs-number">0xff</span>;<br>	wela=<span class="hljs-number">1</span>;<br>	P0=<span class="hljs-number">0x7d</span>;<br>	wela=<span class="hljs-number">0</span>;<br>	delay(<span class="hljs-number">5</span>);<br><br>	<span class="hljs-comment">/*个位*/</span><br>	dula=<span class="hljs-number">1</span>;<br>	P0=table[ge]; <br>	dula=<span class="hljs-number">0</span>;<br>	P0=<span class="hljs-number">0xff</span>;<br>	wela=<span class="hljs-number">1</span>;<br>	P0=<span class="hljs-number">0x7b</span>;<br>	wela=<span class="hljs-number">0</span>;<br>	delay(<span class="hljs-number">5</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>总结：代码是在郭天祥书中摘取后加入自己的想法进行的修改，做注释，增加可读性同时使每一步与时序图相对应。但由于博主手头没有相应的硬件，无法测试代码可行性。仅帮助理解ADC0804转换的过程。</p>
+<h2 id="四、XPT2046"><a href="#四、XPT2046" class="headerlink" title="四、XPT2046"></a>四、XPT2046</h2><h6 id="概况-1"><a href="#概况-1" class="headerlink" title="概况"></a>概况</h6><p>XPT2046本是电阻触控屏控制器，由于触摸控制器需要测量电压，因此可以作为A&#x2F;D转换器使用。采用了逐次比较型A&#x2F;D转换器，共有16个引脚，分辨率为12位，输入电压范围为0-6V。</p>
+<h6 id="1-引脚图与控制寄存器"><a href="#1-引脚图与控制寄存器" class="headerlink" title="1.引脚图与控制寄存器"></a>1.引脚图与控制寄存器</h6><ul>
+<li>引脚图为QFN-16封装方式</li>
+</ul>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/31d1f58a45a6098cbb221d95a7491bd8.png" srcset="/img/loading.gif" lazyload alt="QFN-16封装"></p>
+<table>
+<thead>
+<tr>
+<th>引脚</th>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>BUSY</td>
+<td>忙时信号线，当$\overline{CS}$为高电平时为高阻状态</td>
+</tr>
+<tr>
+<td>2</td>
+<td>DIN</td>
+<td>串行数据输入端。当$\overline{CS}$为低电平时，数据在DCLK上升沿锁存进来</td>
+</tr>
+<tr>
+<td>3</td>
+<td>$\overline{CS}$</td>
+<td>片选信号。控制转换时序和使能串行输入输出寄存器，高电平时ADC掉电</td>
+</tr>
+<tr>
+<td>4</td>
+<td>DCLK</td>
+<td>外部时钟信号输入端</td>
+</tr>
+<tr>
+<td>5</td>
+<td>VCC</td>
+<td>电源输入端</td>
+</tr>
+<tr>
+<td>6-9</td>
+<td>XP,YP,XN,YN</td>
+<td>信号输入端</td>
+</tr>
+<tr>
+<td>10</td>
+<td>GND</td>
+<td>接地端</td>
+</tr>
+<tr>
+<td>11</td>
+<td>V<del>BAT</del></td>
+<td>电池监视输入端</td>
+</tr>
+<tr>
+<td>12</td>
+<td>AUX</td>
+<td>ADC辅助输入通道</td>
+</tr>
+<tr>
+<td>13</td>
+<td>V<del>REF</del></td>
+<td>参考电压输入&#x2F;输出</td>
+</tr>
+<tr>
+<td>14</td>
+<td>IOVDD</td>
+<td>数字电源输入端</td>
+</tr>
+<tr>
+<td>15</td>
+<td>$\overline{PENIRQ}$</td>
+<td>笔接触中断引脚</td>
+</tr>
+<tr>
+<td>16</td>
+<td>DOUT</td>
+<td>串行数据输出端。数据在DCLK的下降沿移出，当$\overline{CS}$高电平时为高阻状态</td>
+</tr>
+</tbody></table>
+<ul>
+<li>控制寄存器</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>位序号</th>
+<th>D7</th>
+<th>D6</th>
+<th>D5</th>
+<th>D4</th>
+<th>D3</th>
+<th>D2</th>
+<th>D1</th>
+<th>D0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>位符号</td>
+<td>S</td>
+<td>A2</td>
+<td>A1</td>
+<td>A0</td>
+<td>MODE</td>
+<td>$SER\sqrt{DFR}$</td>
+<td>PD1</td>
+<td>PD0</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>位序号</th>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7</td>
+<td>S</td>
+<td>开始位。S&#x3D;1表示新的控制字节到来，S&#x3D;0表示忽略PIN引脚数据</td>
+</tr>
+<tr>
+<td>6-4</td>
+<td>A2-A0</td>
+<td>通道选择位</td>
+</tr>
+<tr>
+<td>3</td>
+<td>MODE</td>
+<td>MODE&#x3D;1为8位转换分辨率，MODE&#x3D;0为12位转换分辨率</td>
+</tr>
+<tr>
+<td>2</td>
+<td>$SER\sqrt{DFR}$</td>
+<td>$SER\sqrt{DFR}$&#x3D;1为单端输入方式，$SER\sqrt{DFR}$&#x3D;0为差分输入方式</td>
+</tr>
+<tr>
+<td>1-0</td>
+<td>PD1-PD0</td>
+<td>低功率模式选择位，一般采用低功率模式，赋值00</td>
+</tr>
+<tr>
+<td>注：</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>由于博主使用的是普中单片机开发板，且XPT2046仅作为AD转换器使用，因此仅使用单端模式，控制A0,A1,A2三个位即可，其余位较为固定。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>控制位</th>
+<th>A2</th>
+<th>A1</th>
+<th>A0</th>
+<th>输入端口</th>
+<th>外部设备</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x94&#x2F;0xB4</td>
+<td>0</td>
+<td>0&#x2F;1</td>
+<td>1</td>
+<td>X+</td>
+<td>电位器</td>
+</tr>
+<tr>
+<td>0xD4</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>Y+</td>
+<td>热敏电阻</td>
+</tr>
+<tr>
+<td>0xA4</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>VBAT</td>
+<td>光敏电阻</td>
+</tr>
+<tr>
+<td>0xE4</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>AUX</td>
+<td>外部信号</td>
+</tr>
+</tbody></table>
+<h6 id="2-时序图-1"><a href="#2-时序图-1" class="headerlink" title="2.时序图"></a>2.时序图</h6><p><img src="https://i-blog.csdnimg.cn/blog_migrate/6995ae45b7626c1184ee83dfabd961c1.png" srcset="/img/loading.gif" lazyload alt="工作时序"></p>
+<h6 id="3-例程：电位器A-D转换-1"><a href="#3-例程：电位器A-D转换-1" class="headerlink" title="3.例程：电位器A&#x2F;D转换"></a>3.例程：电位器A&#x2F;D转换</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;reg52.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;intrins.h&gt;</span></span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> u16;	  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> u8;<br><br><span class="hljs-comment">/*AD转换器的IO口设置*/</span><br>sbit DOUT = P3^<span class="hljs-number">7</span>;	  <span class="hljs-comment">//输出</span><br>sbit CLK  = P3^<span class="hljs-number">6</span>;	  <span class="hljs-comment">//时钟</span><br>sbit DIN  = P3^<span class="hljs-number">4</span>;	  <span class="hljs-comment">//输入</span><br>sbit CS   = P3^<span class="hljs-number">5</span>;	  <span class="hljs-comment">//片选</span><br><span class="hljs-comment">/*数码管的IO口设置*/</span><br>sbit LSA=P2^<span class="hljs-number">2</span>;<br>sbit LSB=P2^<span class="hljs-number">3</span>;<br>sbit LSC=P2^<span class="hljs-number">4</span>;<br><br>u8 time;		<span class="hljs-comment">//控制显示</span><br>u8 disp[<span class="hljs-number">4</span>];		<span class="hljs-comment">//存放数据的数组</span><br>u8 code smgduan[<span class="hljs-number">10</span>]=&#123;<span class="hljs-number">0x3f</span>,<span class="hljs-number">0x06</span>,<span class="hljs-number">0x5b</span>,<span class="hljs-number">0x4f</span>,<span class="hljs-number">0x66</span>,<span class="hljs-number">0x6d</span>,<span class="hljs-number">0x7d</span>,<span class="hljs-number">0x07</span>,<span class="hljs-number">0x7f</span>,<span class="hljs-number">0x6f</span>&#125;;<span class="hljs-comment">//数码管显示表</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">datapros</span><span class="hljs-params">()</span>;			<span class="hljs-comment">//数据处理函数</span><br>u16 <span class="hljs-title function_">SPI_Read</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>;			<span class="hljs-comment">//采用SPI协议读取数据</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">SPI_Write</span><span class="hljs-params">(u8 dat)</span>;		<span class="hljs-comment">//写入数据</span><br>u16 <span class="hljs-title function_">Read_AD_Data</span><span class="hljs-params">(u8 cmd)</span>;	<span class="hljs-comment">//读取AD</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">delay</span><span class="hljs-params">(u16)</span>;			<span class="hljs-comment">//延时函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">DigDisplay</span><span class="hljs-params">()</span>;			<span class="hljs-comment">//数码管显示函数</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;	<br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;<br>		datapros();	 <span class="hljs-comment">//数据处理函数</span><br>		DigDisplay();<span class="hljs-comment">//数码管显示函数		</span><br>	&#125;		<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">datapros</span><span class="hljs-params">()</span>	<span class="hljs-comment">//数据处理函数</span><br>&#123;<br>	u16 temp;<br>	<span class="hljs-keyword">if</span>(time==<span class="hljs-number">50</span>)						<span class="hljs-comment">//每隔一段时间显示一次，时间约为time循环50次</span><br>	&#123;<br>		time=<span class="hljs-number">0</span>;<br>		temp = Read_AD_Data(<span class="hljs-number">0x94</span>);		<span class="hljs-comment">//写入电位器端口，修改参数可以更换模式</span><br>	&#125;<br>	time++;<br>	disp[<span class="hljs-number">0</span>]=smgduan[temp/<span class="hljs-number">1000</span>];			<span class="hljs-comment">//千位</span><br>	disp[<span class="hljs-number">1</span>]=smgduan[temp%<span class="hljs-number">1000</span>/<span class="hljs-number">100</span>];		<span class="hljs-comment">//百位</span><br>	disp[<span class="hljs-number">2</span>]=smgduan[temp%<span class="hljs-number">1000</span>%<span class="hljs-number">100</span>/<span class="hljs-number">10</span>];	<span class="hljs-comment">//十位</span><br>	disp[<span class="hljs-number">3</span>]=smgduan[temp%<span class="hljs-number">1000</span>%<span class="hljs-number">100</span>%<span class="hljs-number">10</span>];	<span class="hljs-comment">//个位	</span><br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">SPI_Write</span><span class="hljs-params">(u8 dat)</span>	<span class="hljs-comment">//使用SPI写入数据</span><br>&#123;<br>	u8 i;<br>	CLK = <span class="hljs-number">0</span>;				<span class="hljs-comment">//时钟信号拉低</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">8</span>; i++)<br>	&#123;<br>		DIN = dat &gt;&gt; <span class="hljs-number">7</span>;  	<span class="hljs-comment">//放置最高位，DIN为控制寄存器</span><br>		dat &lt;&lt;= <span class="hljs-number">1</span>;			<span class="hljs-comment">//每次写入移位</span><br>		CLK = <span class="hljs-number">0</span>;			<span class="hljs-comment">//时钟信号上升沿放置数据</span><br>		CLK = <span class="hljs-number">1</span>;<br>	&#125;<br>&#125;<br><br>u16 <span class="hljs-title function_">SPI_Read</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>	<span class="hljs-comment">//使用SPI读出数据</span><br>&#123;<br>	u8 i;<br>	u16	dat=<span class="hljs-number">0</span>;<br>	CLK = <span class="hljs-number">0</span>;				<span class="hljs-comment">//时钟信号拉低</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">12</span>; i++)		<span class="hljs-comment">//接收12位数据</span><br>	&#123;<br>		dat &lt;&lt;= <span class="hljs-number">1</span>;			<span class="hljs-comment">//每次写入移位</span><br>		CLK = <span class="hljs-number">1</span>;<br>		CLK = <span class="hljs-number">0</span>;			<span class="hljs-comment">//时钟信号下降沿读取数据</span><br>		dat |= DOUT;		<span class="hljs-comment">//由DOUT接口写入数据</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> dat;	<br>&#125;<br><br>u16 <span class="hljs-title function_">Read_AD_Data</span><span class="hljs-params">(u8 cmd)</span>	<span class="hljs-comment">//读AD数据</span><br>&#123;<br>	u8 i;					<span class="hljs-comment">//循环变量</span><br>	u16 AD_Value;			<span class="hljs-comment">//存放读出的AD数据</span><br>	CLK = <span class="hljs-number">0</span>;				<span class="hljs-comment">//时钟信号拉低</span><br>	CS  = <span class="hljs-number">0</span>;				<span class="hljs-comment">//片选电位拉低</span><br>	SPI_Write(cmd);			<span class="hljs-comment">//写数据</span><br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">6</span>; i&gt;<span class="hljs-number">0</span>; i--); 	<span class="hljs-comment">//延时等待转换结果</span><br>	CLK = <span class="hljs-number">1</span>;	 			<span class="hljs-comment">//发送一个时钟周期，清除BUSY</span><br>	_nop_();				<span class="hljs-comment">//延时一个时钟周期</span><br>	_nop_();				<span class="hljs-comment">//延时一个时钟周期</span><br>	CLK = <span class="hljs-number">0</span>;				<span class="hljs-comment">//时钟信号拉低</span><br>	_nop_();				<span class="hljs-comment">//延时一个时钟周期</span><br>	_nop_();				<span class="hljs-comment">//延时一个时钟周期</span><br>	AD_Value=SPI_Read();	<span class="hljs-comment">//读出模拟值</span><br>	CS = <span class="hljs-number">1</span>;					<span class="hljs-comment">//片选电位拉高</span><br>	<span class="hljs-keyword">return</span> AD_Value;		<span class="hljs-comment">//返回读出的值</span><br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">delay</span><span class="hljs-params">(u16 i)</span>	<span class="hljs-comment">//延时函数 i=1延时10us</span><br>&#123;<br>	<span class="hljs-keyword">while</span>(i--);	<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">DigDisplay</span><span class="hljs-params">()</span>	<span class="hljs-comment">//数码管显示函数</span><br>&#123;<br>	u8 i,j;<br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">4</span>;i++)<br>	&#123;<br>		<span class="hljs-keyword">switch</span>(i)	 			<span class="hljs-comment">//位选，选择点亮的数码管</span><br>		&#123;<br>			<span class="hljs-keyword">case</span>(<span class="hljs-number">0</span>):<br>				LSA=<span class="hljs-number">0</span>;LSB=<span class="hljs-number">0</span>;LSC=<span class="hljs-number">0</span>; <span class="hljs-keyword">break</span>;<span class="hljs-comment">//显示第0位</span><br>			<span class="hljs-keyword">case</span>(<span class="hljs-number">1</span>):<br>				LSA=<span class="hljs-number">1</span>;LSB=<span class="hljs-number">0</span>;LSC=<span class="hljs-number">0</span>; <span class="hljs-keyword">break</span>;<span class="hljs-comment">//显示第1位</span><br>			<span class="hljs-keyword">case</span>(<span class="hljs-number">2</span>):<br>				LSA=<span class="hljs-number">0</span>;LSB=<span class="hljs-number">1</span>;LSC=<span class="hljs-number">0</span>; <span class="hljs-keyword">break</span>;<span class="hljs-comment">//显示第2位</span><br>			<span class="hljs-keyword">case</span>(<span class="hljs-number">3</span>):<br>				LSA=<span class="hljs-number">1</span>;LSB=<span class="hljs-number">1</span>;LSC=<span class="hljs-number">0</span>; <span class="hljs-keyword">break</span>;<span class="hljs-comment">//显示第3位	</span><br>		&#125;<br>		P0=disp[<span class="hljs-number">3</span>-i];			<span class="hljs-comment">//发送数据</span><br>		delay(<span class="hljs-number">100</span>); 			<span class="hljs-comment">//间隔一段时间扫描	</span><br>		P0=<span class="hljs-number">0x00</span>;				<span class="hljs-comment">//消隐</span><br>	&#125;		<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>总结：代码是在普中科技A&#x2F;D转换例程改写的。与ADC0804不同的是，由于XPT2046功能较多，使用了控制寄存器，且对比前面的郭天祥的板子，普中的板子没有使用锁存器，所以数据要一位一位的写入&#x2F;读取。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" class="print-no-link">#单片机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>51单片机学习笔记——AD转换</div>
+      <div>http://blog.mingxuan.xin/2020/05/13/20200513/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年5月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/13/20200514/" title="51单片机学习笔记——DA转换">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">51单片机学习笔记——DA转换</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/12/20200512/" title="51单片机学习笔记——中断">
+                        <span class="hidden-mobile">51单片机学习笔记——中断</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

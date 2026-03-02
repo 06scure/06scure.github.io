@@ -1,0 +1,1291 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、高等数学预备知识1.函数奇偶性(1)$F(x)&#x3D;f(x)-f(-x)$必为奇函数，$F(x)&#x3D;f(x)+f(-x)$必为偶函数.(2)导数与积分奇偶性   $\int_{a}^{x} f(t)dt$ $f(x)$ ${f}’ (x)$    偶函数 奇函数 偶函数   奇函数 偶函数 奇函数   当$\int_{0}^{T} f(x)dx&#x3D;0$时，周期为T 周期为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="考研高数常用公式汇总">
+<meta property="og:url" content="http://blog.mingxuan.xin/2022/03/21/20220321/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
+<meta property="og:description" content="一、高等数学预备知识1.函数奇偶性(1)$F(x)&#x3D;f(x)-f(-x)$必为奇函数，$F(x)&#x3D;f(x)+f(-x)$必为偶函数.(2)导数与积分奇偶性   $\int_{a}^{x} f(t)dt$ $f(x)$ ${f}’ (x)$    偶函数 奇函数 偶函数   奇函数 偶函数 奇函数   当$\int_{0}^{T} f(x)dx&#x3D;0$时，周期为T 周期为">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-21T12:04:10.000Z">
+<meta property="article:modified_time" content="2026-03-02T13:24:54.707Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>考研高数常用公式汇总 - Obscure的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="考研高数常用公式汇总"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-21 12:04" pubdate>
+          2022年3月21日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          47 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">考研高数常用公式汇总</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="一、高等数学预备知识"><a href="#一、高等数学预备知识" class="headerlink" title="一、高等数学预备知识"></a>一、高等数学预备知识</h3><h5 id="1-函数奇偶性"><a href="#1-函数奇偶性" class="headerlink" title="1.函数奇偶性"></a>1.函数奇偶性</h5><h6 id="1-F-x-f-x-f-x-必为奇函数，-F-x-f-x-f-x-必为偶函数"><a href="#1-F-x-f-x-f-x-必为奇函数，-F-x-f-x-f-x-必为偶函数" class="headerlink" title="(1)$F(x)&#x3D;f(x)-f(-x)$必为奇函数，$F(x)&#x3D;f(x)+f(-x)$必为偶函数."></a>(1)$F(x)&#x3D;f(x)-f(-x)$必为奇函数，$F(x)&#x3D;f(x)+f(-x)$必为偶函数.</h6><h6 id="2-导数与积分奇偶性"><a href="#2-导数与积分奇偶性" class="headerlink" title="(2)导数与积分奇偶性"></a>(2)导数与积分奇偶性</h6><table>
+<thead>
+<tr>
+<th>$\int_{a}^{x} f(t)dt$</th>
+<th>$f(x)$</th>
+<th>${f}’ (x)$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>偶函数</td>
+<td>奇函数</td>
+<td>偶函数</td>
+</tr>
+<tr>
+<td>奇函数</td>
+<td>偶函数</td>
+<td>奇函数</td>
+</tr>
+<tr>
+<td>当$\int_{0}^{T} f(x)dx&#x3D;0$时，周期为T</td>
+<td>周期为T</td>
+<td>周期为T</td>
+</tr>
+</tbody></table>
+<h6 id="3-奇偶函数运算"><a href="#3-奇偶函数运算" class="headerlink" title="(3)奇偶函数运算"></a>(3)奇偶函数运算</h6><p>$奇函数\times 奇函数 &#x3D; 偶函数$<br>$奇函数\times 偶函数 &#x3D; 奇函数$<br>$偶函数\times 偶函数 &#x3D; 偶函数$</p>
+<p>$奇函数 + 奇函数 &#x3D; 奇函数$<br>$偶函数 + 偶函数 &#x3D; 偶函数$ </p>
+<h5 id="2-三角函数相关公式"><a href="#2-三角函数相关公式" class="headerlink" title="2.三角函数相关公式"></a>2.三角函数相关公式</h5><p>$arctan\alpha+arccot\alpha &#x3D;\frac{\pi}{2}$</p>
+<p>$1+tan^{2}\alpha &#x3D;sec^{2}\alpha$	</p>
+<p>$1+cot^{2}\alpha &#x3D;csc^{2}\alpha$</p>
+<p>$sin3\alpha&#x3D;-4sin^{3} \alpha+3sin\alpha$</p>
+<p>$cos3\alpha&#x3D;4cos^{3} \alpha-3cos\alpha$</p>
+<p>$sin(\alpha\pm\beta)&#x3D;sin\alpha cos\beta\pm cos\alpha sin \beta$</p>
+<p>$cos(\alpha\pm\beta)&#x3D;cos\alpha cos\beta \mp  sin\alpha sin \beta$</p>
+<p>$tan(\alpha\pm\beta)&#x3D;\frac{tan\alpha\pm tan\beta}{1\mp  tan\alpha tan\beta }$</p>
+<p>万能公式：$u&#x3D;tan\frac{x}{2} \Rightarrow sinx&#x3D;\frac{2u}{1+u^{2} } ,cosx&#x3D;\frac{1-u^{2}}{1+u^{2}}$</p>
+<h5 id="3-数列、因式分解"><a href="#3-数列、因式分解" class="headerlink" title="3.数列、因式分解"></a>3.数列、因式分解</h5><h6 id="1-等比数列"><a href="#1-等比数列" class="headerlink" title="(1)等比数列"></a>(1)等比数列</h6><table>
+<thead>
+<tr>
+<th>等比数列</th>
+<th>$a_{1} ,a_{1}r,a_{1}r^{2} ,\cdots ,a_{1}r^{n-1}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通项</td>
+<td>$a_{n}&#x3D;a_{1}r^{n-1}$</td>
+</tr>
+<tr>
+<td>前n项和</td>
+<td>$S_{n}&#x3D;\frac{a_{1}(1-r^{n} ) }{1-r}$	$(r≠1)$</td>
+</tr>
+<tr>
+<td>当$\mid  r\mid &lt; 1$时</td>
+<td>有$\lim_{n \to \infty} a_{n} &#x3D;0$</td>
+</tr>
+<tr>
+<td>$S_{n}&#x3D;\frac{a_{1} }{1-r}$</td>
+<td>$S_{n}&#x3D;\frac{首项 }{1-公比}$</td>
+</tr>
+</tbody></table>
+<h6 id="2-数列绝对值性质"><a href="#2-数列绝对值性质" class="headerlink" title="(2)数列绝对值性质"></a>(2)数列绝对值性质</h6><p>$\lim_{n \to \infty} a_{n} &#x3D;A\Rightarrow \lim_{n \to \infty} \mid a_{n}\mid &#x3D;\mid A \mid$</p>
+<p>$\lim_{n \to \infty} a_{n} &#x3D;0\Leftrightarrow \lim_{n \to \infty} \mid a_{n}\mid &#x3D;0$</p>
+<h6 id="3-3次幂的因式分解"><a href="#3-3次幂的因式分解" class="headerlink" title="(3)3次幂的因式分解"></a>(3)3次幂的因式分解</h6><p>$(a+b)^{3} &#x3D;a^{3} +3a^{2} b +3ab^{2}+ b^{3}$</p>
+<p>$(a-b)^{3} &#x3D;a^{3} -3a^{2} b +3ab^{2}- b^{3}$</p>
+<p>$a^{3}-b^{3} &#x3D;(a-b)(a^{2} +ab+b^{2})$</p>
+<h5 id="4-常用不等式"><a href="#4-常用不等式" class="headerlink" title="4.常用不等式"></a>4.常用不等式</h5><h6 id="1-基本不等式"><a href="#1-基本不等式" class="headerlink" title="(1)基本不等式"></a>(1)基本不等式</h6><p>$\sqrt{ab} \le \frac{a+b}{2} \le \sqrt{\frac{a^{2}+b^{2}  }{2} }$</p>
+<p>$\mid ab\mid \le \frac{a^{2}+b^{2}  }{2}$</p>
+<p>$\mid \int_{a}^{b} f(x) dx\mid \le \int_{a}^{b} \mid f(x)\mid  dx$</p>
+<h6 id="2-x-to-0-邻域的不等式"><a href="#2-x-to-0-邻域的不等式" class="headerlink" title="(2)$x\to 0^{+}$邻域的不等式"></a>(2)$x\to 0^{+}$邻域的不等式</h6><p>$sinx&lt; x &lt;tanx$</p>
+<p>$arctanx&lt; x &lt;arcsinx$</p>
+<p>$e^{x} \ge x+1$</p>
+<p>$\ln{x} \le x-1$</p>
+<p>$\ln{(x+1)} \le x$</p>
+<h3 id="二、极限"><a href="#二、极限" class="headerlink" title="二、极限"></a>二、极限</h3><h5 id="1-常用泰勒公式-x-to0"><a href="#1-常用泰勒公式-x-to0" class="headerlink" title="1.常用泰勒公式$(x\to0)$"></a>1.常用泰勒公式$(x\to0)$</h5><p>$sinx&#x3D;x-\frac{x^{3} }{3!} +o(x^{3})$</p>
+<p>$arcsinx&#x3D;x+\frac{x^{3} }{3!} +o(x^{3})$</p>
+<p>$cosx&#x3D;1-\frac{x^{2} }{2!}+\frac{x^{4} }{4!}+o(x^{3})$</p>
+<p>$tanx&#x3D;x+\frac{x^{3} }{3} +o(x^{3})$</p>
+<p>$arctanx&#x3D;x-\frac{x^{3} }{3} +o(x^{3})$</p>
+<p>$ln(1+x)&#x3D;x-\frac{x^{2} }{2}+\frac{x^{3}}{3}+o(x^{3})$</p>
+<p>$e^{x} &#x3D;1+x+\frac{x^{2} }{2!}+\frac{x^{3}}{3!}+o(x^{3})$</p>
+<p>$a^{x} &#x3D;1+xlna+\frac{ln^2a}{2!}x^{2}+\frac{ln^3a}{3!}x^{3}+o(x^{3})$</p>
+<p>$(1+x)^{\alpha}&#x3D;1+\alpha x+\frac{\alpha(\alpha - 1)}{2!} x^{2} +o(x^{2})$</p>
+<h5 id="2-无穷小定义"><a href="#2-无穷小定义" class="headerlink" title="2.无穷小定义"></a>2.无穷小定义</h5><table>
+<thead>
+<tr>
+<th>$\alpha (x)$是$\beta (x)$的</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高阶无穷小</td>
+<td>$\lim  \frac{\alpha (x)}{\beta (x)} &#x3D;0$</td>
+</tr>
+<tr>
+<td>低阶无穷小</td>
+<td>$\lim  \frac{\alpha (x)}{\beta (x)} &#x3D;\infty$</td>
+</tr>
+<tr>
+<td>同阶无穷小</td>
+<td>$\lim  \frac{\alpha (x)}{\beta (x)} &#x3D;c\ne 0$</td>
+</tr>
+<tr>
+<td>等价无穷小</td>
+<td>$\lim  \frac{\alpha (x)}{\beta (x)} &#x3D;1$</td>
+</tr>
+<tr>
+<td>k阶无穷小</td>
+<td>$\lim  \frac{\alpha (x)}{[\beta (x)]^k} &#x3D;c\ne 0$</td>
+</tr>
+</tbody></table>
+<h5 id="3-常用等价无穷小-x-to0"><a href="#3-常用等价无穷小-x-to0" class="headerlink" title="3.常用等价无穷小$(x\to0)$"></a>3.常用等价无穷小$(x\to0)$</h5><p>$ln(1+x)\sim x$</p>
+<p>$e^x-1\sim x$	 </p>
+<p>$a^x-1\sim xlna$	 </p>
+<p>$1-cosx \sim \frac{1}{2}x^2$	 </p>
+<p>$(1+x)^\alpha-1 \sim \alpha x$	 </p>
+<p>$\frac{x}{x+a} \sim x$	 </p>
+<h5 id="4-常用极限运算"><a href="#4-常用极限运算" class="headerlink" title="4.常用极限运算"></a>4.常用极限运算</h5><p>$\lim_{x \to 0^+} x^\alpha lnx&#x3D;0$</p>
+<p>$\lim_{x \to \infty }\frac{x}{x+a}&#x3D; 1$	 </p>
+<p>$\lim_{x \to \infty }\frac{x^\alpha}{c^x} &#x3D;0$	 </p>
+<h5 id="5-几种左右极限不同的例子"><a href="#5-几种左右极限不同的例子" class="headerlink" title="5.几种左右极限不同的例子"></a>5.几种左右极限不同的例子</h5><table>
+<thead>
+<tr>
+<th>极限</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$\lim_{x \to +\infty} e^x$</td>
+<td>$+\infty$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to -\infty} e^x$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to 0^+}\frac{sinx}{\mid x \mid}$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to 0^-}\frac{sinx}{\mid x \mid}$</td>
+<td>$-1$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to +\infty} arctanx$</td>
+<td>$\frac{\pi}{2}$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to -\infty} arctanx$</td>
+<td>$-\frac{\pi}{2}$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to 0^+} [x]$</td>
+<td>$0$</td>
+</tr>
+<tr>
+<td>$\lim_{x \to 0^-} [x]$</td>
+<td>$-1$</td>
+</tr>
+</tbody></table>
+<h3 id="三、微分学"><a href="#三、微分学" class="headerlink" title="三、微分学"></a>三、微分学</h3><h5 id="1-基本求导公式"><a href="#1-基本求导公式" class="headerlink" title="1.基本求导公式"></a>1.基本求导公式</h5><p>${(x^\alpha )}’ &#x3D;\alpha x^{\alpha -1}$</p>
+<p>${(\alpha^x )}’ &#x3D; \alpha ^xln\alpha$</p>
+<p>$(\log_{\alpha }{x})’ &#x3D;\frac{1}{xln\alpha}$</p>
+<p>$(\log{\mid x\mid})’ &#x3D;\frac{1}{x}$</p>
+<p>$(sinx)’&#x3D;cosx$</p>
+<p>$(cosx)’&#x3D;-sinx$</p>
+<p>$(tanx)’&#x3D;sec^2x$</p>
+<p>$(arcsinx)’&#x3D;\frac{1}{\sqrt{1-x^2} }$</p>
+<p>$(arccosx)’&#x3D;-\frac{1}{\sqrt{1-x^2} }$</p>
+<p>$(arctanx)’&#x3D;\frac{1}{1+x^2}$</p>
+<p>$(arccotx)’&#x3D;-\frac{1}{1+x^2}$</p>
+<p>$(secx)’&#x3D;secx tanx$</p>
+<p>${[ln(x+\sqrt{x^2+1})]}’&#x3D;\frac{1}{\sqrt{x^2+1} }$</p>
+<p>${[ln(x+\sqrt{x^2-1})]}’&#x3D;\frac{1}{\sqrt{x^2-1} }$</p>
+<p>${[ln(x+\sqrt{x^2+a})]}’&#x3D;\frac{1}{\sqrt{x^2+a^2} }$</p>
+<h5 id="2-微分学推广公式-结论"><a href="#2-微分学推广公式-结论" class="headerlink" title="2.微分学推广公式\结论"></a>2.微分学推广公式\结论</h5><h6 id="1-导数定义推论"><a href="#1-导数定义推论" class="headerlink" title="(1)导数定义推论"></a>(1)导数定义推论</h6><p>$当\lim_{x \to x_0} \frac{f(x)}{x-x_0} &#x3D;A$，且$f(x)在x&#x3D;x_0$处连续，则有$f(x_0)&#x3D;0$，$f’(x_0)&#x3D;A.$</p>
+<h6 id="2-导函数保号性"><a href="#2-导函数保号性" class="headerlink" title="(2)导函数保号性"></a>(2)导函数保号性</h6><p>$y&#x3D;f(x)可导，f’(x)\ne 0，则f’(x)必恒正或恒负.$</p>
+<h6 id="3-反函数的二阶导数"><a href="#3-反函数的二阶导数" class="headerlink" title="(3)反函数的二阶导数"></a>(3)反函数的二阶导数</h6><p>$y_x&#x3D; \frac{1}{x_y}$</p>
+<p>$y_{xx}&#x3D; \frac{-x_{yy}’’}{(x_y’)^3}$</p>
+<h5 id="3-多元函数微分"><a href="#3-多元函数微分" class="headerlink" title="3.多元函数微分"></a>3.多元函数微分</h5><h6 id="1-可微定义"><a href="#1-可微定义" class="headerlink" title="(1)可微定义"></a>(1)可微定义</h6><p>$$\lim_{\bigtriangleup x \to 0,\bigtriangleup y \to 0} \frac{\bigtriangleup z-(A\bigtriangleup x+B\bigtriangleup y)}{\sqrt{(\bigtriangleup x)^2+(\bigtriangleup y)^2} }$$</p>
+<h6 id="2-全微分"><a href="#2-全微分" class="headerlink" title="(2)全微分"></a>(2)全微分</h6><p>$$dz&#x3D;\frac{\partial z }{\partial x } dx+\frac{\partial z }{\partial y } dy$$</p>
+<h6 id="3-隐函数存在定理"><a href="#3-隐函数存在定理" class="headerlink" title="(3)隐函数存在定理"></a>(3)隐函数存在定理</h6><p>$$\frac{dy }{dx }&#x3D;-\frac{F’_x }{F’_y  }$$</p>
+<h6 id="4-二阶偏导数"><a href="#4-二阶偏导数" class="headerlink" title="(4)二阶偏导数"></a>(4)二阶偏导数</h6><p>$$\frac{d^2y}{dx^2}&#x3D;-\frac{F’’_{xx}F_y’^2-2F’<em>xF’<em>yF’’</em>{xy}+F_x’^2F’’</em>{yy}}{F’^3_y}$$</p>
+<h3 id="四、无穷级数"><a href="#四、无穷级数" class="headerlink" title="四、无穷级数"></a>四、无穷级数</h3><h5 id="1-泰勒公式"><a href="#1-泰勒公式" class="headerlink" title="1.泰勒公式"></a>1.泰勒公式</h5><h6 id="1-拉格朗日余项，-xi-in-x-x-0"><a href="#1-拉格朗日余项，-xi-in-x-x-0" class="headerlink" title="(1)拉格朗日余项，$\xi \in [x,x_0]$"></a>(1)拉格朗日余项，$\xi \in [x,x_0]$</h6><p>$$f(x)&#x3D;f(x_0)+f’(x_0)(x-x_0)+\dots +\frac{1}{n!}f^{(n)}(x_0)(x-x_0)^n+\frac{1}{(n+1)!}f^{(n+1)}(\xi )(x-x_0)^{(n+1)}$$</p>
+<h6 id="2-配亚诺余项"><a href="#2-配亚诺余项" class="headerlink" title="(2)配亚诺余项"></a>(2)配亚诺余项</h6><p>$$f(x)&#x3D;f(x_0)+f’(x_0)(x-x_0)+\frac{1}{2!}f’’(x_0)(x-x_0)^2+\dots +\frac{1}{n!}f^{(n)}(x_0)(x-x_0)^n+o((x-x_0)^n)$$</p>
+<h6 id="3-麦克劳林公式-x-0-0-，拉格朗日余项，-xi-in-0-x"><a href="#3-麦克劳林公式-x-0-0-，拉格朗日余项，-xi-in-0-x" class="headerlink" title="(3)麦克劳林公式$(x_0&#x3D;0)$，拉格朗日余项，$\xi \in [0,x]$"></a>(3)麦克劳林公式$(x_0&#x3D;0)$，拉格朗日余项，$\xi \in [0,x]$</h6><p>$$f(x)&#x3D;f(0)+f’(0)x+\dots +\frac{f^{(n)}(0)}{n!}x^n+\frac{f^{(n+1)}(\xi )}{(n+1)!}x^{n+1}$$</p>
+<h6 id="3-麦克劳林公式-x-0-0-，配亚诺余项"><a href="#3-麦克劳林公式-x-0-0-，配亚诺余项" class="headerlink" title="(3)麦克劳林公式$(x_0&#x3D;0)$，配亚诺余项"></a>(3)麦克劳林公式$(x_0&#x3D;0)$，配亚诺余项</h6><p>$$f(x)&#x3D;f(0)+f’(0)x+\frac{f’’(0)}{2!}x^2+\dots +\frac{f^{(n)}(0)}{n!}x^n+o(x^n)$$</p>
+<h5 id="2-级数敛散性判别法"><a href="#2-级数敛散性判别法" class="headerlink" title="2.级数敛散性判别法"></a>2.级数敛散性判别法</h5><p>$u_n$为数列通项，$s_n&#x3D;\sum_{n&#x3D;0}^\infty u_n$为数列和，则有：</p>
+<table>
+<thead>
+<tr>
+<th>适用范围</th>
+<th>方法</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正项级数</td>
+<td>收敛原则（定义）</td>
+<td>$\lim_{n \to \infty} S_n&#x3D;A$，级数收敛；$\lim_{n \to \infty} S_n&#x3D;+\infty$，级数发散</td>
+</tr>
+<tr>
+<td>正项级数</td>
+<td>比较判别法</td>
+<td>两个正项级数，大的收敛小的必收敛；小的发散大的必发散</td>
+</tr>
+<tr>
+<td>正项级数</td>
+<td>比较判别法推论</td>
+<td>两个正项级数$\sum_{n&#x3D;1}^{\infty} u_n,\sum_{n&#x3D;1}^{\infty} v_n$且$\ne 0$，$\lim_{n \to \infty} \frac{u_n}{v_n}&#x3D;A$，$0&lt;A&lt;+ \infty$，两个级数同敛散。</td>
+</tr>
+<tr>
+<td>正项级数</td>
+<td>比值判别法</td>
+<td>级数$\sum_{n&#x3D;1}^{\infty} u_n$，$\lim_{n \to \infty} \frac{u_{n+1}}{u_n}&#x3D;A$，若$A&lt;1$级数收敛；若$A&gt;1$级数发散，若若$A&#x3D;1$该法失效</td>
+</tr>
+<tr>
+<td>正项级数</td>
+<td>根值判别法</td>
+<td>级数$\sum_{n&#x3D;1}^{\infty} u_n$，$\lim_{n \to \infty} \sqrt[n]{u_n}&#x3D;A$，若$A&lt;1$级数收敛；若$A&gt;1$级数发散，若若$A&#x3D;1$该法失效</td>
+</tr>
+<tr>
+<td>正项级数</td>
+<td>积分判别法</td>
+<td>级数$\sum_{n&#x3D;1}^{\infty} u_n$，$f(x)$在$[N,+\infty)$上是连续、非负、单调减少，$u_n&#x3D;f(n)$，则$\sum_{n&#x3D;1}^{\infty} u_n$与$\int_{N}^{\infty } f(x)dx$同敛散性</td>
+</tr>
+<tr>
+<td>交错级数</td>
+<td>莱布尼茨判别法</td>
+<td>级数$\sum_{n&#x3D;1}^{\infty} {(-1)^{n-1}u_n},u_n&gt;0,u_n$单调不增，$\lim_{n \to \infty} &#x3D;0$，则交错级数收敛</td>
+</tr>
+<tr>
+<td>任意级数</td>
+<td>绝对收敛</td>
+<td>若级数$\sum_{n&#x3D;1}^{\infty} {\mid u_n\mid }$收敛，则称$\sum_{n&#x3D;1}^{\infty} {u_n}$绝对收敛</td>
+</tr>
+<tr>
+<td>任意级数</td>
+<td>条件收敛</td>
+<td>若级数$\sum_{n&#x3D;1}^{\infty} {\mid u_n\mid }$发散，级数$\sum_{n&#x3D;1}^{\infty} {u_n }$收敛，则称$\sum_{n&#x3D;1}^{\infty} {u_n}$绝对收敛</td>
+</tr>
+</tbody></table>
+<h5 id="3-常见的级数敛散性"><a href="#3-常见的级数敛散性" class="headerlink" title="3.常见的级数敛散性"></a>3.常见的级数敛散性</h5><h6 id="1-具体级数的敛散性"><a href="#1-具体级数的敛散性" class="headerlink" title="(1)具体级数的敛散性"></a>(1)具体级数的敛散性</h6><table>
+<thead>
+<tr>
+<th>级数</th>
+<th>敛散性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(几何级数&#x2F;等比级数)$\sum_{n&#x3D;1}^{\infty} aq^{n-1}$</td>
+<td>$\mid q\mid &lt;1,收敛$，$\mid q\mid \ge 1,发散$</td>
+</tr>
+<tr>
+<td>(p级数)$\sum_{n&#x3D;1}^{\infty} \frac{1}{x^p}$</td>
+<td>$\mid p\mid &gt;1,收敛$，$\mid p\mid \le 1,发散$</td>
+</tr>
+<tr>
+<td>(p积分)$\int_{1}^{+\infty } \frac{1}{x^p} dx$</td>
+<td>$\mid p\mid &gt;1,收敛$，$\mid p\mid \le 1,发散$</td>
+</tr>
+<tr>
+<td>$\int_{0}^{1 } \frac{1}{x^p} dx$</td>
+<td>$0&lt; p &lt;1,收敛$，$p\ge  1,发散$</td>
+</tr>
+<tr>
+<td>(广义p级数)$\sum_{n&#x3D;2}^{\infty} \frac{1}{xln^px}$</td>
+<td>$\mid p\mid &gt;1,收敛$，$\mid p\mid \le 1,发散$</td>
+</tr>
+<tr>
+<td>(广义p积分)$\int_{2}^{+\infty } \frac{1}{xln^px} dx$</td>
+<td>$\mid p\mid &gt;1,收敛$，$\mid p\mid \le 1,发散$</td>
+</tr>
+<tr>
+<td>(调和级数)$\sum_{n&#x3D;1}^{\infty} \frac{1}{x}$</td>
+<td>发散</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} (-1)^n\frac{1}{x}$</td>
+<td>收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} (-1)^n\frac{1}{\sqrt{x}}$</td>
+<td>收敛</td>
+</tr>
+</tbody></table>
+<h6 id="2-抽象级数的判敛散问题"><a href="#2-抽象级数的判敛散问题" class="headerlink" title="(2)抽象级数的判敛散问题"></a>(2)抽象级数的判敛散问题</h6><p>$\sum_{n&#x3D;1}^{\infty} u_n$,$\sum_{n&#x3D;1}^{\infty} v_n$,$\sum_{n&#x3D;1}^{\infty} w_n$均是<strong>任意</strong>项级数，则有：</p>
+<table>
+<thead>
+<tr>
+<th>条件</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$a,b,c$为非零常数，$au_n+bv_n+cw_n&#x3D;0$</td>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$,$\sum_{n&#x3D;1}^{\infty} v_n$,$\sum_{n&#x3D;1}^{\infty} w_n$中有两个级数收敛，第三个必收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} \mid u_n\mid$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$发散</td>
+<td>$\sum_{n&#x3D;1}^{\infty} \mid u_n\mid$发散</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} \mid u_n\mid$不定</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u^2_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} \frac{u_n}{n}$绝对收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} u^2_n$不定</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} (-1)^nu_n$不定</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} (-1)^n \frac{u_n}{n}$不定</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} u_{2n}$（偶数项）不定，$\sum_{n&#x3D;1}^{\infty} u_{2n-1}$（奇数项）不定</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty}( u_{2n-1}+u_{2n})$收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty}( u_{2n-1}-u_{2n})$不定</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty}( u_{n}+u_{n+1})$收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty}( u_{n}-u_{n+1})$收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty}u_{n}+\sum_{n&#x3D;1}^{\infty}u_{n+1}$收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty}u_{n}-\sum_{n&#x3D;1}^{\infty}u_{n+1}$收敛</td>
+</tr>
+<tr>
+<td>$\sum_{n&#x3D;1}^{\infty} u_n$收敛</td>
+<td>$\sum_{n&#x3D;1}^{\infty} u_{n}u_{n+1}$不定</td>
+</tr>
+</tbody></table>
+<h5 id="4-常见函数的幂级数展开式"><a href="#4-常见函数的幂级数展开式" class="headerlink" title="4.常见函数的幂级数展开式"></a>4.常见函数的幂级数展开式</h5><table>
+<thead>
+<tr>
+<th>展开式</th>
+<th>收敛域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$e^x&#x3D;\sum_{n&#x3D;0}^{\infty } \frac{x^n}{n!} &#x3D;1+x+\frac{x^2}{2!}+\dots +\frac{x^n}{n!}+\dots$</td>
+<td>$- \infty &lt;x&lt;+\infty$</td>
+</tr>
+<tr>
+<td>$\frac{1}{x+1} &#x3D;\sum_{n&#x3D;0}^{\infty } (-1)^nx^n &#x3D;1-x+x^2-x^3+\dots +(-1)^nx^n+\dots$</td>
+<td>$- 1 &lt;x&lt;1$</td>
+</tr>
+<tr>
+<td>$\frac{1}{x-1} &#x3D;\sum_{n&#x3D;0}^{\infty }x^n &#x3D;1+x+x^2+\dots +x^n+\dots$</td>
+<td>$- 1 &lt;x&lt;1$</td>
+</tr>
+<tr>
+<td>$ln(1+x) &#x3D;\sum_{n&#x3D;0}^{\infty } (-1)^{n-1}\frac{x^n}{n}  &#x3D;x-\frac{x^2}{2} +\dots +(-1)^{n-1}\frac{x^n}{n}+\dots$</td>
+<td>$- 1 &lt;x\le 1$</td>
+</tr>
+<tr>
+<td>$(1+x)^\alpha &#x3D;1+\alpha x+\frac{\alpha (\alpha -1)}{2!} x^2+\dots \frac{\alpha (\alpha -1)\dots (\alpha-n+1)}{n!}x^n+\dots$</td>
+<td>$当\alpha \le -1,x\in (-1,1)$，$当-1&lt;\alpha &lt;0,x\in (-1,1]$，$当\alpha &gt;0,\alpha\notin N_+,x\in [-1,1]$，$当\alpha &gt;0,\alpha\in N_+,x\in R$</td>
+</tr>
+<tr>
+<td>$-ln(1-x) &#x3D;\sum_{n&#x3D;1}^{\infty } \frac{x^n}{n}$</td>
+<td>$- 1 \le x&lt; 1$</td>
+</tr>
+<tr>
+<td>$\frac{1}{(1-x)^2}  &#x3D;\sum_{n&#x3D;1}^{\infty } nx^{n-1}$</td>
+<td>$- 1 &lt; x&lt; 1$</td>
+</tr>
+<tr>
+<td>$sinx &#x3D;\sum_{n&#x3D;0}^{\infty } (-1)^{n}\frac{x^{2n+1}}{(2n+1)!}$</td>
+<td>$- \infty  &lt;x&lt; +\infty$</td>
+</tr>
+<tr>
+<td>$cosx &#x3D;\sum_{n&#x3D;0}^{\infty } (-1)^{n}\frac{x^{2n}}{(2n)!}$</td>
+<td>$- \infty  &lt;x&lt; +\infty$</td>
+</tr>
+</tbody></table>
+<h5 id="5-幂级数运算法则"><a href="#5-幂级数运算法则" class="headerlink" title="5.幂级数运算法则"></a>5.幂级数运算法则</h5><table>
+<thead>
+<tr>
+<th>运算法则</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>通项，下标一起变</td>
+<td>$\sum_{n&#x3D;k}^{\infty}a_nx^n&#x3D;\sum_{n&#x3D;k+l}^{\infty}a_{n-l}x^{n-l}$</td>
+</tr>
+<tr>
+<td>通项不变，下标变</td>
+<td>$\sum_{n&#x3D;k}^{\infty}a_nx^n&#x3D;a_kx^k+a_{k+1}x^{k+1}+ \dots+a_{k+l-1}x^{k+l-1}+\sum_{n&#x3D;k+l}^{\infty}a_nx^n$</td>
+</tr>
+<tr>
+<td>通项变，下标不变</td>
+<td>$\sum_{n&#x3D;k}^{\infty}a_nx^n&#x3D;x^l\sum_{n&#x3D;k}^{\infty}a_nx^{n-l}$</td>
+</tr>
+</tbody></table>
+<h3 id="五、中值定理"><a href="#五、中值定理" class="headerlink" title="五、中值定理"></a>五、中值定理</h3><h5 id="1-中值定理"><a href="#1-中值定理" class="headerlink" title="1.中值定理"></a>1.中值定理</h5><table>
+<thead>
+<tr>
+<th>定理</th>
+<th>条件</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有界与最值定理</td>
+<td>$f(x)$在$[a,b]$上连续，$m\le f(x)\le M$</td>
+<td>$m,M$为$f(x)$在$[a,b]$上的最小值与最大值</td>
+</tr>
+<tr>
+<td>介值定理</td>
+<td>$f(x)$在$[a,b]$上连续，$m\le \mu \le M$</td>
+<td>存在$\xi \in [a,b]，f(\xi)&#x3D;\mu$</td>
+</tr>
+<tr>
+<td>(离散的)平均值定理</td>
+<td>$f(x)$在$[a,b]$上连续，$a&lt;x_1&lt;x_2&lt;\dots&lt;x_n&lt;b$</td>
+<td>至少存在一点$\xi \in [x_1,x_n]，f(\xi)&#x3D;\frac{f(x_1)+f(x_2)+\dots+f(x_n)}{n}$</td>
+</tr>
+<tr>
+<td>零点定理</td>
+<td>$f(x)$在$[a,b]$上连续，$f(a)\cdot f(b)&lt;0$</td>
+<td>存在$\xi \in (a,b)，f(\xi)&#x3D;0$</td>
+</tr>
+<tr>
+<td>费马定理</td>
+<td>$f(x)$在$x_0$处可导，$f(x)$在$x_0$处取极值</td>
+<td>$f’(x_0)&#x3D;0$</td>
+</tr>
+<tr>
+<td>罗尔定理</td>
+<td>$f(x)$在$[a,b]$上连续，$f(x)$在$(a,b)$上可导，$f(a)&#x3D;f(b)$</td>
+<td>存在$\xi \in (a,b)，f(\xi)&#x3D;0$</td>
+</tr>
+<tr>
+<td>拉格朗日中值定理</td>
+<td>$f(x)$在$[a,b]$上连续，$f(x)$在$(a,b)$上可导</td>
+<td>存在$\xi \in (a,b)，f(b)-f(a)&#x3D;f’(\xi )(b-a)$</td>
+</tr>
+<tr>
+<td>柯西中值定理</td>
+<td>$f(x),g(x)$在$[a,b]$上连续，$f(x),g(x)$在$(a,b)$上可导，$g’(x)\ne 0$</td>
+<td>存在$\xi \in (a,b)，\frac{f(b)-f(a)}{g(b)-g(a)} &#x3D;\frac{f’(\xi)}{g’(\xi)}$</td>
+</tr>
+<tr>
+<td>积分中值定理</td>
+<td>$f(x)$在$[a,b]$上连续，$f(x)$在$(a,b)$上可导</td>
+<td>存在$\xi \in [a,b]，\int_{a}^{b} f(x)dx&#x3D;f(\xi)(b-a)$</td>
+</tr>
+<tr>
+<td>导数零点定理</td>
+<td>$f(x)$在$[a,b]$上可导，$f’<em>+(a) \cdot f’</em>-(b)&lt;0$</td>
+<td>存在$\xi \in (a,b)，f(\xi)&#x3D;0$</td>
+</tr>
+</tbody></table>
+<h5 id="2-常见辅助函数的构造方法"><a href="#2-常见辅助函数的构造方法" class="headerlink" title="2.常见辅助函数的构造方法"></a>2.常见辅助函数的构造方法</h5><p>$uv’+u’v&#x3D;(uv)’$</p>
+<p>$f(x)f’(x)&#x3D;\frac{1 }{2} [f^2(x)]’$</p>
+<p>$[f’(x)]^2+f(x)f’’(x)&#x3D;[f(x) \cdot f’(x)]$</p>
+<p>$[f’(x)+f(x)\varphi’(x)]e^{\varphi(x)}&#x3D;[f(x)e^{\varphi(x)}]’$</p>
+<p>对于上式，</p>
+<p>当$\varphi(x)&#x3D;x$时，$f(x)+f’(x)&#x3D;\frac{[f(x)e^x]’}{e^x}$</p>
+<p>当$\varphi(x)&#x3D;-x$时，$f(x)-f’(x)&#x3D;\frac{[f(x)e^{-x}]’}{e^{-x}}$</p>
+<p>当$\varphi(x)&#x3D;kx$时，$f(x)+kf’(x)&#x3D;\frac{[f(x)e^{kx}]’}{e^{kx}}$</p>
+<h3 id="六、积分学"><a href="#六、积分学" class="headerlink" title="六、积分学"></a>六、积分学</h3><h5 id="1-常用的积分公式"><a href="#1-常用的积分公式" class="headerlink" title="1.常用的积分公式"></a>1.常用的积分公式</h5><p>$\int x^kdx&#x3D;\frac{1}{k+1} x^{k+1}+C,k\ne -1$</p>
+<p>$\int \frac{1}{x} dx&#x3D;ln\mid x\mid +C$</p>
+<p>$\int e^x dx&#x3D;e^x +C$</p>
+<p>$\int a^x  dx&#x3D;\frac{a^x}{lna} +C,a&gt;0,a\ne 1$</p>
+<p>$\int sinx dx&#x3D;-cosx +C$</p>
+<p>$\int cosx dx&#x3D;sinx +C$</p>
+<p>$\int tanx dx&#x3D;-ln\mid cosx \mid +C$</p>
+<p>$\int cotx dx&#x3D;ln\mid sinx \mid +C$</p>
+<p>$\int secxdx&#x3D;\int \frac{dx}{cosx}&#x3D;ln\mid secx+tanx \mid  +C$</p>
+<p>$\int cscxdx&#x3D;\int \frac{dx}{sinx}&#x3D;ln\mid cscx-cotx \mid  +C$</p>
+<p>$\int sec^2xdx&#x3D;tanx  +C$</p>
+<p>$\int csc^2xdx&#x3D;-cotx  +C$</p>
+<p>$\int secx tanxdx&#x3D;secx  +C$</p>
+<p>$\int cscx cotxdx&#x3D;-cscx  +C$</p>
+<p>$\int cscx cotxdx&#x3D;-cscx  +C$</p>
+<p>$\int \frac{1}{1+x^2} dx&#x3D;arctanx  +C$</p>
+<p>$\int\frac{1}{a^2+x^2}dx&#x3D;\frac{1}{a} arctan\frac{x}{a}+C$</p>
+<p>$\int\frac{1}{\sqrt{1-x^2} }dx&#x3D;arcsinx+C$</p>
+<p>$\int\frac{1}{\sqrt{a^2-x^2} }dx&#x3D;arcsin\frac{x}{a} +C$</p>
+<p>$\int\frac{1}{\sqrt{x^2+a^2} }dx&#x3D;ln(x+\sqrt{x^2+a^2} ) +C$</p>
+<p>$\int\frac{1}{\sqrt{x^2-a^2} }dx&#x3D;ln\mid x+\sqrt{x^2-a^2}\mid  +C$</p>
+<p>$\int\frac{1}{x^2-a^2}dx&#x3D;\frac{1}{2a}ln\mid \frac{x-a}{x+a}\mid+C$</p>
+<p>$\int\frac{1}{(x+1)^2}dx&#x3D;\frac{x}{2(1+x^2)}-\frac{1}{2}arctanx+C$</p>
+<p>$\int\frac{1}{a^2-x^2}dx&#x3D;\frac{1}{2a}ln\mid \frac{x+a}{x-a}\mid+C$</p>
+<p>$\int \sqrt{a^2-x^2} dx&#x3D;\frac{a^2}{2}arcsin\frac{x}{a}+\frac{x}{2} \sqrt{a^2-x^2}  +C$</p>
+<p>$\int sin^2x dx&#x3D;\frac{x}{2}-\frac{sin2x}{4}+C$</p>
+<p>$\int cos^2x dx&#x3D;\frac{x}{2}+\frac{sin2x}{4}+C$</p>
+<p>$\int tan^2x dx&#x3D;tanx-x+C$</p>
+<p>$\int cot^2x dx&#x3D;-cotx-x+C$</p>
+<h5 id="2-积分学推广公式-结论"><a href="#2-积分学推广公式-结论" class="headerlink" title="2.积分学推广公式\结论"></a>2.积分学推广公式\结论</h5><h6 id="1-分步积分推广公式："><a href="#1-分步积分推广公式：" class="headerlink" title="(1)分步积分推广公式："></a>(1)分步积分推广公式：</h6><p>$\int uv^{(n+1)} dx&#x3D;uv^{(n)}-u’v^{(n-1)}+u’’v^{(n-2)}-\dots+(-1)^{n}u^nv+\int u^{(n+1)}vdx+C$</p>
+<h6 id="2-区间再现公式"><a href="#2-区间再现公式" class="headerlink" title="(2)区间再现公式"></a>(2)区间再现公式</h6><p>$\int_{a}^{b} f(x)dx&#x3D;\int_{a}^{b} f(a+b-x)dx$</p>
+<h6 id="3-点火公式"><a href="#3-点火公式" class="headerlink" title="(3)点火公式"></a>(3)点火公式</h6><p>$\int_{0}^{\frac{\pi}{2} }sin^nxdx&#x3D;\int_{0}^{\frac{\pi}{2} }cos^nxdx&#x3D;\frac{n-1}{n} \cdot \frac{n-3}{n-2} \cdot\dots \cdot\frac{2}{3}  \cdot1(n为大于1的奇数)$</p>
+<p>$\int_{0}^{\frac{\pi}{2} }sin^nxdx&#x3D;\int_{0}^{\frac{\pi}{2} }cos^nxdx&#x3D;\frac{n-1}{n} \cdot \frac{n-3}{n-2} \cdot\dots \cdot\frac{1}{2}  \cdot\frac{\pi }{2} (n为正偶数)$</p>
+<p>$\int_{0}^{\pi}sin^nxdx&#x3D;2\int_{0}^{\frac{\pi}{2} }sin^nxdx(n为正整数)$</p>
+<p>$\int_{0}^{\pi}cos^nxdx&#x3D;0(n为正奇数)$</p>
+<p>$\int_{0}^{\pi}cos^nxdx&#x3D;2\int_{0}^{\frac{\pi}{2} }cos^nxdx(n为正偶数)$</p>
+<p>$\int_{0}^{2\pi}sin^nxdx&#x3D;\int_{0}^{2\pi}cos^nxdx&#x3D;0(n为正奇数)$</p>
+<p>$\int_{0}^{2\pi}sin^nxdx&#x3D;\int_{0}^{2\pi}cos^nxdx&#x3D;4\int_{0}^{\pi}sin^nxdx(n为正偶数)$</p>
+<h6 id="4-积分与连续性"><a href="#4-积分与连续性" class="headerlink" title="(4)积分与连续性"></a>(4)积分与连续性</h6><p>变限积分存在就必定连续.</p>
+<h6 id="5-定积分定义式的推广"><a href="#5-定积分定义式的推广" class="headerlink" title="(5)定积分定义式的推广"></a>(5)定积分定义式的推广</h6><p>定义式：$\int_{a}^{b} f(x)dx&#x3D;\lim_{n \to \infty} \sum_{i&#x3D;1}^{\infty} f(a+\frac{b-a}{n}i)\frac{b-a}{n}$</p>
+<p>当a&#x3D;0，b&#x3D;1时：$\int_{0}^{1} f(x)dx&#x3D;\lim_{n \to \infty} \sum_{i&#x3D;1}^{\infty} f(\frac{i}{n})\frac{1}{n}$</p>
+<h5 id="2-常见的无法积分的不定积分"><a href="#2-常见的无法积分的不定积分" class="headerlink" title="2.常见的无法积分的不定积分"></a>2.常见的无法积分的不定积分</h5><p>以下积分的结果不能用初等函数表示.</p>
+<p>$\int sin\frac{1}{x} dx$ </p>
+<p>$\int cos\frac{1}{x} dx$</p>
+<p>$\int \frac{sinx}{x} dx$ </p>
+<p>$\int \frac{cosx}{x} dx$</p>
+<p>$\int \frac{tanx}{x} dx$</p>
+<p>$\int \frac{e^x}{x} dx$</p>
+<p>$\int sinx^2dx$</p>
+<p>$\int cosx^2dx$</p>
+<p>$\int tanx^2dx$</p>
+<p>$\int \frac{1}{lnx}dx$</p>
+<p>$\int e^{ax^2+bx+c}dx$</p>
+<h5 id="3-二重积分"><a href="#3-二重积分" class="headerlink" title="3.二重积分"></a>3.二重积分</h5><p>$$\iint\limits_{D}f(x,y)d\sigma &#x3D;\int_{a}^{b} dx\int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y)dy$$</p>
+<p>$$\iint\limits_{D}f(x,y)d\sigma &#x3D;\int_{c}^{d} dy\int_{\psi _1(y)}^{\psi _2(y)} f(x,y)dy$$</p>
+<p>$$ \iint\limits_{D}f(x,y)d\sigma &#x3D; \int_{\alpha }^{\beta } d\theta \int_{r_1(\theta )}^{r_1(\theta )} f(rcos\theta ,rsin\theta)\mathbf{r} dr $$</p>
+<h3 id="七、微分方程"><a href="#七、微分方程" class="headerlink" title="七、微分方程"></a>七、微分方程</h3><h5 id="1-变量可分离型"><a href="#1-变量可分离型" class="headerlink" title="1.变量可分离型"></a>1.变量可分离型</h5><p>$$\frac{dy}{dx} &#x3D;f(x)g(y)\Rightarrow \int \frac{dy}{g(y)} &#x3D;f(x)dx$$</p>
+<h5 id="2-可化为变量分离型"><a href="#2-可化为变量分离型" class="headerlink" title="2.可化为变量分离型"></a>2.可化为变量分离型</h5><p>$$\frac{dy}{dx} &#x3D;f(ax+by+c)\Rightarrow 令u&#x3D;ax+by+c, \frac{du}{dx}&#x3D;a+b\frac{dy}{dx},则\frac{du}{dx} &#x3D;a+bf(u)$$</p>
+<p>$$\frac{dy}{dx} &#x3D;\varphi(\frac{y}{x})\Rightarrow 令u&#x3D;\frac{y}{x}, \frac{dy}{dx} &#x3D;u+x\frac{du}{dx} ,则\frac{du}{\varphi (u)-u} &#x3D;\frac{dx}{x} $$</p>
+<h5 id="3-一阶线性微分方程"><a href="#3-一阶线性微分方程" class="headerlink" title="3.一阶线性微分方程"></a>3.一阶线性微分方程</h5><p>形如$y’+p(x)y&#x3D;q(x)$的方程，通解为：<br>$$y&#x3D;e^{-\int p(x)dx}[\int e^{\int p(x)dx}\cdot q(x)dx+C]$$</p>
+<h5 id="4-伯努利方程"><a href="#4-伯努利方程" class="headerlink" title="4.伯努利方程"></a>4.伯努利方程</h5><p>形如$y’+p(x)y&#x3D;q(x)y^n$的方程，令$z&#x3D;y^{1-n}$，$\frac{dz}{dx} &#x3D;(1-n)y^{-n}\frac{dy}{dx}$，原式化为：<br>$$\frac{1}{1-n} \cdot \frac{dz}{dx} +p(x)z&#x3D;q(x)$$</p>
+<h5 id="5-y’’-f-x-y’-（不显含y）型方程"><a href="#5-y’’-f-x-y’-（不显含y）型方程" class="headerlink" title="5.$y’’&#x3D;f(x,y’)$（不显含y）型方程"></a>5.$y’’&#x3D;f(x,y’)$（不显含y）型方程</h5><p>形如$y’’&#x3D;f(x,y’)$的方程，令$y’&#x3D;p(x)$，原式化为$\frac{dp}{dx}&#x3D;f(x,p)$，积分得$p&#x3D;\varphi (x,C_1)$，通解为：<br>$$y&#x3D;\int\varphi (x,C_1)dx+C_2$$</p>
+<h5 id="6-y’’-f-y-y’-（不显含x）型方程"><a href="#6-y’’-f-y-y’-（不显含x）型方程" class="headerlink" title="6.$y’’&#x3D;f(y,y’)$（不显含x）型方程"></a>6.$y’’&#x3D;f(y,y’)$（不显含x）型方程</h5><p>形如$y’’&#x3D;f(y,y’)$的方程，令$y’&#x3D;p(x)$，则$y’’&#x3D;\frac{dp}{dx}&#x3D;\frac{dp}{dy}\cdot p$，原式化为$p\frac{dp}{dy}&#x3D;f(y,p)$；解得$p&#x3D;\varphi (y,C_1)$，即$\frac{dy}{dx}&#x3D;\varphi (y,C_1)$，化简积分得：<br>$$\int\frac{dy}{\varphi (y,C_1)}&#x3D;x+C_2$$</p>
+<h5 id="7-二阶常系数齐次线性微分方程"><a href="#7-二阶常系数齐次线性微分方程" class="headerlink" title="7.二阶常系数齐次线性微分方程"></a>7.二阶常系数齐次线性微分方程</h5><p>形如$y’’+py’+qy&#x3D;0$的方程，特征方程为$r^2+pr+q&#x3D;0$，则</p>
+<table>
+<thead>
+<tr>
+<th>特征根</th>
+<th>通解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$p^2-4q&gt;0$，两个不等实根</td>
+<td>$y&#x3D;C_1e^{r_1x}+C_2e^{r_2x}$</td>
+</tr>
+<tr>
+<td>$p^2-4q&#x3D;0$，两个相等实根</td>
+<td>$y&#x3D;(C_1+C_2x)e^{rx}$</td>
+</tr>
+<tr>
+<td>$p^2-4q&lt;0$，一对共轭复根</td>
+<td>$y&#x3D;e^{\alpha x}(C_1cos\beta x+C_2sin\beta x)$</td>
+</tr>
+</tbody></table>
+<h5 id="8-二阶常系数非齐次线性微分方程"><a href="#8-二阶常系数非齐次线性微分方程" class="headerlink" title="8.二阶常系数非齐次线性微分方程"></a>8.二阶常系数非齐次线性微分方程</h5><p>形如$y’’+py’+qy&#x3D;f(x)$的方程，通解&#x3D;齐次微分方程通解+非齐次微分方程的一个特解。其中特解形式为：</p>
+<h6 id="1-当自由项-f-x-P-n-x-e-alpha-x-的形式时，特解设为：-y-e-alpha-x-Q-n-x-x-k"><a href="#1-当自由项-f-x-P-n-x-e-alpha-x-的形式时，特解设为：-y-e-alpha-x-Q-n-x-x-k" class="headerlink" title="(1)当自由项$f(x)&#x3D;P_n(x)e^{\alpha x}$的形式时，特解设为：$y^*&#x3D;e^{\alpha x}Q_n(x)x^k$."></a>(1)当自由项$f(x)&#x3D;P_n(x)e^{\alpha x}$的形式时，特解设为：$y^*&#x3D;e^{\alpha x}Q_n(x)x^k$.</h6><p>其中：</p>
+<ul>
+<li>$\alpha$与自由项的$\alpha$相同；</li>
+<li>$Q_n(x)$是与$P_n(x)$同阶的一般n次多项式，例如$P_n(x)&#x3D;x^2+x$应设$Q_n(x)&#x3D;ax^2+bx+c$；</li>
+<li>$k$根据特征根与$\alpha$的关系而定，若$\alpha$不是特征根，k&#x3D;0；若$\alpha$是单特征根，k&#x3D;1；若$\alpha$是二重特征根，k&#x3D;2；</li>
+</ul>
+<h6 id="2-当自由项-f-x-e-alpha-x-P-m-x-cos-beta-x-P-n-x-sin-beta-x-时，特解设为："><a href="#2-当自由项-f-x-e-alpha-x-P-m-x-cos-beta-x-P-n-x-sin-beta-x-时，特解设为：" class="headerlink" title="(2)当自由项$f(x)&#x3D;e^{\alpha x}[P_m(x)cos\beta x+P_n(x)sin\beta x]$时，特解设为："></a>(2)当自由项$f(x)&#x3D;e^{\alpha x}[P_m(x)cos\beta x+P_n(x)sin\beta x]$时，特解设为：</h6><p>$$y^*&#x3D;e^{\alpha x}[Q^{(1)}_l(x)cos\beta x+Q^{(2)}_l(x)sin\beta x]x^k$$<br>其中：</p>
+<ul>
+<li>$\alpha,\beta$与自由项的$\alpha,\beta$相同；</li>
+<li>$Q_l(x)$是$(l\in max[m,n])$的$l$阶一般多项式，$l$就是取$P(x)$和$Q(x)$的最高阶。</li>
+<li>$k$根据特征根与$\alpha$的关系而定，若$\alpha\pm \beta i$不是特征根，k&#x3D;0；若$\alpha\pm \beta i$是特征根，k&#x3D;1；</li>
+</ul>
+<h5 id="9-欧拉方程"><a href="#9-欧拉方程" class="headerlink" title="9.欧拉方程"></a>9.欧拉方程</h5><p>形如$x^{2} \frac{d^2y}{dx^2}+px\frac{dy}{dx}  +qy&#x3D;f(x)$的方程，</p>
+<h6 id="1-当-x-0-时，令-x-e-t-，则-t-lnx-frac-dt-dx-frac-1-x"><a href="#1-当-x-0-时，令-x-e-t-，则-t-lnx-frac-dt-dx-frac-1-x" class="headerlink" title="(1)当$x&gt;0$时，令$x&#x3D;e^t$，则$t&#x3D;lnx$,$\frac{dt}{dx} &#x3D;\frac{1}{x}$"></a>(1)当$x&gt;0$时，令$x&#x3D;e^t$，则$t&#x3D;lnx$,$\frac{dt}{dx} &#x3D;\frac{1}{x}$</h6><p>则$$\frac{dy}{dx} &#x3D;\frac{dy}{dt}  \cdot \frac{dt}{dx} &#x3D;\frac{1}{x} \cdot \frac{dy}{dt}$$<br>$$\frac{d^2y}{dx^2} &#x3D;-\frac{1}{x^2}  \cdot \frac{dy}{dt}+\frac{1}{x^2}  \cdot \frac{d^2y}{dt^2}$$<br>原式化为：<br>$$\frac{d^2y}{dx^2} +(p-1)\frac{dy}{dt}+qy&#x3D;f(e^t)$$</p>
+<h3 id="八、微积分的应用"><a href="#八、微积分的应用" class="headerlink" title="八、微积分的应用"></a>八、微积分的应用</h3><h5 id="1-定积分计算平面图形面积"><a href="#1-定积分计算平面图形面积" class="headerlink" title="1.定积分计算平面图形面积"></a>1.定积分计算平面图形面积</h5><p>直角坐标系下：$S&#x3D;\int_{a}^{b} \mid y_1(x)-y_2(x)\mid dx$</p>
+<p>极坐标系下：$S&#x3D;\frac{1}{2} \int_{\alpha }^{\beta } \mid r_1^2(\theta )-r_2^2(\theta)\mid d\theta$</p>
+<p>参数方程换元：$S&#x3D;\int_{a}^{b}y(x) dx&#x3D; \int_{\alpha }^{\beta }y(t)x’(t)dt$</p>
+<h5 id="2-定积分计算旋转体体积"><a href="#2-定积分计算旋转体体积" class="headerlink" title="2.定积分计算旋转体体积"></a>2.定积分计算旋转体体积</h5><h6 id="1-绕x轴旋转"><a href="#1-绕x轴旋转" class="headerlink" title="(1)绕x轴旋转"></a>(1)绕x轴旋转</h6><p>$V&#x3D; \pi \int_{a }^{b } y^2(x)dx$</p>
+<p>$V&#x3D;\pi \int_{a}^{b} \mid y_1^2(x)-y_2^2(x)\mid dx$</p>
+<h6 id="2-绕y轴旋转"><a href="#2-绕y轴旋转" class="headerlink" title="(2)绕y轴旋转"></a>(2)绕y轴旋转</h6><p>$V_y&#x3D;2\pi \int_{a}^{b} x\mid y(x)\mid dx$</p>
+<p>$V_y&#x3D;2\pi \int_{a}^{b} x\mid y_1(x)-y_2(x)\mid dx$</p>
+<h5 id="3-相关变化率"><a href="#3-相关变化率" class="headerlink" title="3.相关变化率"></a>3.相关变化率</h5><p>若$y&#x3D;f(x),x&#x3D;x(t),y&#x3D;y(t)$均可导，则$\frac{dy}{dx}&#x3D;\frac{dy}{dx} \cdot \frac{dx}{dt} &#x3D;f’(x)\frac{dx}{dt}$</p>
+<h5 id="4-曲率"><a href="#4-曲率" class="headerlink" title="4.曲率"></a>4.曲率</h5><p>曲率公式：<br>$$k&#x3D;\frac{\mid y’’\mid }{[1+(y’)^2]^{\frac{3}{2} } }$$<br>曲率半径：<br>$$R&#x3D;\frac{1}{k} &#x3D;\frac{[1+(y’)^2]^{\frac{3}{2} }}{\mid y’’\mid  }$$<br>参数方程$x&#x3D;\varphi (t),y&#x3D;\psi (t)$曲率公式：<br>$$k&#x3D;\frac{\mid \varphi ‘(t)\psi ‘’(t)-\varphi ‘’(t)\psi’ (t)\mid }{[\varphi ‘^2(t)+\psi’^2 (t)]^{\frac{3}{2} } }$$</p>
+<h5 id="5-积分求功"><a href="#5-积分求功" class="headerlink" title="5.积分求功"></a>5.积分求功</h5><h6 id="1-变力沿直线做功"><a href="#1-变力沿直线做功" class="headerlink" title="(1)变力沿直线做功"></a>(1)变力沿直线做功</h6><p>$$W&#x3D;\int_{a}^{b} F(x)dx$$</p>
+<h6 id="2-抽水做功"><a href="#2-抽水做功" class="headerlink" title="(2)抽水做功"></a>(2)抽水做功</h6><p>$$W&#x3D;\rho g\int_{a}^{b} xA(x)dx$$</p>
+<h5 id="6-形心"><a href="#6-形心" class="headerlink" title="6.形心"></a>6.形心</h5><p>$$\bar{x} &#x3D;\frac{\iint\limits_{D}xd\sigma  }{\iint\limits_{D}d\sigma}&#x3D;\frac{\int_{a}^{b}xf(x)dx }{\int_{a}^{b}f(x)dx} $$</p>
+<p>$$\bar{y} &#x3D;\frac{\iint\limits_{D}yd\sigma  }{\iint\limits_{D}d\sigma}&#x3D;\frac{\frac{1}{2} \int_{a}^{b}f^2(x)dx }{\int_{a}^{b}f(x)dx} $$</p>
+<h5 id="7-弧长"><a href="#7-弧长" class="headerlink" title="7.弧长"></a>7.弧长</h5><p>$$ds&#x3D;\sqrt{(dx)^2+(dy)^2} $$</p>
+<p>$$s&#x3D;\int_{a}^{b} \sqrt{1+[y’(x)]^2} dx$$</p>
+<p>$$s&#x3D;\int_{a}^{b} \sqrt{1+[y’(x)]^2} dx$$</p>
+<p>$$s&#x3D;\int_{\alpha }^{\beta } \sqrt{[x’(t)]^2+[y’(t)]^2} dt$$</p>
+<p>$$s&#x3D;\int_{\alpha }^{\beta } \sqrt{[r’(\theta )]^2+[r’(\theta )]^2} d\theta $$</p>
+<h5 id="8-旋转体表面积"><a href="#8-旋转体表面积" class="headerlink" title="8.旋转体表面积"></a>8.旋转体表面积</h5><p>$$s&#x3D;2\pi \int_{a}^{b} \mid y(x) \mid \sqrt{1+[y’(x)]^2} dx$$</p>
+<p>$$s&#x3D;2\pi \int_{\alpha }^{\beta } \mid y(t) \mid \sqrt{[x’(t)]^2+[y’(t)]^2} dt$$</p>
+<h5 id="9-傅里叶级数"><a href="#9-傅里叶级数" class="headerlink" title="9.傅里叶级数"></a>9.傅里叶级数</h5><h6 id="1-定义"><a href="#1-定义" class="headerlink" title="(1)定义"></a>(1)定义</h6><p>以$2l$为周期的函数$f(x)$，满足一定条件，其傅里叶级数处处收敛，其和函数为$S(x)$，有：<br>$$S(x)&#x3D;\frac{a_0}{2} +\sum_{n&#x3D;1}^{\infty } (a_ncos\frac{n\pi }{l}x+b_nsin\frac{n\pi}{l}x)$$</p>
+<p>$$a_n&#x3D;\frac{1}{l} \int_{l}^{-l} f(x)cos\frac{n\pi }{l} xdx,(n&#x3D;0,1,2\cdots)$$</p>
+<p>$$b_n&#x3D;\frac{1}{l} \int_{l}^{-l} f(x)sin\frac{n\pi }{l} xdx,(n&#x3D;1,2\cdots)$$</p>
+<table>
+<thead>
+<tr>
+<th>$S(x)&#x3D;$</th>
+<th>-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$f(x)$</td>
+<td>x为连续点</td>
+</tr>
+<tr>
+<td>$\frac{f(x-0)+f(x+0)}{2}$</td>
+<td>x为间断点</td>
+</tr>
+<tr>
+<td>$\frac{f(-l+0)+f(l-0)}{2}$</td>
+<td>$x&#x3D;\pm l$</td>
+</tr>
+</tbody></table>
+<h6 id="2-奇偶性"><a href="#2-奇偶性" class="headerlink" title="(2)奇偶性"></a>(2)奇偶性</h6><p>当f(x)在$[-l,l]$上是奇函数时，$a_n&#x3D;0$，展开式只含正弦函数，称之为正弦级数.<br>当f(x)在$[-l,l]$上是偶函数时，$b_n&#x3D;0$，展开式只含余弦函数，称之为余弦级数.</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" class="category-chain-item">工具配置</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>考研高数常用公式汇总</div>
+      <div>http://blog.mingxuan.xin/2022/03/21/20220321/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/15/20230315/" title="计算机网络英文简称汇总">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">计算机网络英文简称汇总</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/04/20220304/" title="大唐杯学习笔记(3)—— 5G系统的规划、勘察、开通、调测">
+                        <span class="hidden-mobile">大唐杯学习笔记(3)—— 5G系统的规划、勘察、开通、调测</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

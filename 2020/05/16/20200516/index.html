@@ -1,0 +1,946 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、通信传输方式并行通信与串行通信通信传输方式可分成串行通信和并行通信：  并行通常将数据字节的各位用多条数据线传送。并行通信控制简单，传输速度快；但对传输线路要求高，成本较高，且接收方同时接收存在困难，抗干扰能力差。适合近距离、大量、快速的信息交换。 串行通信将数据字节分成一位一位的形式在一条传输线上逐个传送。传输线少，长距离成本低，可利用电话网等现成设备，但数据的传送控制比并行通信复杂，且传送">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机学习笔记——串口通信">
+<meta property="og:url" content="http://blog.mingxuan.xin/2020/05/16/20200516/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
+<meta property="og:description" content="一、通信传输方式并行通信与串行通信通信传输方式可分成串行通信和并行通信：  并行通常将数据字节的各位用多条数据线传送。并行通信控制简单，传输速度快；但对传输线路要求高，成本较高，且接收方同时接收存在困难，抗干扰能力差。适合近距离、大量、快速的信息交换。 串行通信将数据字节分成一位一位的形式在一条传输线上逐个传送。传输线少，长距离成本低，可利用电话网等现成设备，但数据的传送控制比并行通信复杂，且传送">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7f50d7a08c2e0aedda8bc446900e52e7.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/dea9d9d96b0b7ffc4f97e58c49f89c5c.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0ae57988daed627882be5747a3342ac4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/90477a98ca821c306295dd62c04cbc7e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8ea3ada2fb582b0e7f13379331ea39e2.png">
+<meta property="article:published_time" content="2020-05-16T12:16:16.000Z">
+<meta property="article:modified_time" content="2026-03-02T13:24:54.706Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="单片机">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/7f50d7a08c2e0aedda8bc446900e52e7.png">
+  
+  
+  
+  <title>51单片机学习笔记——串口通信 - Obscure的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="51单片机学习笔记——串口通信"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-05-16 12:16" pubdate>
+          2020年5月16日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">51单片机学习笔记——串口通信</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、通信传输方式"><a href="#一、通信传输方式" class="headerlink" title="一、通信传输方式"></a>一、通信传输方式</h2><h3 id="并行通信与串行通信"><a href="#并行通信与串行通信" class="headerlink" title="并行通信与串行通信"></a>并行通信与串行通信</h3><p>通信传输方式可分成串行通信和并行通信：</p>
+<ul>
+<li>并行通常将数据字节的各位用多条数据线传送。并行通信控制简单，传输速度快；但对传输线路要求高，成本较高，且接收方同时接收存在困难，抗干扰能力差。适合近距离、大量、快速的信息交换。</li>
+<li>串行通信将数据字节分成一位一位的形式在一条传输线上逐个传送。传输线少，长距离成本低，可利用电话网等现成设备，但数据的传送控制比并行通信复杂，且传送效率低。适合长距离，低速率的通信。</li>
+</ul>
+<h3 id="同步通信与异步通信"><a href="#同步通信与异步通信" class="headerlink" title="同步通信与异步通信"></a>同步通信与异步通信</h3><p>串行通信可以分为同步通信与异步通信：</p>
+<ul>
+<li>异步通信是以字符（构成的帧）为单位进行传输，字符与字符之间的间隔是任意的，但是字符之间的位间隔必须固定时间传送。异步通信不要求收发双方时钟严格一致，实现容易，设备开销较小，但每个字符要附加2-3位起止位，各帧之间有间隔，传输效率不高。</li>
+<li>同步通信在通信时要建立发送方时钟对接收方时钟的直接控制，使得双方达到完全同步。此时传输数据的位之间的距离均为位间隔的整数倍，分为外同步和自同步。可以实现点对多点通信，传送效率很高，但实现的软硬件成本较高。</li>
+</ul>
+<h3 id="串行通信传输方向"><a href="#串行通信传输方向" class="headerlink" title="串行通信传输方向"></a>串行通信传输方向</h3><ul>
+<li>单工数据传输仅能沿一个方向，不能实现反向传输。如：电视，广播</li>
+<li>半双工是指数据传输可以沿两个方向，但要分时进行。如：对讲机</li>
+<li>全双工是指数据可以同时进行双向传输。如：电话</li>
+</ul>
+<h3 id="串行通信的校验"><a href="#串行通信的校验" class="headerlink" title="串行通信的校验"></a>串行通信的校验</h3><ul>
+<li>奇偶校验<br>数据尾随的一位为奇偶校验位，被传输数据中1的个数是奇数或偶数进行校验，采用奇数为奇校验，反之为偶校验。若1的个数不一致，则数据传输过程中出现了差错。</li>
+<li>代码和校验<br> 发送方把所发数据块求和（或各字节异或），产生一个字节校验字符，附加到数据块末尾，由接收方校验。</li>
+<li>循环冗余校验<br> 通过某种数学运算实现有效信息与校验位之间的循环校验，广泛用于同步通信中。哈希函数的一种。</li>
+</ul>
+<h2 id="二、电平转换与波特率"><a href="#二、电平转换与波特率" class="headerlink" title="二、电平转换与波特率"></a>二、电平转换与波特率</h2><ul>
+<li><p>电平标准<br>TTL电平：+5V等价于逻辑“1”，0V等价于逻辑“0”。但电平是个电压范围，因此规定标准的TTL输出高电平&gt;2.4V,输出低电平&lt;0.4V；输入高电平&gt;&#x3D;2.0V，输入低电平&lt;&#x3D;0.8V。<br>CMOS电平：同样采用+5V等价于逻辑“1”，0V等价于逻辑“0”。输出高电平&gt;&#x3D;4.45V，输出低电平&lt;&#x3D;0.5V；输入高电平&gt;&#x3D;3.5V，输入低电平&lt;&#x3D;1.5V。<br>同时还有3.3V等低压的LVTTL，LVCMOS电平。<br>RS-232C电平：-15V ~ -3V等价于逻辑“1”，+3V ~ +15V等价于逻辑“0”。</p>
+</li>
+<li><p>电平转换<br>由于单片机串口采用TTL电平标准，计算机USB接口或RS-232C接口采用RS-232C电平标准，二者在通信时需要进行电平转换。有MAX232，CH340等转接芯片。</p>
+</li>
+<li><p>波特率<br> 比特率为每秒中传输二进制代码的位，单位：位&#x2F;秒(bps)。严格上讲波特率与比特率不是一种物理量，不过在串口通信中，二者恰好相等且都可以表示数据的传输速率。波特率与传送距离成反比。在串口通信中，发送方和接收方的必须波特率相同才能正确的传输数据。<br> 如果想深究波特率和比特率，可以看看<a target="_blank" rel="noopener" href="https://blog.csdn.net/ymdq1113/article/details/69677116">这篇博客</a>，解释的很清晰。</p>
+</li>
+</ul>
+<h2 id="三、51单片机的串口通信"><a href="#三、51单片机的串口通信" class="headerlink" title="三、51单片机的串口通信"></a>三、51单片机的串口通信</h2><h3 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h3><p>51单片机的串行口是全双工类型的，一般RXD引脚为P3.0，TXD引脚为P3.1。RXD为Receive Data,TXD为Transmit Data。</p>
+<h3 id="1、寄存器"><a href="#1、寄存器" class="headerlink" title="1、寄存器"></a>1、寄存器</h3><h5 id="控制寄存器SCON"><a href="#控制寄存器SCON" class="headerlink" title="控制寄存器SCON"></a>控制寄存器SCON</h5><ul>
+<li>SCON寄存器各位定义如下：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>位序号</th>
+<th>D7</th>
+<th>D6</th>
+<th>D5</th>
+<th>D4</th>
+<th>D3</th>
+<th>D2</th>
+<th>D1</th>
+<th>D0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>位符号</td>
+<td>SM0</td>
+<td>SM1</td>
+<td>SM2</td>
+<td>REN</td>
+<td>TB8</td>
+<td>RB8</td>
+<td>TI</td>
+<td>RI</td>
+</tr>
+</tbody></table>
+<ul>
+<li>其中，SM0,SM1控制串行口的工作方式：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>SM0</th>
+<th>SM1</th>
+<th>方式</th>
+<th>功能</th>
+<th>波特率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>同步移位寄存器方式（通常用于扩展I&#x2F;O口）</td>
+<td>f<del>osc</del>&#x2F;12</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>10位异步收发（8位数据），波特率可变</td>
+<td>2^SMOD^&#x2F;32×T1溢出率</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>11位异步收发（9位数据），波特率固定</td>
+<td>2^SMOD^&#x2F;64×f<del>osc</del></td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>11位异步收发（9位数据），波特率可变</td>
+<td>2^SMOD^&#x2F;32×T1溢出率</td>
+</tr>
+<tr>
+<td>上表中，f<del>osc</del>为系统晶振频率，SMOD为电源管理寄存器PCON中的一位，用于控制串口通信方式1，2，3的波特率。SMOD&#x3D;0时，波特率正常，SMOD&#x3D;1时，波特率加倍。PCON寄存器中仅有SMOD与串口通信有关。T1溢出率为定时器T1溢出的频率，定时器T1溢出一次的时间T的倒数1&#x2F;T即溢出率。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>位符号</th>
+<th>解释</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SM2</td>
+<td>多机通信控制位</td>
+<td>主要应用与方式2和3.SM2&#x3D;1，检测RB8的值决定是否接受数据，SM2&#x3D;0，无论是什么数据都接收</td>
+</tr>
+<tr>
+<td>REN</td>
+<td>允许串行接收位</td>
+<td>REN&#x3D;1,允许串行口接收数据；REN&#x3D;0,禁止串行口接收数据</td>
+</tr>
+<tr>
+<td>TB8</td>
+<td>方式2,3中的发送数据的第9位</td>
+<td>方式2,3中可用作校验位，多机通信时可作为地址帧&#x2F;数据帧的标志位</td>
+</tr>
+<tr>
+<td>RB8</td>
+<td>方式2,3中的接收数据的第9位</td>
+<td>可作为校验位或地址帧&#x2F;数据帧标志位，在方式1时，若SM2&#x3D;0，则RB8接收到的是停止位</td>
+</tr>
+<tr>
+<td>TI</td>
+<td>发送中断标志位</td>
+<td>在方式0中，当串行发送第8位结束时，或其他方式串行发送停止位开始时，硬件使TI置1，向CPU发出中断申请</td>
+</tr>
+<tr>
+<td>RI</td>
+<td>接收中断标志位</td>
+<td>在方式0中，当串行发送第8位结束时，或其他方式串行接收停止位中间时，硬件使TI置1，向CPU发出中断申请</td>
+</tr>
+</tbody></table>
+<h5 id="数据缓冲寄存器SBUF"><a href="#数据缓冲寄存器SBUF" class="headerlink" title="数据缓冲寄存器SBUF"></a>数据缓冲寄存器SBUF</h5><p>SBUF是串行口中的两个缓冲寄存器，一个是发送寄存器，一个是接收寄存器，在物理结构上是完全独立的，但地址是重叠的。它们都是字节寻址的寄存器，字节地址均为99H。</p>
+<h3 id="2、方式1时序图"><a href="#2、方式1时序图" class="headerlink" title="2、方式1时序图"></a>2、方式1时序图</h3><p>方式1是最常用的串口通信方式。</p>
+<ul>
+<li>输入时序图</li>
+</ul>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/7f50d7a08c2e0aedda8bc446900e52e7.png" srcset="/img/loading.gif" lazyload alt="输入时序图"></p>
+<ul>
+<li>输出时序图<br><img src="https://i-blog.csdnimg.cn/blog_migrate/dea9d9d96b0b7ffc4f97e58c49f89c5c.png" srcset="/img/loading.gif" lazyload alt="输出时序图"></li>
+<li>方式1的串口通信初始化步骤</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>确定定时器T1的工作方式（编程TMOD寄存器）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>计算定时器T1的初值，装载TH1,TL1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>启动定时器T1（编程TCON中的TR1位）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>确定串口的工作方式（编程SCON寄存器）</td>
+</tr>
+<tr>
+<td>5</td>
+<td>在进入串口中断后，要进行中断设置（编程IE,IP寄存器）</td>
+</tr>
+<tr>
+<td>注：TMOD寄存器，IE寄存器，IP寄存器的具体操作在之前<a target="_blank" rel="noopener" href="https://blog.csdn.net/Obs_cure/article/details/106060655">中断的笔记</a>中有记录。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="3、例程：计算机与单片机的串口通信"><a href="#3、例程：计算机与单片机的串口通信" class="headerlink" title="3、例程：计算机与单片机的串口通信"></a>3、例程：计算机与单片机的串口通信</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;reg52.h&quot;</span>	</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> u16;	  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> u8;<br><br><span class="hljs-comment">/*串口初始化函数*/</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">UsartInit</span><span class="hljs-params">()</span><br>&#123;<br>	TMOD=<span class="hljs-number">0X20</span>;			<span class="hljs-comment">//设置定时器工作方式2</span><br>	TH1=<span class="hljs-number">0XF4</span>;			<span class="hljs-comment">//定时器初始值设置</span><br>	TL1=<span class="hljs-number">0XF4</span>;			<span class="hljs-comment">//晶振11.0592，波特率初值设置为2400</span><br>	PCON=<span class="hljs-number">0X80</span>;			<span class="hljs-comment">//直接操作PCON寄存器，使得SMOD=1,波特率加倍.为4800</span><br>	TR1=<span class="hljs-number">1</span>;				<span class="hljs-comment">//打开计数器</span><br>	SCON=<span class="hljs-number">0X50</span>;			<span class="hljs-comment">//设置为工作方式1</span><br>	ES=<span class="hljs-number">1</span>;				<span class="hljs-comment">//打开接收中断</span><br>	EA=<span class="hljs-number">1</span>;				<span class="hljs-comment">//打开总中断</span><br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;	<br>	UsartInit();  		<span class="hljs-comment">//串口初始化</span><br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>);		<br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">Usart</span><span class="hljs-params">()</span> interrupt 4<br>&#123;<br>	u8 receiveData;		<br>	receiveData=SBUF;	<span class="hljs-comment">//储存接收到的数据</span><br>	RI = <span class="hljs-number">0</span>;				<span class="hljs-comment">//清除接收中断标志位</span><br>	SBUF=receiveData;	<span class="hljs-comment">//将接收到的数据放入到发送寄存器</span><br>	<span class="hljs-keyword">while</span>(!TI);			<span class="hljs-comment">//等待发送数据完成</span><br>	TI=<span class="hljs-number">0</span>;				<span class="hljs-comment">//清除发送完成标志位</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="4、例程：printf实现串口输出"><a href="#4、例程：printf实现串口输出" class="headerlink" title="4、例程：printf实现串口输出"></a>4、例程：printf实现串口输出</h3><p>先看一下stdio.h中putchar的部分源码，putchar函数的功能是将参数写入输出流，51单片机的输出流为寄存器SBUF。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> <span class="hljs-title function_">putchar</span> <span class="hljs-params">(<span class="hljs-type">char</span> c)</span>&#123;<br>	<span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;\n&#x27;</span>)<br>	&#123;			<br>		<span class="hljs-keyword">if</span> (RI)<br>		&#123;<br>			<span class="hljs-keyword">if</span> (SBUF == XOFF)<br>			&#123;<br>				<span class="hljs-keyword">do</span><br>				&#123;<br>					RI = <span class="hljs-number">0</span>;<br>					<span class="hljs-keyword">while</span> (!RI);<br>				&#125;<br>				<span class="hljs-keyword">while</span> (SBUF != XON);<br>				RI = <span class="hljs-number">0</span>; <br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">while</span> (!TI);			<span class="hljs-comment">//必须先将TI置1，否则会在这里死循环</span><br>		TI = <span class="hljs-number">0</span>;<br>		SBUF = <span class="hljs-number">0x0d</span>;           <span class="hljs-comment">//打印回车</span><br>	&#125;<br>	<span class="hljs-keyword">if</span> (RI)<br>	&#123;<br>		<span class="hljs-keyword">if</span> (SBUF == XOFF)<br>		&#123;<br>			<span class="hljs-keyword">do</span><br>			&#123;<br>				RI = <span class="hljs-number">0</span>;<br>				<span class="hljs-keyword">while</span> (!RI);<br>			&#125;<br>			<span class="hljs-keyword">while</span> (SBUF != XON);<br>			RI = <span class="hljs-number">0</span>; <br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">while</span> (!TI);			<span class="hljs-comment">//必须先将TI置1，否则会在这里死循环</span><br>	TI = <span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">return</span> (SBUF = c);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以看到，在putchar函数中，通过while(!TI)来检测中断标志，所以在使用putchar函数之前，要将TI置1。而printf(),puts()等函数都是调用putchar实现的，所以调用之前也要使TI&#x3D;1。而在写入SBUF后，TI会硬件置1，因此不必再反复操作TI。<br>下面是使用printf输出Hello world!的例程：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;reg52.h&quot;</span>	</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> u16;	  <br><span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> u8;<br><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">UsartInit</span><span class="hljs-params">()</span>		<span class="hljs-comment">//串口初始化函数 </span><br>&#123;<br>	TMOD=<span class="hljs-number">0X20</span>;			<span class="hljs-comment">//设置定时器工作方式2</span><br>	TH1=<span class="hljs-number">0XF4</span>;			<span class="hljs-comment">//定时器初始值设置</span><br>	TL1=<span class="hljs-number">0XF4</span>;			<span class="hljs-comment">//晶振11.0592，波特率初值设置为2400</span><br>	PCON=<span class="hljs-number">0X80</span>;			<span class="hljs-comment">//直接操作PCON寄存器，使得SMOD=1,波特率加倍.为4800</span><br>	TR1=<span class="hljs-number">1</span>;				<span class="hljs-comment">//打开计数器</span><br>	SCON=<span class="hljs-number">0X50</span>;			<span class="hljs-comment">//设置为工作方式1</span><br>	ES=<span class="hljs-number">1</span>;				<span class="hljs-comment">//打开接收中断</span><br>	TI=<span class="hljs-number">1</span>;				<span class="hljs-comment">//必须设置中断标记位</span><br>	EA=<span class="hljs-number">1</span>;				<span class="hljs-comment">//打开总中断</span><br>&#125;<br><br><span class="hljs-type">void</span> <span class="hljs-title function_">delay</span><span class="hljs-params">(u16 ms)</span>		<span class="hljs-comment">//延时函数</span><br>&#123;<br>	u16 i,j;<br>	<span class="hljs-keyword">for</span>(i=ms;i&gt;<span class="hljs-number">0</span>;i--)<br>		<span class="hljs-keyword">for</span>(j=<span class="hljs-number">110</span>;j&gt;<span class="hljs-number">0</span>;j--);<br>&#125;<br><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;	<br>	UsartInit();  	<span class="hljs-comment">//串口初始化</span><br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;<br>		delay(<span class="hljs-number">500</span>);<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello world!\n&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="四、串行通信接口标准"><a href="#四、串行通信接口标准" class="headerlink" title="四、串行通信接口标准"></a>四、串行通信接口标准</h2><p>单片机与单片机之间也可以通过串行通信进行数据传输。<br>前面的电平转换部分简要介绍了集中串口通信标准中的电平标准，但实际上还规定了引脚信号等其他内容。</p>
+<ul>
+<li>TTL通信<br> 采用TTL电平通信，只需将单片机A的TXD端与单片机B的RXD端相连；单片机A的RXD端与单片机B的TXD端相连即可。</li>
+<li>RS-232通信<br> RS-232通信标准是美国工业电子协会制定的通信标准。曾经采用25针接口（左）通信，后简化为9针的接口（右）。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/0ae57988daed627882be5747a3342ac4.png" srcset="/img/loading.gif" lazyload alt="9针与25针串口标准接口"><br>是不是感觉和显卡的VGA接口有点像？但VGA接口有15针。二者并不是一个东西。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/90477a98ca821c306295dd62c04cbc7e.png" srcset="/img/loading.gif" lazyload alt="RS-232C与VGA接口"><br>上图中左为RS-232C（母），右为VGA（母）。<br>采用RS-232C标准传输，传输距离远，但传输速率低，有电平偏移，抗干扰能力差。</li>
+<li>RS-422通信<br> 与RS-232不同的是，采用了差分传输方式，有较高的抗干扰性能,而且提高了通信速率和传输距离。与RS-232采用了相同的9针接口，但引脚意义不同。</li>
+<li>RS-485通信<br>RS-485同样采用差分传输方式，与RS-422不同的是，能支持多个分节点进行信息传输。可以实现多机通信。</li>
+</ul>
+<h2 id="五、单片机多机通信"><a href="#五、单片机多机通信" class="headerlink" title="五、单片机多机通信"></a>五、单片机多机通信</h2><ul>
+<li>主从式结构</li>
+</ul>
+<p>单片机构成的多机通信系统中常采用总线型主从式结构。所谓主从式，就是在多个单片机组成的系统中，只能有一个主机，其他的都是从机，从机要服从主机的控制，这就是总线型主从式结构。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/8ea3ada2fb582b0e7f13379331ea39e2.png" srcset="/img/loading.gif" lazyload alt="多机通信连接图"></p>
+<ul>
+<li>从机状态字</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>位序号</th>
+<th>D7</th>
+<th>D6</th>
+<th>D5</th>
+<th>D4</th>
+<th>D3</th>
+<th>D2</th>
+<th>D1</th>
+<th>D0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>位符号</td>
+<td>ERR</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>TRDY</td>
+<td>RRDY</td>
+</tr>
+<tr>
+<td>主机与其他从机通信时，在总线上发送数据和地址联络信号，从机确定地址后才能接收数据。确认地址后通过更改从机状态字来控制从机的数据传输。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>若ERR&#x3D;1，从机接收到非法命令。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>若TRDY&#x3D;1，从机发送准备就绪。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>若RRDY&#x3D;1，从机接收准备就绪。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>在51单片机中，多机串口通信采用方式2或方式3。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" class="print-no-link">#单片机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>51单片机学习笔记——串口通信</div>
+      <div>http://blog.mingxuan.xin/2020/05/16/20200516/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年5月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/19/20200519/" title="51单片机学习笔记——LCD1602">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">51单片机学习笔记——LCD1602</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/13/20200514/" title="51单片机学习笔记——DA转换">
+                        <span class="hidden-mobile">51单片机学习笔记——DA转换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

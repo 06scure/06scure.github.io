@@ -1,0 +1,998 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Obscure">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、成果展示功能：1.贪吃蛇的基本游戏规则2.有开始和结束界面3.实现计分功能4.游戏有无墙和有墙两种模式5.游戏有简单和困难两种难度6.在开始和结束时有声音提示   源码链接，提取码：o93u二、软件部分1.OLED模块与SSD1306使用 OLED引脚图 OLED的引脚与SSD1306和单片机的通信方式有关。常见的有SPI，I^2^C串行通信和并行通信等。博主购买的是7针的OLED模块，引脚详">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机学习笔记——OLED贪吃蛇">
+<meta property="og:url" content="http://blog.mingxuan.xin/2020/06/05/20200605/index.html">
+<meta property="og:site_name" content="Obscure的个人博客">
+<meta property="og:description" content="一、成果展示功能：1.贪吃蛇的基本游戏规则2.有开始和结束界面3.实现计分功能4.游戏有无墙和有墙两种模式5.游戏有简单和困难两种难度6.在开始和结束时有声音提示   源码链接，提取码：o93u二、软件部分1.OLED模块与SSD1306使用 OLED引脚图 OLED的引脚与SSD1306和单片机的通信方式有关。常见的有SPI，I^2^C串行通信和并行通信等。博主购买的是7针的OLED模块，引脚详">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/13de39400ea3cf6b2ad49d210f147249.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7af2b999ccaacf7d633b7b4f96f3e36e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/e2e5824e50239ee78385d017d518850e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/3cef42b69cb2c7d4b254f8c5e96c51b4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/ec164b3babc4a112fa40ade407177a3e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/767354507083676ef7e25adca805ff2d.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/6f67986b77d8c4d127c3b9bdce358d7a.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f1373531420f0e32655df277cb828293.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/ce7a33b97045f8c70c946f77a2e242de.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/b35c61214482adca4151421ae767e261.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/aefa391db29485bdaee622d9b2a92c3f.png">
+<meta property="article:published_time" content="2020-06-05T18:38:58.000Z">
+<meta property="article:modified_time" content="2026-03-02T13:24:54.706Z">
+<meta property="article:author" content="Obscure">
+<meta property="article:tag" content="单片机">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/13de39400ea3cf6b2ad49d210f147249.png">
+  
+  
+  
+  <title>51单片机学习笔记——OLED贪吃蛇 - Obscure的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blog.mingxuan.xin","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="51单片机学习笔记——OLED贪吃蛇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-06-05 18:38" pubdate>
+          2020年6月5日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">51单片机学习笔记——OLED贪吃蛇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、成果展示"><a href="#一、成果展示" class="headerlink" title="一、成果展示"></a>一、成果展示</h2><p><strong>功能</strong>：<br>1.贪吃蛇的基本游戏规则<br>2.有开始和结束界面<br>3.实现计分功能<br>4.游戏有无墙和有墙两种模式<br>5.游戏有简单和困难两种难度<br>6.在开始和结束时有声音提示<br><img src="https://i-blog.csdnimg.cn/blog_migrate/13de39400ea3cf6b2ad49d210f147249.png" srcset="/img/loading.gif" lazyload alt="开始与结束界面"><br> <img src="https://i-blog.csdnimg.cn/blog_migrate/7af2b999ccaacf7d633b7b4f96f3e36e.png" srcset="/img/loading.gif" lazyload alt="游戏画面"><br> <img src="https://i-blog.csdnimg.cn/blog_migrate/e2e5824e50239ee78385d017d518850e.png" srcset="/img/loading.gif" lazyload alt="硬件焊接部分"></p>
+<h1 id="源码链接，提取码：o93u"><a href="#源码链接，提取码：o93u" class="headerlink" title="源码链接，提取码：o93u"></a><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1onOeqHZ35_CZy7MVLA0mWg"><strong>源码链接</strong></a><strong>，提取码：o93u</strong></h1><h2 id="二、软件部分"><a href="#二、软件部分" class="headerlink" title="二、软件部分"></a>二、软件部分</h2><h3 id="1-OLED模块与SSD1306使用"><a href="#1-OLED模块与SSD1306使用" class="headerlink" title="1.OLED模块与SSD1306使用"></a>1.OLED模块与SSD1306使用</h3><ul>
+<li>OLED引脚图<br> OLED的引脚与SSD1306和单片机的通信方式有关。常见的有SPI，I^2^C串行通信和并行通信等。博主购买的是7针的OLED模块，引脚详情如下。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>引脚</th>
+<th>名称</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>GND</td>
+<td>接地端</td>
+</tr>
+<tr>
+<td>2</td>
+<td>VCC</td>
+<td>电源端</td>
+</tr>
+<tr>
+<td>3</td>
+<td>D0</td>
+<td>在 SPI 和 I^2^C 通信中为时钟管脚(SCLK)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>D1</td>
+<td>在 SPI 和 I^2^C 通信中为数据管脚(MOSI)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>RES</td>
+<td>复位管脚，低电平有效</td>
+</tr>
+<tr>
+<td>6</td>
+<td>DC</td>
+<td>数据和命令控制管脚,0写命令，1写数据</td>
+</tr>
+<tr>
+<td>7</td>
+<td>CS</td>
+<td>片选信号输入端，当输入低电平，表明OLED被选中，若只有OLED通信可直接接地</td>
+</tr>
+</tbody></table>
+<ul>
+<li>OLED指令<br> 与LCD1602类似，DC管脚置0之后，向OLED中写入命令，下表为部分指令。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00H-0FH</td>
+<td>页地址模式下设置<strong>列</strong>起始地址低位</td>
+</tr>
+<tr>
+<td>10H-1FH</td>
+<td>页地址模式下设置<strong>列</strong>起始地址高位</td>
+</tr>
+<tr>
+<td>20H</td>
+<td>设置寻址模式，00H&#x2F;01H&#x2F;02H为水平&#x2F;垂直&#x2F;页地址模式</td>
+</tr>
+<tr>
+<td>26H&#x2F;27H</td>
+<td>设置水平滚动的起始页，终止页和滚动速度</td>
+</tr>
+<tr>
+<td>29H&#x2F;2AH</td>
+<td>设置垂直和水平滚动的起始页，终止页，滚动速度，垂直滚动偏移</td>
+</tr>
+<tr>
+<td>2EH</td>
+<td>禁用滚动，调用后RAM数据需要重写</td>
+</tr>
+<tr>
+<td>2FH</td>
+<td>启用滚动，在26H&#x2F;27H&#x2F;29H&#x2F;2AH设置好后调用</td>
+</tr>
+<tr>
+<td>40H-7FH</td>
+<td>设置屏幕(地址)起始行，取值范围为[0,63],一般从头显示</td>
+</tr>
+<tr>
+<td>81H</td>
+<td>设置对比度，共有256级对比度</td>
+</tr>
+<tr>
+<td>A0H&#x2F;A1H</td>
+<td>设置段重映射，A0H左右反置，A1H正常</td>
+</tr>
+<tr>
+<td>A3H</td>
+<td>设置滚动垂直区</td>
+</tr>
+<tr>
+<td>A4H&#x2F;A5H</td>
+<td>设置全屏点亮，A5H无视GDDRAM点亮全屏，A4H正常</td>
+</tr>
+<tr>
+<td>A6H&#x2F;A7H</td>
+<td>设置反转显示，A7H反转（0表示点亮），A6H正常（1表示点亮）</td>
+</tr>
+<tr>
+<td>A8H</td>
+<td>设置复用率，默认63</td>
+</tr>
+<tr>
+<td>AEH&#x2F;AFH</td>
+<td>设置屏幕开启&#x2F;关闭,AEH关闭屏幕，AFH开启屏幕</td>
+</tr>
+<tr>
+<td>B0H-B7H</td>
+<td>页地址模式下设置目标显示位置<strong>页</strong>起始地址</td>
+</tr>
+<tr>
+<td>C0H&#x2F;C8H</td>
+<td>设置列输出扫描方向，C0H左右反置，C8H正常</td>
+</tr>
+<tr>
+<td>D3H</td>
+<td>设置显示偏移</td>
+</tr>
+<tr>
+<td>D5H</td>
+<td>设置显示时钟震荡频率</td>
+</tr>
+<tr>
+<td>D9H</td>
+<td>设置预充电周期</td>
+</tr>
+<tr>
+<td>DAH</td>
+<td>设置列引脚硬件配置</td>
+</tr>
+<tr>
+<td>DBH</td>
+<td>设置VCOMH反压值</td>
+</tr>
+<tr>
+<td>E3H</td>
+<td>空指令，不产生作用</td>
+</tr>
+</tbody></table>
+<ul>
+<li>OLED与贪吃蛇</li>
+</ul>
+<p>第一，由于OLED模块不能发送数据，所以不能读取OLED显存(GDDRAM)中的值。第二，OLED是对页地址进行整体赋值，贪吃蛇在显示蛇，食物等方面都要求对像素点进行操作。所以在OLED上显示像素点就会有困难。比如说某一页上的数据是	(0100 0000) 。如果想让其他像素点显示，会对这一页重新赋值，比如(0010 0000)。赋值过后，先前的数据就会被覆盖。也就是说一页只能打一个点，因此为了避免这种情况，要记录之前显示过的值，必须要在单片机内部申请一块内存区域充当OLED的显示缓存区，每次打点的时候读取先前的数据进行运算后再给OLED传送数据。</p>
+<ul>
+<li>在OLED上打印像素点</li>
+</ul>
+<p>博主购买的OLED附带中景园电子的部分源码，商家可能考虑到内存问题，就给打点函数删除掉了，博主花了好几天时间，查阅了相关资料，以及学长的帮助下，才完成了下面打印像素点的两个函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/*****************************************************************/</span><br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> OLED_GRAM[<span class="hljs-number">64</span>][<span class="hljs-number">8</span>] = &#123;<span class="hljs-number">0</span>&#125;;	<span class="hljs-comment">//申请一个二维数组作为显存</span><br><span class="hljs-comment">/*****************************************************************/</span><br><span class="hljs-comment">//显示地图上的点 </span><br><span class="hljs-comment">//我设置的是y轴向下的坐标系 </span><br><span class="hljs-type">void</span> <span class="hljs-title function_">OLED_Write_GRAM</span><span class="hljs-params">(u8 x,u8 y,bit value)</span><br>&#123;<br>	u8 OLED_page = y/<span class="hljs-number">8</span>;<br>	u8 OLED_page_value = <span class="hljs-number">1</span> &lt;&lt; y%<span class="hljs-number">8</span>;<br>	<span class="hljs-keyword">if</span>(x&gt;=<span class="hljs-number">64</span>)<br>			<span class="hljs-keyword">return</span>;<br>	<span class="hljs-keyword">if</span>(value)OLED_GRAM[x][OLED_page]|=OLED_page_value;<br>	<span class="hljs-keyword">else</span> OLED_GRAM[x][OLED_page]&amp;=~OLED_page_value;<br>&#125; <br><span class="hljs-comment">/*****************************************************************/</span><br><span class="hljs-comment">//向OLED传输显存数据 </span><br><span class="hljs-comment">//更新显存到OLED	</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">OLED_Refresh</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>	<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> i,n;<br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">8</span>;i++)<br>	&#123;<br>	   OLED_WR_Byte(<span class="hljs-number">0xb0</span>+i,OLED_CMD); <span class="hljs-comment">//设置行起始地址</span><br>	   OLED_WR_Byte(<span class="hljs-number">0x00</span>,OLED_CMD);   <span class="hljs-comment">//设置低列起始地址 </span><br>	   OLED_WR_Byte(<span class="hljs-number">0x10</span>,OLED_CMD);   <span class="hljs-comment">//设置高列起始地址</span><br>	   <span class="hljs-keyword">for</span>(n=<span class="hljs-number">0</span>;n&lt;<span class="hljs-number">64</span>;n++)<br>		&#123;<br>			OLED_WR_Byte(OLED_GRAM[n][i],OLED_DATA);<br>			<span class="hljs-comment">//delay_ms(1);</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">64</span>;i++)<br>		OLED_WR_Byte(<span class="hljs-number">0x00</span>,OLED_DATA);<br>&#125;<br><span class="hljs-comment">/*****************************************************************/</span><br></code></pre></td></tr></table></figure>
+<p>以上代码需要注意的几个地方：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> OLED_GRAM[<span class="hljs-number">64</span>][<span class="hljs-number">8</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在查阅相关资料发现，博主购买的单片机是STC公司的89C54RD+和12C5A60S2，其内存大小为均1280字节。OLED显示屏共128列8页，若在单片机中申请内存则是128×8×1&#x3D;1024个字节。博主试过一次，IO口电平全部被拉低了…也就说申请的内存占用了IO口的寄存器。所以申请64×8的内存，节省一点，让蛇在左半屏活动就好了~</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">OLED_Write_GRAM()函数中有一句 <span class="hljs-keyword">if</span>(x&gt;=<span class="hljs-number">64</span>)<span class="hljs-keyword">return</span>;<br>OLED_Refresh()函数中有一句 <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">64</span>;i++)  OLED_WR_Byte(<span class="hljs-number">0x00</span>,OLED_DATA);<br></code></pre></td></tr></table></figure>
+
+<p>没有这两句，OLED的显示过程中会出现这种诡异的情况，最后一页乱码了。博主猜测是由于使用的12单片机，送数据和送命令之间切换过快导致的。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/3cef42b69cb2c7d4b254f8c5e96c51b4.png" srcset="/img/loading.gif" lazyload alt="最后一页乱码"></p>
+<ul>
+<li>在OLED上打印汉字和数字</li>
+</ul>
+<p> 在中景园电子提供的代码中，下面两个函数用于实现汉字的打印和数字的打印，非常方便。用于打印菜单和得分。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">OLED_ShowNum</span><span class="hljs-params">(u8 x,u8 y,u16 num,u8 len,u8 size2)</span>;<span class="hljs-comment">//x,y坐标，num打印的数字，len数字的位数，size字体大小</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">OLED_ShowCHinese</span><span class="hljs-params">(u8 x,u8 y,u8 no)</span>;<span class="hljs-comment">//x,y坐标，no汉字的序号</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-贪吃蛇的基本算法"><a href="#2-贪吃蛇的基本算法" class="headerlink" title="2.贪吃蛇的基本算法"></a>2.贪吃蛇的基本算法</h3><ul>
+<li>打印</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Print_Map</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//打印地图</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Print_Snake</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//打印蛇的坐标</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Print_Food</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//打印食物</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Print_Clear</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//清屏方法</span><br></code></pre></td></tr></table></figure>
+
+<p>以上是部分打印函数。这几个函数都使用了打点函数，也就是左半屏，用于显示游戏画面。博主采用的方式是使用了一个定时器0。在定时器中断内进行显存的更新，以此来控制贪食蛇运动速度。在每次打印蛇和食物坐标之前，会使用一次清屏函数，清除上一帧蛇，否则会留下长长的尾巴。以下是部分定时器0中断内的代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">time0</span><span class="hljs-params">()</span> interrupt 1<br>&#123;<br>	TH0 = (<span class="hljs-number">65535</span><span class="hljs-number">-10000</span>)/<span class="hljs-number">256</span>;	<span class="hljs-comment">//10ms初值 </span><br>	TL0 = (<span class="hljs-number">65535</span><span class="hljs-number">-10000</span>)%<span class="hljs-number">256</span>;<br>	time_count++;				<span class="hljs-comment">//计时 </span><br>	<span class="hljs-keyword">if</span>(time_count &gt;= mode)		<span class="hljs-comment">//mode为难度</span><br>	&#123;<br>		Food_Is_Eaten(); 		<span class="hljs-comment">//判断食物是否被吃了 </span><br>		Print_Clear();			<span class="hljs-comment">//清屏函数</span><br>		Print_Snake();			<span class="hljs-comment">//打印蛇的坐标	</span><br>		Print_Food();			<span class="hljs-comment">//打印食物</span><br>		OLED_Refresh();			<span class="hljs-comment">//把显存中的值赋给OLED </span><br>		time_count = <span class="hljs-number">0</span>;			<span class="hljs-comment">//重新计时 </span><br>	&#125;	<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>蛇</li>
+</ul>
+<p> 蛇类是贪吃蛇的核心算法。包括蛇身体坐标的储存，蛇的初始化，蛇的运动，蛇是否撞墙，是否吃到自己。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Snake</span>//蛇结构体，用于储存蛇的身体和食物的坐标</span><br><span class="hljs-class">&#123;</span><br>	u8 x;			<span class="hljs-comment">//x为横坐标</span><br>	u8 y;			<span class="hljs-comment">//y为纵坐标</span><br>&#125;Snake;<br>Snake snake[MAX];				<span class="hljs-comment">//蛇身体结构体，食物，尾巴 </span><br>u8 length = <span class="hljs-number">1</span>;					<span class="hljs-comment">//储存蛇的长度</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Snake_Init</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//初始化蛇</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Snake_Move</span><span class="hljs-params">()</span>;				<span class="hljs-comment">//操控蛇移动 后一节给前一节赋值 如果无墙模式 撞墙之后要在另一侧打印</span><br>bit  <span class="hljs-title function_">Snake_eatself</span><span class="hljs-params">()</span>;			<span class="hljs-comment">//判断是否吃到自己</span><br>bit  <span class="hljs-title function_">Snake_HitWall</span><span class="hljs-params">()</span>;			<span class="hljs-comment">//判断蛇是否撞墙</span><br></code></pre></td></tr></table></figure>
+
+<p>1.蛇结构体：蛇身体坐标的储存采用了一个结构体数组，仅有x,y两个坐标的成员变量，同时也能储存食物的坐标。</p>
+<p>2.蛇的初始化：首先要给蛇身体的结构体数组开辟一块内存空间，并用length变量储存蛇的长度。蛇头坐标为snake[0].x和snake[0].y;然后依次向后储存到第length个。C语言基础较好的朋友可能会用链表，malloc()函数去动态分配内存。在查阅相关资料发现由于51单片机内存太小，malloc()函数申请的内存很容易申请不到，返回NULL，也是因为博主学艺不精，放弃了这个想法。妥协之下，在蛇到达最大长度的时候直接退出游戏。最大长度为MAX，这里我设置的是30。(在控制台写贪吃蛇的时候博主很暴力的把max设置成地图长乘地图宽)第二，要给蛇头赋初值，博主在初始化函数中初始化了两节坐标。</p>
+<p>3.蛇的移动：蛇的移动其实很好理解，蛇头先上下左右移动，然后把前一节的坐标赋给后一节。如果是无墙模式，先把头坐标直接赋值到另一侧，再进行后一节赋给前一节。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Snake_Move</span><span class="hljs-params">()</span> 				<span class="hljs-comment">//操控蛇移动 后一节给前一节赋值</span><br>&#123;<br>	u8 i;<br>	tail.x = snake[length].x;	<span class="hljs-comment">//保留上次尾巴的坐标 </span><br>	tail.y = snake[length].y;	<span class="hljs-comment">//当吃到食物的时候将该坐标赋给蛇结构第length个的坐标</span><br>	<span class="hljs-keyword">for</span>(i = length;i &gt; <span class="hljs-number">0</span> ; i--)<br>	&#123;<br>		snake[i].x = snake[i - <span class="hljs-number">1</span>].x;<br>		snake[i].y = snake[i - <span class="hljs-number">1</span>].y;<br>	&#125;<br>	<span class="hljs-keyword">if</span>(wall == <span class="hljs-number">0</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(snake[<span class="hljs-number">0</span>].x == <span class="hljs-number">63</span>)	<span class="hljs-comment">//如果与右墙相撞</span><br>		&#123;<br>			snake[<span class="hljs-number">0</span>].x = <span class="hljs-number">1</span>;			<span class="hljs-comment">//到最左侧</span><br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(snake[<span class="hljs-number">0</span>].x == <span class="hljs-number">0</span>)<span class="hljs-comment">//如果与左墙相撞</span><br>		&#123;<br>			snake[<span class="hljs-number">0</span>].x = <span class="hljs-number">62</span>;			<span class="hljs-comment">//到最右侧</span><br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(snake[<span class="hljs-number">0</span>].y == <span class="hljs-number">0</span>)<span class="hljs-comment">//如果与上墙相撞</span><br>		&#123;<br>			snake[<span class="hljs-number">0</span>].y = <span class="hljs-number">62</span>;			<span class="hljs-comment">//到最下侧</span><br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(snake[<span class="hljs-number">0</span>].y == <span class="hljs-number">63</span>)<span class="hljs-comment">//如果与下墙相撞</span><br>		&#123;<br>			snake[<span class="hljs-number">0</span>].y = <span class="hljs-number">0</span>;			<span class="hljs-comment">//到最上侧</span><br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>但如果按照上述算法，有一个很致命的问题，在头坐标赋给第二节身体的时候，第二节身体再赋值给第三节，那第三节的元素不也是第一节的吗？因此采用的是从后向前赋值。从把倒数第二节坐标赋给尾巴，倒数第三节坐标赋给倒数第二节，以此类推。最后再根据蛇的运动方向使蛇头移动。至于为什么保留尾巴的坐标，与吃食物有关，后面再解释。</p>
+<p>4.是否撞墙，是否吃到自己<br>撞墙和吃到自己的函数返回值都是bit类型(0和1)，类似bool类型，如果撞墙&#x2F;吃到自己返回1，否则返回0，表示无事发生。算法也很简单，撞墙就判断蛇头坐标是否和墙重合，吃自己函数就遍历所有身体坐标，看是否与头重合。</p>
+<ul>
+<li>食物</li>
+</ul>
+<p> 食物类分为蛇的坐标，食物的刷新，食物被吃的函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c">Snake food;							<span class="hljs-comment">//食物结构，储存x，y坐标</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Food_Init</span><span class="hljs-params">()</span> 					<span class="hljs-comment">//随机生成食物 清除原先食物的坐标 写入新的坐标 </span><br>&#123;<br>	<span class="hljs-comment">//食物生成的算法是利用定时器生成两个62范围内的数，如果与蛇重合重新生成 </span><br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;<br>		u8 i;<br>		food.x = TL1 % <span class="hljs-number">61</span>+<span class="hljs-number">1</span>;<span class="hljs-comment">//加1是防止和地图边缘重合</span><br>		food.y = TL0 % <span class="hljs-number">61</span>+<span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; length ; i++)<br>		&#123;<br>			<span class="hljs-keyword">if</span>(food.x == snake[i].x &amp;&amp; food.y == snake[i].y)<br>				<span class="hljs-keyword">continue</span>;	<span class="hljs-comment">//如果生成的食物与蛇身体重合，进行下一次循环</span><br>		&#125;<br>		<span class="hljs-keyword">break</span>;				<span class="hljs-comment">//如果没有和身体重合，退出循环，退出函数</span><br>	&#125;<br>&#125;<br><span class="hljs-type">void</span> <span class="hljs-title function_">Food_Is_Eaten</span><span class="hljs-params">()</span> 				<span class="hljs-comment">//判断食物是否被吃了 </span><br>&#123;<br>	<span class="hljs-keyword">if</span>(snake[<span class="hljs-number">0</span>].x == food.x &amp;&amp; snake[<span class="hljs-number">0</span>].y == food.y)<br>	&#123;<br>		length++;<br>		snake[length].x = tail.x;<br>		snake[length].y = tail.y;<br>		Food_Init();	<span class="hljs-comment">//重新生成一次食物</span><br>		Print_Score();	<span class="hljs-comment">//更新一次分数</span><br>	&#125;	<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>1.食物生成&#x2F;更新：在游戏开始和食物被吃的时候，才调用这个函数，重新生成食物坐标。采用了定时器0和定时器1的TL值取模来生成x和y坐标(1-62之内的随机数)。如果和蛇身体有重合，则重新生成。<br>2.判断食物是否被吃：算法也很简单，先判断蛇头坐标是否和食物坐标重合。如果重合则蛇变长一节，把之前储存的蛇尾后面一节坐标赋给最新一节身体。然后重新生成一次食物。</p>
+<h3 id="3-按键检测"><a href="#3-按键检测" class="headerlink" title="3.按键检测"></a>3.按键检测</h3><p>除正常的独立按键检测以外，还要储存前一次按键的值，用于蛇每次自动移动，用于表示蛇移动的方向；其次，由于贪吃蛇特性，譬如在向上走的同时，只能向左向右拐。因此每次给方向赋值的时候要先判断一次，防止其转向冲突。</p>
+<h3 id="4-开始界面"><a href="#4-开始界面" class="headerlink" title="4.开始界面"></a>4.开始界面</h3><p>开始界面的实现首先要感谢好朋友的指点，给了我思路，虽然有些简陋，但基本功能可以实现。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/ec164b3babc4a112fa40ade407177a3e.png" srcset="/img/loading.gif" lazyload alt="UI界面"><br>代码部分较为冗长，这里只介绍一下基本思路。<br>首先要定义两个变量，一个是行数line，用于记录选中的行，一个是按键key,用于记录输入的按键。玩家只有上、下、确定键可以按。在按上下键的时候更改选中的行数，并重新打印小箭头；在按确定键的时候根据选中的行数去实现相应需求。开始游戏则跳出循环，更改难度和模式则更改相应变量的值，并把UI中的汉字更改掉。</p>
+<h3 id="5-得分面板，结束界面，无源蜂鸣器驱动函数"><a href="#5-得分面板，结束界面，无源蜂鸣器驱动函数" class="headerlink" title="5.得分面板，结束界面，无源蜂鸣器驱动函数"></a>5.得分面板，结束界面，无源蜂鸣器驱动函数</h3><p>这部分就比较好实现了，得分为蛇长度-1；结束界面在相应位置打印汉字，关闭定时器0停止显存刷新；蜂鸣器使用不同频率的脉冲给蜂鸣器的IO口送电就好。如果想实现音调do re mi,由于Hz是每秒钟周期的次数，而我们的计时器和延时函数是按毫秒统计，所以需要进行频率的换算，比如C4是261Hz。<br>$$ \frac{1}{261}&#x3D;\frac{x}{1000×2} $$<br>可以得到x&#x3D;7.66,也就是约每7.66毫秒电平变化一次，可以发出C4(中央C)的音调。延时函数并不会很准确，如果想精确实现可以使用定时器。</p>
+<h2 id="三、硬件部分"><a href="#三、硬件部分" class="headerlink" title="三、硬件部分"></a>三、硬件部分</h2><h4 id="1-元件清单"><a href="#1-元件清单" class="headerlink" title="1.元件清单"></a>1.元件清单</h4><p>以下元件是博主自己使用到的，仅供参考。</p>
+<table>
+<thead>
+<tr>
+<th>元件名</th>
+<th>数量</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>洞洞板8*8</td>
+<td>1个</td>
+<td>也可以采用7×9，6×8，40pin锁紧座6.5cm左右</td>
+</tr>
+<tr>
+<td>40针IC锁紧座</td>
+<td>1个</td>
+<td>也可以40针IC座，价格便宜但拔插困难</td>
+</tr>
+<tr>
+<td>10K电阻</td>
+<td>3个</td>
+<td>P0口使用了1个，蜂鸣器和复位电路1个，P0也可以买排阻</td>
+</tr>
+<tr>
+<td>471(470Ω)电阻</td>
+<td>1个</td>
+<td>电源指示灯电路会用到</td>
+</tr>
+<tr>
+<td>2K电阻</td>
+<td>1个</td>
+<td>蜂鸣器电路会用到</td>
+</tr>
+<tr>
+<td>15Ω电阻</td>
+<td>1个</td>
+<td>蜂鸣器电路会用到</td>
+</tr>
+<tr>
+<td>33μF电容</td>
+<td>2个</td>
+<td>晶振两端的负载电容</td>
+</tr>
+<tr>
+<td>10μF电容</td>
+<td>1个</td>
+<td>复位电路会用到</td>
+</tr>
+<tr>
+<td>104(0.1μF)电容</td>
+<td>2个</td>
+<td>电源的滤波电容和蜂鸣器旁路电容</td>
+</tr>
+<tr>
+<td>独立按键</td>
+<td>6个</td>
+<td>上下左右确定和复位电路按键</td>
+</tr>
+<tr>
+<td>排针、排母</td>
+<td>若干</td>
+<td>用于IO口和OLED的连接</td>
+</tr>
+<tr>
+<td>杜邦线</td>
+<td>若干</td>
+<td>用于IO口和OLED的连接</td>
+</tr>
+<tr>
+<td>OLED模块</td>
+<td>1个</td>
+<td>显示屏幕</td>
+</tr>
+<tr>
+<td>STC89C54RD+</td>
+<td>1个</td>
+<td>单片机</td>
+</tr>
+<tr>
+<td>12MHz晶振</td>
+<td>1个</td>
+<td>12MHz便于定时器定时</td>
+</tr>
+<tr>
+<td>无源蜂鸣器</td>
+<td>1个</td>
+<td>发出提示音</td>
+</tr>
+<tr>
+<td>三极管8550</td>
+<td>1个</td>
+<td>蜂鸣器电路使用，放大信号</td>
+</tr>
+<tr>
+<td>CH340模块</td>
+<td>1个</td>
+<td>用于供电，下载程序</td>
+</tr>
+</tbody></table>
+<h4 id="2-最小系统的焊接"><a href="#2-最小系统的焊接" class="headerlink" title="2.最小系统的焊接"></a>2.最小系统的焊接</h4><ul>
+<li>晶振电路<br> 采用普中开发板的接法，如图所示。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/767354507083676ef7e25adca805ff2d.png" srcset="/img/loading.gif" lazyload alt="晶振电路"></li>
+<li>复位电路<br>采用普中开发板的接法，如图所示。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/6f67986b77d8c4d127c3b9bdce358d7a.png" srcset="/img/loading.gif" lazyload alt="复位电路"></li>
+<li>电源指示灯<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/f1373531420f0e32655df277cb828293.png" srcset="/img/loading.gif" lazyload alt="电源指示灯电路"><br>IO口给低电平二极管发光，用于测试单片机是否正常运行。</li>
+</ul>
+<h4 id="3-蜂鸣器电路的焊接"><a href="#3-蜂鸣器电路的焊接" class="headerlink" title="3.蜂鸣器电路的焊接"></a>3.蜂鸣器电路的焊接</h4><p>蜂鸣器电路采用<a target="_blank" rel="noopener" href="https://blog.csdn.net/gouxf_0219/article/details/84789621?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522159067795819195188438998%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=159067795819195188438998&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v2~pc_rank_v3-2-84789621.first_rank_ecpm_v2_pc_rank_v3&utm_term=%E8%9C%82%E9%B8%A3%E5%99%A8%E7%94%B5%E8%B7%AF">这篇博客</a>的接法，这里就不搬运了。区别是三极管集电极C端并联的33R电阻替换成了15Ω。(因为板子空间不是很够且没有买到33R）</p>
+<h4 id="4-独立按键的焊接"><a href="#4-独立按键的焊接" class="headerlink" title="4.独立按键的焊接"></a>4.独立按键的焊接</h4><p>博主购买的是4脚的微动按键开关。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/ce7a33b97045f8c70c946f77a2e242de.png" srcset="/img/loading.gif" lazyload alt="独立按键"><br>四脚分别两两导通。不想检测可以焊接对角线，对角线必然不导通。如果想检测可以使用万用表的二极管挡，如果万用表蜂鸣器响则代表导通(短路)。独立按键的焊接非常简单，一端连接IO口一端共地即可。</p>
+<h2 id="四、错误示范汇总"><a href="#四、错误示范汇总" class="headerlink" title="四、错误示范汇总"></a>四、错误示范汇总</h2><h4 id="1-软件部分"><a href="#1-软件部分" class="headerlink" title="1.软件部分"></a>1.软件部分</h4><ul>
+<li>关于51单片机选择问题<br> 博主考虑到内存大小和flash空间问题，购买了STC89C54RD+和STC12C560S2，事实证明，12单片机总是会出现一些无法理解的错误，最后程序是在89C54上完成的。而常用的52单片机8K字节flash，512字节RAM更加捉襟见肘。</li>
+<li>关于IIC和SPI通信选择问题<br> IIC通信速度较SPI通信速度慢，因此不适合使用IIC通信。</li>
+<li>关于片选CS的问题<br> 在阅读oled.c源码时，由于只有oled与单片机通信，CS端接地就万事大吉，以为CS没什么用，就手贱删掉了CS拉低的代码，事后想想也好蠢…后来又不接CS管脚，OLED也不会亮，还是老老实实的接在IO口上吧…</li>
+<li>关于地图大小的选择问题<br> 之前非常天真的把地图设置成60×60，但是在给显存赋值，让蛇穿墙的时候，生成食物坐标时会造成麻烦，遂改成64×64。</li>
+<li>定时器0与定时器1中断冲突问题<br> 定时器1用于随机生成食物，但是千万不要开定时器1的中断！！！不要手欠写ET1&#x3D;1;两个中断会冲突，这个错误排查了好久。</li>
+</ul>
+<h4 id="2-硬件部分"><a href="#2-硬件部分" class="headerlink" title="2.硬件部分"></a>2.硬件部分</h4><ul>
+<li>洞洞板的选择问题<br> 为了图省事在线下购买的洞洞板，他下面都是连着的！！！表示第一次见这种洞洞板~第一次焊的时候，焊好之后才发现IO口都并上了….白闻了一下午焊锡….但是合理利用的话会省很多事。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/b35c61214482adca4151421ae767e261.png" srcset="/img/loading.gif" lazyload alt="第一次焊错的板子"><br>  （错误示范图）</li>
+<li>关于31管脚的上拉电阻问题<br> 在普中科技的单片机开发板原理图中，31管脚有接一个4.7k的上拉电阻，但STC公司的单片机内部上拉，也可以不接。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/aefa391db29485bdaee622d9b2a92c3f.png" srcset="/img/loading.gif" lazyload alt="31管脚"></li>
+<li>元件引脚焊接问题<br> 在第一块板子焊费之后，40脚的IC紧锁座根本拿不下来。（我的2块钱！！！）出于保险，在第二块板子上，我直接把IC座卡在板子上，没有点焊锡，结果电路连接的不是很顺畅，又检查了好几天。</li>
+</ul>
+<h3 id="3-排查电路问题的方法分享"><a href="#3-排查电路问题的方法分享" class="headerlink" title="3.排查电路问题的方法分享"></a>3.排查电路问题的方法分享</h3><ul>
+<li>检查电路是否导通<br> 万用表真的很好用。调到二极管挡，测试有没有虚焊，哪里有没有导通，如果导通万用表蜂鸣器会响。就是用这个方法测出来IC座虚焊的。</li>
+<li>检查晶振是否工作<br> 晶振正常工作的时候，程序会执行，如果晶振不工作，程序会卡在初始状态。这个时候的现象一般是单片机管脚有电压，但是程序不运行。</li>
+<li>检查单片机是否正常运行<br> 可以通过电源指示灯来判断。我写了一个很简单的闪烁的灯的程序，如果灯正常闪烁，代表单片机正常运行。</li>
+</ul>
+<p> <strong>部分图片和资料源自网络，如有侵权请联系删除。</strong></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" class="print-no-link">#单片机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>51单片机学习笔记——OLED贪吃蛇</div>
+      <div>http://blog.mingxuan.xin/2020/06/05/20200605/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Obscure</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年6月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/25/20200625/" title="51单片机学习笔记——IIC和SPI总线">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">51单片机学习笔记——IIC和SPI总线</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/19/20200519/" title="51单片机学习笔记——LCD1602">
+                        <span class="hidden-mobile">51单片机学习笔记——LCD1602</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      吉ICP备2025033288号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
