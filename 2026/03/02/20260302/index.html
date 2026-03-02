@@ -19,22 +19,26 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1. 报错信息Error: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint.  错误：仅加载权重失败。此文件仍然可以加载，为此您有两个选择，只有当您">
+    <meta name="description" content="实验室的服务器没有公网IP，因此在外炼丹比较麻烦，因此使用frp将机器内网穿透出来 一、部署云应用服务器购买链接：应用详情 | 雨云 简单冲了30块钱，反点很高，冲30给了60，每月消耗6，30块钱用10个月，性价比很高了，想开的朋友可以用我的邀请码：OTg2Mjg5 1. 配置服务端信息开好云服务之后，点击管理 -&gt;选择服务器 -&gt; 配置文件 -&gt; 12345678910111">
 <meta property="og:type" content="article">
-<meta property="og:title" content="报错: Weights only load failed. This file can still be loaded">
-<meta property="og:url" content="http://blog.mingxuan.xin/2025/06/29/20250629/index.html">
+<meta property="og:title" content="雨云云应用架设FRP进行内网穿透">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/03/02/20260302/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="1. 报错信息Error: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint.  错误：仅加载权重失败。此文件仍然可以加载，为此您有两个选择，只有当您">
+<meta property="og:description" content="实验室的服务器没有公网IP，因此在外炼丹比较麻烦，因此使用frp将机器内网穿透出来 一、部署云应用服务器购买链接：应用详情 | 雨云 简单冲了30块钱，反点很高，冲30给了60，每月消耗6，30块钱用10个月，性价比很高了，想开的朋友可以用我的邀请码：OTg2Mjg5 1. 配置服务端信息开好云服务之后，点击管理 -&gt;选择服务器 -&gt; 配置文件 -&gt; 12345678910111">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-06-29T12:00:00.000Z">
+<meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20260302153852023.png">
+<meta property="og:image" content="http://qiniu.mingxuan.xin/picgo/20260302170151253.png">
+<meta property="article:published_time" content="2026-03-02T15:30:00.000Z">
 <meta property="article:modified_time" content="2026-03-02T09:26:23.084Z">
 <meta property="article:author" content="Obscure">
-<meta property="article:tag" content="Python">
+<meta property="article:tag" content="服务器">
+<meta property="article:tag" content="内网穿透">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://qiniu.mingxuan.xin/picgo/20260302153852023.png">
   
   
   
-  <title>报错: Weights only load failed. This file can still be loaded - Obscure的个人博客</title>
+  <title>雨云云应用架设FRP进行内网穿透 - Obscure的个人博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="报错: Weights only load failed. This file can still be loaded"></span>
+            <span id="subtitle" data-typed-text="雨云云应用架设FRP进行内网穿透"></span>
           
         </div>
 
@@ -211,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-29 12:00" pubdate>
-          2025年6月29日 中午
+        <time datetime="2026-03-02 15:30" pubdate>
+          2026年3月2日 下午
         </time>
       </span>
     
@@ -223,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          140 字
+          615 字
         
       </span>
     
@@ -234,7 +238,7 @@
         
         
         
-          2 分钟
+          6 分钟
         
       </span>
     
@@ -271,18 +275,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">报错: Weights only load failed. This file can still be loaded</h1>
+            <h1 id="seo-header">雨云云应用架设FRP进行内网穿透</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1-报错信息"><a href="#1-报错信息" class="headerlink" title="1. 报错信息"></a>1. 报错信息</h2><p>Error: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. </p>
-<p>错误：仅加载权重失败。此文件仍然可以加载，为此您有两个选择，只有当您信任检查点的来源时，才能执行这些步骤。</p>
-<h2 id="2-解决方案"><a href="#2-解决方案" class="headerlink" title="2. 解决方案"></a>2. 解决方案</h2><p>在检查点恢复模型进行resume时，由于存在某些安全问题，因此需要在代码端更改。<br>代码中搜索<code>torch.load</code>，更改参数。原代码为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">checkpoint = torch.load(os.path.join(ckpt_path, <span class="hljs-string">&quot;trainer.ckpt&quot;</span>))<br></code></pre></td></tr></table></figure>
-<p>修改为：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">checkpoint = torch.load(os.path.join(ckpt_path, <span class="hljs-string">&quot;trainer.ckpt&quot;</span>), weights_only=<span class="hljs-literal">False</span>)<br></code></pre></td></tr></table></figure>
-<p>问题解决。</p>
+                <p>实验室的服务器没有公网IP，因此在外炼丹比较麻烦，因此使用frp将机器内网穿透出来</p>
+<h1 id="一、部署云应用"><a href="#一、部署云应用" class="headerlink" title="一、部署云应用"></a>一、部署云应用</h1><p>服务器购买链接：<a target="_blank" rel="noopener" href="https://app.rainyun.com/apps/rca/store/6167">应用详情 | 雨云</a></p>
+<p>简单冲了30块钱，反点很高，冲30给了60，每月消耗6，30块钱用10个月，<br>性价比很高了，想开的朋友可以用我的邀请码：OTg2Mjg5<br><img src="http://qiniu.mingxuan.xin/picgo/20260302153852023.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="1-配置服务端信息"><a href="#1-配置服务端信息" class="headerlink" title="1. 配置服务端信息"></a>1. 配置服务端信息</h5><p>开好云服务之后，点击管理 -&gt;选择服务器 -&gt; 配置文件 -&gt;</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">bindAddr</span> = <span class="hljs-string">&quot;0.0.0.0&quot;</span><br><span class="hljs-attr">bindPort</span> = <span class="hljs-number">7000</span><br><br><span class="hljs-attr">auth.method</span> = <span class="hljs-string">&quot;token&quot;</span><br><span class="hljs-attr">auth.token</span> = <span class="hljs-string">&quot;token123456&quot;</span><br><br><span class="hljs-attr">webServer.addr</span> = <span class="hljs-string">&quot;0.0.0.0&quot;</span><br><span class="hljs-attr">webServer.port</span> = <span class="hljs-number">7500</span><br><span class="hljs-attr">webServer.user</span> = <span class="hljs-string">&quot;admin&quot;</span><br><span class="hljs-attr">webServer.password</span> = <span class="hljs-string">&quot;admin&quot;</span><br><br><span class="hljs-comment"># tls</span><br><span class="hljs-comment">#transport.tls.force = true</span><br><span class="hljs-comment">#transport.tls.certFile = &quot;/etc/frp/ssl/server.crt&quot;</span><br><span class="hljs-comment">#transport.tls.keyFile = &quot;/etc/frp/ssl/server.key&quot;</span><br><span class="hljs-comment">#transport.tls.trustedCaFile = &quot;/etc/frp/ssl/ca.crt&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>默认是长这个样子的，后面主要是配置这里</p>
+<h1 id="二、安装frpc"><a href="#二、安装frpc" class="headerlink" title="二、安装frpc"></a>二、安装frpc</h1><p>服务器就先这样，接下来要在被代理的机器上安装客户端frpc。服务器上的版本是0.65.0，注意需要对应。<br><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">Releases · fatedier&#x2F;frp</a><br>安装好后解压、修改frpc.toml，修改为服务器的ip。</p>
+<p>服务器的ip在雨云-&gt; 应用管理 -&gt; 服务 上，填入serveraddr和port上</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">serverAddr</span> = <span class="hljs-string">&quot;xxx.xxx.xxx.xxx&quot;</span><br><span class="hljs-attr">serverPort</span> = xxxx<br><br><span class="hljs-section">[[proxies]]</span><br><span class="hljs-attr">name</span> = <span class="hljs-string">&quot;ssh&quot;</span><br><span class="hljs-attr">type</span> = <span class="hljs-string">&quot;tcp&quot;</span><br><span class="hljs-attr">localIP</span> = <span class="hljs-string">&quot;127.0.0.1&quot;</span><br><span class="hljs-attr">localPort</span> = <span class="hljs-number">22</span><br><span class="hljs-attr">remotePort</span> = <span class="hljs-number">6000</span><br></code></pre></td></tr></table></figure>
+
+<p>启动服务测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x ./frpc<br>./frpc -c ./frpc.toml<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-number">2026</span>-<span class="hljs-number">03</span>-<span class="hljs-number">02</span> <span class="hljs-number">16</span>:<span class="hljs-number">05</span>:<span class="hljs-number">37.305</span> [I] [<span class="hljs-keyword">sub</span>/root.go:<span class="hljs-number">149</span>] start frpc service <span class="hljs-keyword">for</span> config file [./frpc.toml]<br><span class="hljs-number">2026</span>-<span class="hljs-number">03</span>-<span class="hljs-number">02</span> <span class="hljs-number">16</span>:<span class="hljs-number">05</span>:<span class="hljs-number">37.305</span> [I] [client/service.go:<span class="hljs-number">325</span>] <span class="hljs-keyword">try</span> <span class="hljs-keyword">to</span> connect <span class="hljs-keyword">to</span> server...<br><span class="hljs-number">2026</span>-<span class="hljs-number">03</span>-<span class="hljs-number">02</span> <span class="hljs-number">16</span>:<span class="hljs-number">05</span>:<span class="hljs-number">37.340</span> [E] [client/service.go:<span class="hljs-number">310</span>] token <span class="hljs-keyword">in</span> login doesn<span class="hljs-comment">&#x27;t match token from configuration</span><br><span class="hljs-number">2026</span>-<span class="hljs-number">03</span>-<span class="hljs-number">02</span> <span class="hljs-number">16</span>:<span class="hljs-number">05</span>:<span class="hljs-number">37.340</span> [W] [client/service.go:<span class="hljs-number">328</span>] connect <span class="hljs-keyword">to</span> server <span class="hljs-keyword">error</span>: token <span class="hljs-keyword">in</span> login doesn<span class="hljs-comment">&#x27;t match token from configuration</span><br><span class="hljs-number">2026</span>-<span class="hljs-number">03</span>-<span class="hljs-number">02</span> <span class="hljs-number">16</span>:<span class="hljs-number">05</span>:<span class="hljs-number">37.340</span> [I] [<span class="hljs-keyword">sub</span>/root.go:<span class="hljs-number">167</span>] frpc service <span class="hljs-keyword">for</span> config file [./frpc.toml] stopped<br>login <span class="hljs-keyword">to</span> the server failed: token <span class="hljs-keyword">in</span> login doesn<span class="hljs-comment">&#x27;t match token from configuration. With loginFailExit enabled, no additional retries will be attempted</span><br></code></pre></td></tr></table></figure>
+
+<p>忘记写token了，重新配置一下frpc.toml</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">serverAddr</span> = <span class="hljs-string">&quot;xxx.xxx.xxx.xxx&quot;</span><br><span class="hljs-attr">serverPort</span> = xxxx<br><span class="hljs-attr">auth.method</span> = <span class="hljs-string">&quot;token&quot;</span><br><span class="hljs-attr">auth.token</span> = <span class="hljs-string">&quot;xxxxxx&quot;</span><br><br><span class="hljs-section">[[proxies]]</span><br><span class="hljs-attr">name</span> = <span class="hljs-string">&quot;ssh&quot;</span><br><span class="hljs-attr">type</span> = <span class="hljs-string">&quot;tcp&quot;</span><br><span class="hljs-attr">localIP</span> = <span class="hljs-string">&quot;127.0.0.1&quot;</span><br><span class="hljs-attr">localPort</span> = <span class="hljs-number">22</span><br><span class="hljs-attr">remotePort</span> = <span class="hljs-number">6001</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="三、测试连接"><a href="#三、测试连接" class="headerlink" title="三、测试连接"></a>三、测试连接</h1><p>不知道为什么frpc的远端端口必须要设置为6001才好事，不过不管怎么说，把端口映射出去总能用了<br><img src="http://qiniu.mingxuan.xin/picgo/20260302170151253.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后，把frpc放到systemd中守护一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> nano /etc/systemd/system/frpc.service<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[Unit]</span><br><span class="hljs-attr">Description</span>=frp client<br><span class="hljs-attr">After</span>=network.target syslog.target<br><span class="hljs-attr">Wants</span>=network.target<br><br><span class="hljs-section">[Service]</span><br><span class="hljs-attr">Type</span>=simple<br><span class="hljs-attr">ExecStart</span>=/usr/local/frp/frpc -c /usr/local/frp/frpc.toml<br><span class="hljs-attr">Restart</span>=<span class="hljs-literal">on</span>-failure<br><span class="hljs-attr">RestartSec</span>=<span class="hljs-number">10</span><br><br><span class="hljs-section">[Install]</span><br><span class="hljs-attr">WantedBy</span>=multi-user.target<br></code></pre></td></tr></table></figure>
+
+<p>启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl start frpc<br></code></pre></td></tr></table></figure>
+<p>开机自启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl <span class="hljs-built_in">enable</span> frpc<br></code></pre></td></tr></table></figure>
+<p>查看服务状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> systemctl status frpc<br></code></pre></td></tr></table></figure>
+
+<p>收工！</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2395275">1Panel面板搭建Frp实现内网穿透详细配置-腾讯云开发者社区-腾讯云</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp">fatedier&#x2F;frp: A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.</a></li>
+<li><a target="_blank" rel="noopener" href="https://gofrp.org/zh-cn/">frp</a></li>
+</ul>
 
                 
               </div>
@@ -301,7 +336,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="category-chain-item">深度学习</a>
+  <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" class="category-chain-item">工具配置</a>
   
   
 
@@ -316,7 +351,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Python/" class="print-no-link">#Python</a>
+        <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="print-no-link">#服务器</a>
+      
+        <a href="/tags/%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/" class="print-no-link">#内网穿透</a>
       
     </div>
   
@@ -328,8 +365,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>报错: Weights only load failed. This file can still be loaded</div>
-      <div>http://blog.mingxuan.xin/2025/06/29/20250629/</div>
+      <div>雨云云应用架设FRP进行内网穿透</div>
+      <div>http://blog.mingxuan.xin/2026/03/02/20260302/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +378,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月29日</div>
+          <div>2026年3月2日</div>
         </div>
       
       
@@ -379,18 +416,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/30/20250630/" title="Tmux 常用指令">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Tmux 常用指令</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/28/20250628/" title="报错：OSError You seem to have cloned a repository without">
-                        <span class="hidden-mobile">报错：OSError You seem to have cloned a repository without</span>
+                      <a href="/2026/01/22/20260122/" title="RKVision开发日志(十三)">
+                        <span class="hidden-mobile">RKVision开发日志(十三)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
