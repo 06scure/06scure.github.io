@@ -19,23 +19,23 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="一、51单片机的中断过程1.中断的示意图 二、中断源与内部寄存器1.中断源52单片机共有6个中断源。    中断源 解释 端口线    INT0 外部中断0,低电平或下降沿引起 P3.2   INT1 外部中断1,低电平或下降沿引起 P3.3   T0 定时器&#x2F;计数器0,由T0计数器计满回零引起 P3.4   T1 定时器&#x2F;计数器1,由T1计数器计满回零引起 P3.5   T2">
+    <meta name="description" content="一、51单片机的中断过程1.中断的示意图  二、中断源与内部寄存器1.中断源52单片机共有6个中断源。    中断源 解释 端口线    INT0 外部中断0,低电平或下降沿引起 P3.2   INT1 外部中断1,低电平或下降沿引起 P3.3   T0 定时器&#x2F;计数器0,由T0计数器计满回零引起 P3.4   T1 定时器&#x2F;计数器1,由T1计数器计满回零引起 P3.5   T">
 <meta property="og:type" content="article">
 <meta property="og:title" content="51单片机学习笔记——中断">
 <meta property="og:url" content="http://blog.mingxuan.xin/2020/05/12/20200512/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="一、51单片机的中断过程1.中断的示意图 二、中断源与内部寄存器1.中断源52单片机共有6个中断源。    中断源 解释 端口线    INT0 外部中断0,低电平或下降沿引起 P3.2   INT1 外部中断1,低电平或下降沿引起 P3.3   T0 定时器&#x2F;计数器0,由T0计数器计满回零引起 P3.4   T1 定时器&#x2F;计数器1,由T1计数器计满回零引起 P3.5   T2">
+<meta property="og:description" content="一、51单片机的中断过程1.中断的示意图  二、中断源与内部寄存器1.中断源52单片机共有6个中断源。    中断源 解释 端口线    INT0 外部中断0,低电平或下降沿引起 P3.2   INT1 外部中断1,低电平或下降沿引起 P3.3   T0 定时器&#x2F;计数器0,由T0计数器计满回零引起 P3.4   T1 定时器&#x2F;计数器1,由T1计数器计满回零引起 P3.5   T">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0a9d82aead4dd2bac266c8f0bc4adb09.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/477e334c701dde551b86c36668113fa9.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/42beb01e52ebe02260d3b67db0b94a09.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302230608073.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302231931251.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302232719012.png">
 <meta property="article:published_time" content="2020-05-12T00:04:32.000Z">
-<meta property="article:modified_time" content="2026-03-02T13:37:21.017Z">
+<meta property="article:modified_time" content="2026-03-02T15:36:51.963Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="单片机">
 <meta property="article:tag" content="中断">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/0a9d82aead4dd2bac266c8f0bc4adb09.png">
+<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20260302230608073.png">
   
   
   
@@ -281,7 +281,8 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、51单片机的中断过程"><a href="#一、51单片机的中断过程" class="headerlink" title="一、51单片机的中断过程"></a>一、51单片机的中断过程</h2><h3 id="1-中断的示意图"><a href="#1-中断的示意图" class="headerlink" title="1.中断的示意图"></a>1.中断的示意图</h3><p><img src="https://i-blog.csdnimg.cn/blog_migrate/0a9d82aead4dd2bac266c8f0bc4adb09.png" srcset="/img/loading.gif" lazyload alt="单片机中断过程"><br><img src="https://i-blog.csdnimg.cn/blog_migrate/477e334c701dde551b86c36668113fa9.png" srcset="/img/loading.gif" lazyload alt="中断嵌套"></p>
+                <h2 id="一、51单片机的中断过程"><a href="#一、51单片机的中断过程" class="headerlink" title="一、51单片机的中断过程"></a>一、51单片机的中断过程</h2><h3 id="1-中断的示意图"><a href="#1-中断的示意图" class="headerlink" title="1.中断的示意图"></a>1.中断的示意图</h3><p><img src="https://qiniu.mingxuan.xin/picgo/20260302230608073.png" srcset="/img/loading.gif" lazyload alt="单片机中断过程"></p>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20260302231931251.png" srcset="/img/loading.gif" lazyload alt="中断嵌套"></p>
 <h2 id="二、中断源与内部寄存器"><a href="#二、中断源与内部寄存器" class="headerlink" title="二、中断源与内部寄存器"></a>二、中断源与内部寄存器</h2><h3 id="1-中断源"><a href="#1-中断源" class="headerlink" title="1.中断源"></a>1.中断源</h3><p>52单片机共有6个中断源。</p>
 <table>
 <thead>
@@ -610,7 +611,7 @@
 <li>PT1位，定时器&#x2F;计数器1中断优先级控制位。PT1&#x3D;1时定时器&#x2F;计数器1定义为高优先级。</li>
 <li>PX1位，外部中断1中断优先级控制位。PX1&#x3D;1时外部中断定义为高优先级。</li>
 <li>PT0位，定时器&#x2F;计数器0中断优先级控制位。PT0&#x3D;1时定时器&#x2F;计数器0定义为高优先级。</li>
-<li>PX0位，外部中断0中断优先级控制位。PX0&#x3D;1时外部中断定义为高优先级。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/42beb01e52ebe02260d3b67db0b94a09.png" srcset="/img/loading.gif" lazyload alt="定时器&#x2F;计数器寄存器工作示意图"></li>
+<li>PX0位，外部中断0中断优先级控制位。PX0&#x3D;1时外部中断定义为高优先级。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302232719012.png" srcset="/img/loading.gif" lazyload alt="定时器&#x2F;计数器寄存器工作示意图"></li>
 </ul>
 <h2 id="三、单片机中断的代码详解"><a href="#三、单片机中断的代码详解" class="headerlink" title="三、单片机中断的代码详解"></a>三、单片机中断的代码详解</h2><h3 id="例程1、定时器0工作方式1的初始化和服务程序"><a href="#例程1、定时器0工作方式1的初始化和服务程序" class="headerlink" title="例程1、定时器0工作方式1的初始化和服务程序"></a>例程1、定时器0工作方式1的初始化和服务程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/*定时器0初始化*/</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">timer0_Init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>	TMOD = <span class="hljs-number">0X01</span>;		<span class="hljs-comment">//选择定时器0，工作方式1，仅用TR0打开		</span><br>	TH0 = <span class="hljs-number">0Xfc</span>;			<span class="hljs-comment">//1ms定时，也可改为TH0 = (65535-1000)/256</span><br>	TL0 = <span class="hljs-number">0X18</span>;			<span class="hljs-comment">//TL0 = (65535-1000)%256</span><br>	TR0 = <span class="hljs-number">1</span>;			<span class="hljs-comment">//打开定时器0开关</span><br>	ET0 = <span class="hljs-number">1</span>;			<span class="hljs-comment">//打开定时器0中断允许</span><br>	EA = <span class="hljs-number">1</span>;				<span class="hljs-comment">//打开总中断	</span><br>&#125;<br><span class="hljs-comment">/*定时器0中断服务程序*/</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">timer0</span><span class="hljs-params">()</span> interrupt 1	<span class="hljs-comment">//interrupt 1 表示使用序号1 代表使用定时器T0</span><br>&#123;<br>	TH0 = <span class="hljs-number">0Xfc</span>;			<span class="hljs-comment">//重新设置初值</span><br>	TL0 = <span class="hljs-number">0X18</span>;<br>	<span class="hljs-comment">/*下面写中断服务程序*/</span><br>&#125;<br></code></pre></td></tr></table></figure>
 

@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/90477a98ca821c306295dd62c04cbc7e.png">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8ea3ada2fb582b0e7f13379331ea39e2.png">
 <meta property="article:published_time" content="2020-05-16T12:16:16.000Z">
-<meta property="article:modified_time" content="2026-03-02T13:37:21.017Z">
+<meta property="article:modified_time" content="2026-03-02T15:36:51.963Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="单片机">
 <meta name="twitter:card" content="summary_large_image">
@@ -381,14 +381,8 @@
 <td>11位异步收发（9位数据），波特率可变</td>
 <td>2^SMOD^&#x2F;32×T1溢出率</td>
 </tr>
-<tr>
-<td>上表中，f<del>osc</del>为系统晶振频率，SMOD为电源管理寄存器PCON中的一位，用于控制串口通信方式1，2，3的波特率。SMOD&#x3D;0时，波特率正常，SMOD&#x3D;1时，波特率加倍。PCON寄存器中仅有SMOD与串口通信有关。T1溢出率为定时器T1溢出的频率，定时器T1溢出一次的时间T的倒数1&#x2F;T即溢出率。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<p>上表中，f<del>osc</del>为系统晶振频率，SMOD为电源管理寄存器PCON中的一位，用于控制串口通信方式1，2，3的波特率。SMOD&#x3D;0时，波特率正常，SMOD&#x3D;1时，波特率加倍。PCON寄存器中仅有SMOD与串口通信有关。T1溢出率为定时器T1溢出的频率，定时器T1溢出一次的时间T的倒数1&#x2F;T即溢出率。</p>
 <table>
 <thead>
 <tr>
@@ -516,51 +510,8 @@
 <td>TRDY</td>
 <td>RRDY</td>
 </tr>
-<tr>
-<td>主机与其他从机通信时，在总线上发送数据和地址联络信号，从机确定地址后才能接收数据。确认地址后通过更改从机状态字来控制从机的数据传输。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>若ERR&#x3D;1，从机接收到非法命令。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>若TRDY&#x3D;1，从机发送准备就绪。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>若RRDY&#x3D;1，从机接收准备就绪。</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<p>主机与其他从机通信时，在总线上发送数据和地址联络信号，从机确定地址后才能接收数据。确认地址后通过更改从机状态字来控制从机的数据传输。<br>若ERR&#x3D;1，从机接收到非法命令。<br>若TRDY&#x3D;1，从机发送准备就绪。<br>若RRDY&#x3D;1，从机接收准备就绪。</p>
 <p>在51单片机中，多机串口通信采用方式2或方式3。</p>
 
                 
