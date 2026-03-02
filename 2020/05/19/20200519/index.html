@@ -26,16 +26,16 @@
 <meta property="og:site_name" content="Obscure的个人博客">
 <meta property="og:description" content="一、液晶的概述液晶的型号命名规则液晶的命名规则有两种，第一种是按照显示字符的行数和列数命名的，如LCD1602，表示液晶上显示2行，一行16个字符；第二种是按照液晶点阵的行数和列数命名的，如LCD12232，表示液晶上有122x32个点来显示图形。 二、LCD16021.概况LCD1602为5V电压驱动，带背光，可显示两行，每行16个字符，不能显示汉字，内置128个字符的ASCII字符集字库，既可">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/46bd349a24d4e369c034da1f34d8a0f5.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/710cb939b7eed3f2472398068261f994.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/316526038a5ce398f025a99d7272d004.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8db9861ff6742c99745bc085d5064f2e.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234048898.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234048899.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234048900.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234048901.png">
 <meta property="article:published_time" content="2020-05-19T20:03:54.000Z">
-<meta property="article:modified_time" content="2026-03-02T15:36:51.963Z">
+<meta property="article:modified_time" content="2026-03-02T15:55:31.890Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="单片机">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/46bd349a24d4e369c034da1f34d8a0f5.png">
+<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20260302234048898.png">
   
   
   
@@ -282,7 +282,7 @@
               <div class="markdown-body">
                 
                 <h2 id="一、液晶的概述"><a href="#一、液晶的概述" class="headerlink" title="一、液晶的概述"></a>一、液晶的概述</h2><h5 id="液晶的型号命名规则"><a href="#液晶的型号命名规则" class="headerlink" title="液晶的型号命名规则"></a>液晶的型号命名规则</h5><p>液晶的命名规则有两种，第一种是按照显示字符的行数和列数命名的，如LCD1602，表示液晶上显示2行，一行16个字符；第二种是按照液晶点阵的行数和列数命名的，如LCD12232，表示液晶上有122x32个点来显示图形。</p>
-<h2 id="二、LCD1602"><a href="#二、LCD1602" class="headerlink" title="二、LCD1602"></a>二、LCD1602</h2><h3 id="1-概况"><a href="#1-概况" class="headerlink" title="1.概况"></a>1.概况</h3><p>LCD1602为5V电压驱动，带背光，可显示两行，每行16个字符，不能显示汉字，内置128个字符的ASCII字符集字库，既可显示库中的字符，也可显示自定义字符。只有并行接口，无串行接口。LED可以静态显示字符，也可以使用移屏指令实现整屏幕左移。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/46bd349a24d4e369c034da1f34d8a0f5.png" srcset="/img/loading.gif" lazyload alt="LCD1602外形图"></p>
+<h2 id="二、LCD1602"><a href="#二、LCD1602" class="headerlink" title="二、LCD1602"></a>二、LCD1602</h2><h3 id="1-概况"><a href="#1-概况" class="headerlink" title="1.概况"></a>1.概况</h3><p>LCD1602为5V电压驱动，带背光，可显示两行，每行16个字符，不能显示汉字，内置128个字符的ASCII字符集字库，既可显示库中的字符，也可显示自定义字符。只有并行接口，无串行接口。LED可以静态显示字符，也可以使用移屏指令实现整屏幕左移。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234048898.png" srcset="/img/loading.gif" lazyload alt="LCD1602外形图"></p>
 <h3 id="2-引脚详情"><a href="#2-引脚详情" class="headerlink" title="2.引脚详情"></a>2.引脚详情</h3><table>
 <thead>
 <tr>
@@ -647,11 +647,11 @@
 <p>注：<br>1.在D7&#x3D;1设置地址时，由于地址只有80个字节，因此只需要七位就能表示了。(2^7^&#x3D;128)<br>2.总线即为单片机与D0-D7连接时的使用线的数量。8位总线即LCD1602上D0-D7都与单片机的IO口进行数据交换，4位总线为D4-D7(高四位)与单片机的IO口进行数据交换。在液晶屏刷新率不高时，或者单片机IO口数量紧张时，采用4线。<br>3.AC(Address Counter)地址计数器。汇编常用，不过这里表示保存地址指针的空间。地址指针（光标）通过地址计数器寻址。</p>
 <h5 id="地址操作"><a href="#地址操作" class="headerlink" title="地址操作"></a>地址操作</h5><p>LCD1602中有3个储存器：</p>
 <ul>
-<li>DDRAM(Display Data RAM)<br>DDRAM是显示数据随机存储器。共80个字节。从下图可以看出，DDRAM中的地址对应的LCD每个字符的位置。但只有2×16个地址可以对应到液晶上的每一位，剩余的地址只能储存信息但不会显示在液晶上。<img src="https://i-blog.csdnimg.cn/blog_migrate/710cb939b7eed3f2472398068261f994.png" srcset="/img/loading.gif" lazyload alt="LCD地址映射图"><br>事实上，我们不会直接操纵液晶的地址。而是通过地址指针（光标）来进行左移右移，然后写入数据。当第4引脚RS置1时，D0-D7为数据接收位，通过接收到的数据写入地址指针（光标）指向的地址。</li>
-<li>CGROM(Character Generation ROM)<br>CGROM是标准字符储存器。储存了每个字符的点阵形状。在液晶出场时就固化在控制芯片中的，不能更改。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/316526038a5ce398f025a99d7272d004.png" srcset="/img/loading.gif" lazyload alt="CGROM字符码对照表"></li>
+<li>DDRAM(Display Data RAM)<br>DDRAM是显示数据随机存储器。共80个字节。从下图可以看出，DDRAM中的地址对应的LCD每个字符的位置。但只有2×16个地址可以对应到液晶上的每一位，剩余的地址只能储存信息但不会显示在液晶上。<img src="https://qiniu.mingxuan.xin/picgo/20260302234048899.png" srcset="/img/loading.gif" lazyload alt="LCD地址映射图"><br>事实上，我们不会直接操纵液晶的地址。而是通过地址指针（光标）来进行左移右移，然后写入数据。当第4引脚RS置1时，D0-D7为数据接收位，通过接收到的数据写入地址指针（光标）指向的地址。</li>
+<li>CGROM(Character Generation ROM)<br>CGROM是标准字符储存器。储存了每个字符的点阵形状。在液晶出场时就固化在控制芯片中的，不能更改。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234048900.png" srcset="/img/loading.gif" lazyload alt="CGROM字符码对照表"></li>
 <li>CGRAM(Character Generation RAM)<br>CGRAM是存放字符点阵的储存器，能存放自定义字符库。用户可以更改。</li>
 </ul>
-<h3 id="4-时序图"><a href="#4-时序图" class="headerlink" title="4.时序图"></a>4.时序图</h3><p><img src="https://i-blog.csdnimg.cn/blog_migrate/8db9861ff6742c99745bc085d5064f2e.png" srcset="/img/loading.gif" lazyload alt="写操作时序图"></p>
+<h3 id="4-时序图"><a href="#4-时序图" class="headerlink" title="4.时序图"></a>4.时序图</h3><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234048901.png" srcset="/img/loading.gif" lazyload alt="写操作时序图"></p>
 <h5 id="写操作步骤"><a href="#写操作步骤" class="headerlink" title="写操作步骤"></a>写操作步骤</h5><table>
 <thead>
 <tr>

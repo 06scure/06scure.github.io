@@ -26,17 +26,17 @@
 <meta property="og:site_name" content="Obscure的个人博客">
 <meta property="og:description" content="一、通信传输方式并行通信与串行通信通信传输方式可分成串行通信和并行通信：  并行通常将数据字节的各位用多条数据线传送。并行通信控制简单，传输速度快；但对传输线路要求高，成本较高，且接收方同时接收存在困难，抗干扰能力差。适合近距离、大量、快速的信息交换。 串行通信将数据字节分成一位一位的形式在一条传输线上逐个传送。传输线少，长距离成本低，可利用电话网等现成设备，但数据的传送控制比并行通信复杂，且传送">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7f50d7a08c2e0aedda8bc446900e52e7.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/dea9d9d96b0b7ffc4f97e58c49f89c5c.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0ae57988daed627882be5747a3342ac4.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/90477a98ca821c306295dd62c04cbc7e.png">
-<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8ea3ada2fb582b0e7f13379331ea39e2.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234010247.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234010248.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234010249.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234010250.png">
+<meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234010251.png">
 <meta property="article:published_time" content="2020-05-16T12:16:16.000Z">
-<meta property="article:modified_time" content="2026-03-02T15:36:51.963Z">
+<meta property="article:modified_time" content="2026-03-02T15:55:31.890Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="单片机">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/7f50d7a08c2e0aedda8bc446900e52e7.png">
+<meta name="twitter:image" content="https://qiniu.mingxuan.xin/picgo/20260302234010247.png">
   
   
   
@@ -427,9 +427,9 @@
 <ul>
 <li>输入时序图</li>
 </ul>
-<p><img src="https://i-blog.csdnimg.cn/blog_migrate/7f50d7a08c2e0aedda8bc446900e52e7.png" srcset="/img/loading.gif" lazyload alt="输入时序图"></p>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234010247.png" srcset="/img/loading.gif" lazyload alt="输入时序图"></p>
 <ul>
-<li>输出时序图<br><img src="https://i-blog.csdnimg.cn/blog_migrate/dea9d9d96b0b7ffc4f97e58c49f89c5c.png" srcset="/img/loading.gif" lazyload alt="输出时序图"></li>
+<li>输出时序图<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234010248.png" srcset="/img/loading.gif" lazyload alt="输出时序图"></li>
 <li>方式1的串口通信初始化步骤</li>
 </ul>
 <table>
@@ -474,14 +474,14 @@
 <h2 id="四、串行通信接口标准"><a href="#四、串行通信接口标准" class="headerlink" title="四、串行通信接口标准"></a>四、串行通信接口标准</h2><p>单片机与单片机之间也可以通过串行通信进行数据传输。<br>前面的电平转换部分简要介绍了集中串口通信标准中的电平标准，但实际上还规定了引脚信号等其他内容。</p>
 <ul>
 <li>TTL通信<br> 采用TTL电平通信，只需将单片机A的TXD端与单片机B的RXD端相连；单片机A的RXD端与单片机B的TXD端相连即可。</li>
-<li>RS-232通信<br> RS-232通信标准是美国工业电子协会制定的通信标准。曾经采用25针接口（左）通信，后简化为9针的接口（右）。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/0ae57988daed627882be5747a3342ac4.png" srcset="/img/loading.gif" lazyload alt="9针与25针串口标准接口"><br>是不是感觉和显卡的VGA接口有点像？但VGA接口有15针。二者并不是一个东西。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/90477a98ca821c306295dd62c04cbc7e.png" srcset="/img/loading.gif" lazyload alt="RS-232C与VGA接口"><br>上图中左为RS-232C（母），右为VGA（母）。<br>采用RS-232C标准传输，传输距离远，但传输速率低，有电平偏移，抗干扰能力差。</li>
+<li>RS-232通信<br> RS-232通信标准是美国工业电子协会制定的通信标准。曾经采用25针接口（左）通信，后简化为9针的接口（右）。<br> <img src="https://qiniu.mingxuan.xin/picgo/20260302234010249.png" srcset="/img/loading.gif" lazyload alt="9针与25针串口标准接口"><br>是不是感觉和显卡的VGA接口有点像？但VGA接口有15针。二者并不是一个东西。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234010250.png" srcset="/img/loading.gif" lazyload alt="RS-232C与VGA接口"><br>上图中左为RS-232C（母），右为VGA（母）。<br>采用RS-232C标准传输，传输距离远，但传输速率低，有电平偏移，抗干扰能力差。</li>
 <li>RS-422通信<br> 与RS-232不同的是，采用了差分传输方式，有较高的抗干扰性能,而且提高了通信速率和传输距离。与RS-232采用了相同的9针接口，但引脚意义不同。</li>
 <li>RS-485通信<br>RS-485同样采用差分传输方式，与RS-422不同的是，能支持多个分节点进行信息传输。可以实现多机通信。</li>
 </ul>
 <h2 id="五、单片机多机通信"><a href="#五、单片机多机通信" class="headerlink" title="五、单片机多机通信"></a>五、单片机多机通信</h2><ul>
 <li>主从式结构</li>
 </ul>
-<p>单片机构成的多机通信系统中常采用总线型主从式结构。所谓主从式，就是在多个单片机组成的系统中，只能有一个主机，其他的都是从机，从机要服从主机的控制，这就是总线型主从式结构。<br><img src="https://i-blog.csdnimg.cn/blog_migrate/8ea3ada2fb582b0e7f13379331ea39e2.png" srcset="/img/loading.gif" lazyload alt="多机通信连接图"></p>
+<p>单片机构成的多机通信系统中常采用总线型主从式结构。所谓主从式，就是在多个单片机组成的系统中，只能有一个主机，其他的都是从机，从机要服从主机的控制，这就是总线型主从式结构。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234010251.png" srcset="/img/loading.gif" lazyload alt="多机通信连接图"></p>
 <ul>
 <li>从机状态字</li>
 </ul>
