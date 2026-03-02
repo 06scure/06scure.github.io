@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302235019011.png">
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302235019012.png">
 <meta property="article:published_time" content="2021-02-16T01:03:30.000Z">
-<meta property="article:modified_time" content="2026-03-02T15:55:31.891Z">
+<meta property="article:modified_time" content="2026-03-02T16:18:17.148Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary_large_image">
@@ -285,13 +285,13 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、-极客大挑战-2019-BuyFlag"><a href="#一、-极客大挑战-2019-BuyFlag" class="headerlink" title="一、[极客大挑战 2019]BuyFlag"></a>一、[极客大挑战 2019]BuyFlag</h2><h5 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302235019005.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h5 id="2-解题步骤"><a href="#2-解题步骤" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302235019006.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>MENU界面下有buyflag的界面，按F12看看<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019007.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>查了一下is_numeric()这个函数，他的作用是判断输入是否是数字的。如果是纯数字返回true，如果不是返回false。这道题注释的代码逻辑是要输入一个非纯数字的字符串且等于404，密码才能正确。</p>
+                <h2 id="一、-极客大挑战-2019-BuyFlag"><a href="#一、-极客大挑战-2019-BuyFlag" class="headerlink" title="一、[极客大挑战 2019]BuyFlag"></a>一、[极客大挑战 2019]BuyFlag</h2><h5 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302235019005.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="2-解题步骤"><a href="#2-解题步骤" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302235019006.png" srcset="/img/loading.gif" lazyload><br>MENU界面下有buyflag的界面，按F12看看<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019007.png" srcset="/img/loading.gif" lazyload><br>查了一下is_numeric()这个函数，他的作用是判断输入是否是数字的。如果是纯数字返回true，如果不是返回false。这道题注释的代码逻辑是要输入一个非纯数字的字符串且等于404，密码才能正确。</p>
 <p>然后顺手百度了一下这个函数的漏洞，在这里贴出来：</p>
 <p>这个函数和mysql结合起来就容易出问题，那是因为is_numeric判断的时候，当碰到16进制数的时候，也会判断成数字</p>
 <p>is_numeric函数对于空字符%00，无论是%00放在前后都可以判断为非数值，而%20空格字符只能放在数值后。所以，查看函数发现该函数对对于第一个空格字符会跳过空格字符判断，接着后面的判断。<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43818995/article/details/104338004">[原博客]</a></p>
 <p>根据第二条的特性可以构造一个payload，404空格 这样的话is_numeric会判断成非数值，然后执行判断语句&#x3D;&#x3D; 404 ，进而得到flag。</p>
-<p>但是试了半天没什么卵用…<br>发现题目提示我必须是CUIT的学生。这里有什么说法呢？<br>这里实在是不会了，看wp后发现cookie里设置了一个USER变量，他是0<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019008.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>这里随便改成1<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019009.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>他提示我是cuiter了。但是密码不对…对照了一下payload感觉一样嘞~仔细看了半天，原来是要post提交 大意了。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019010.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>提示要交钱…再次提交money参数<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019011.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>money过长。师傅们提示是strcmp函数的锅。于是查一下这个函数的漏洞。<br>发现只有在PHP5.3之前才有的漏洞。这个函数在数据类型不匹配的时候会返回0，也就是和比较成功的结果是一样的。因此只要传入非字符串类型就可以了。师傅这里是传的数组。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019012.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>但是试了半天没什么卵用…<br>发现题目提示我必须是CUIT的学生。这里有什么说法呢？<br>这里实在是不会了，看wp后发现cookie里设置了一个USER变量，他是0<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019008.png" srcset="/img/loading.gif" lazyload><br>这里随便改成1<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019009.png" srcset="/img/loading.gif" lazyload><br>他提示我是cuiter了。但是密码不对…对照了一下payload感觉一样嘞~仔细看了半天，原来是要post提交 大意了。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019010.png" srcset="/img/loading.gif" lazyload><br>提示要交钱…再次提交money参数<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019011.png" srcset="/img/loading.gif" lazyload><br>money过长。师傅们提示是strcmp函数的锅。于是查一下这个函数的漏洞。<br>发现只有在PHP5.3之前才有的漏洞。这个函数在数据类型不匹配的时候会返回0，也就是和比较成功的结果是一样的。因此只要传入非字符串类型就可以了。师傅这里是传的数组。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302235019012.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h5><ol>
 <li>burp的post提交真难用，还是火狐yyds！</li>
 <li>了解了is_numeric()和strcmp()两个函数的漏洞。同时了解了通过判断PHP的版本和输入数据的长度来判断是否使用的strcmp。</li>

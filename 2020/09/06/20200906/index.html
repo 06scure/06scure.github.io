@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234620099.png">
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234620100.png">
 <meta property="article:published_time" content="2020-09-06T16:57:38.000Z">
-<meta property="article:modified_time" content="2026-03-02T15:55:31.890Z">
+<meta property="article:modified_time" content="2026-03-02T16:18:17.148Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary_large_image">
@@ -286,9 +286,9 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、-RoarCTF-2019-Easy-Calc"><a href="#一、-RoarCTF-2019-Easy-Calc" class="headerlink" title="一、[RoarCTF 2019]Easy Calc"></a>一、[RoarCTF 2019]Easy Calc</h2><h5 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234620092.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h5 id="2-解题步骤"><a href="#2-解题步骤" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p>发现框框…应该是注入题…源码中提示有个waf，继续看源码，发现有个calc.php，进去看看<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620093.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>初步理解应该是用num传参，然后返回计算结果，这个php文件用于过滤非法字符。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620094.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>被拦下来了，大概是利用num构造一个payload，不能含有字母和非法字符，只能有数字和符号<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620095.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>这里已经不会了，看writeup吧…<br>先贴效果<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620096.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234620097.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>可以发现，num和 num仅仅差了一个空格，但是 num就绕过了waf，执行了代码。这是一个利用php字符串解析的漏洞。这个漏洞的产生主要是有两个原因。</p>
+                <h2 id="一、-RoarCTF-2019-Easy-Calc"><a href="#一、-RoarCTF-2019-Easy-Calc" class="headerlink" title="一、[RoarCTF 2019]Easy Calc"></a>一、[RoarCTF 2019]Easy Calc</h2><h5 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234620092.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="2-解题步骤"><a href="#2-解题步骤" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p>发现框框…应该是注入题…源码中提示有个waf，继续看源码，发现有个calc.php，进去看看<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620093.png" srcset="/img/loading.gif" lazyload><br>初步理解应该是用num传参，然后返回计算结果，这个php文件用于过滤非法字符。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620094.png" srcset="/img/loading.gif" lazyload><br>被拦下来了，大概是利用num构造一个payload，不能含有字母和非法字符，只能有数字和符号<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620095.png" srcset="/img/loading.gif" lazyload><br>这里已经不会了，看writeup吧…<br>先贴效果<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620096.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234620097.png" srcset="/img/loading.gif" lazyload><br>可以发现，num和 num仅仅差了一个空格，但是 num就绕过了waf，执行了代码。这是一个利用php字符串解析的漏洞。这个漏洞的产生主要是有两个原因。</p>
 <ol>
 <li>在calc.php中，可以发现是对num变量进行的一个过滤，并没有对 num变量过滤，因此可以对 num进行传参</li>
 <li>由于php的字符串解析特性，在解析php字符串时，会自动将空格过滤掉，因此传递的参数依旧是num。</li>
@@ -358,7 +358,7 @@
 <td>可选。规定读取的字节数。该参数是 PHP 5.1 中新增的。</td>
 </tr>
 </tbody></table>
-<p>接下来，先使用scandir()函数去访问根目录下的所有文件，并使用void var_dump ()函数显示出来：<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620098.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>很遗憾被过滤了，使用ascii码绕过<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620099.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>查看根目录下文件，发现有f1agg，使用file_get_contents()访问。这次不浪费时间，同样使用ascii码绕过<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620100.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>得到flag。(文件名是f1agg，没看出来又检查了半天…)</p>
+<p>接下来，先使用scandir()函数去访问根目录下的所有文件，并使用void var_dump ()函数显示出来：<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620098.png" srcset="/img/loading.gif" lazyload><br>很遗憾被过滤了，使用ascii码绕过<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620099.png" srcset="/img/loading.gif" lazyload><br>查看根目录下文件，发现有f1agg，使用file_get_contents()访问。这次不浪费时间，同样使用ascii码绕过<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234620100.png" srcset="/img/loading.gif" lazyload><br>得到flag。(文件名是f1agg，没看出来又检查了半天…)</p>
 <h5 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h5><ol>
 <li>第一次见这样的漏洞，利用php的字符串解析漏洞，能直接绕waf，还是很危险的</li>
 <li>熟悉了一些必要的函数，学会了php的ascii绕过（上次的还是sql的ascii绕过，用法有区别），涨姿势了</li>

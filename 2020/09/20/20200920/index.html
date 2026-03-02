@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234711100.png">
 <meta property="og:image" content="https://qiniu.mingxuan.xin/picgo/20260302234711101.png">
 <meta property="article:published_time" content="2020-09-20T10:17:44.000Z">
-<meta property="article:modified_time" content="2026-03-02T15:55:31.890Z">
+<meta property="article:modified_time" content="2026-03-02T16:18:17.148Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary_large_image">
@@ -291,24 +291,24 @@
             
               <div class="markdown-body">
                 
-                <h2 id="一、-ACTF2020-新生赛-Include"><a href="#一、-ACTF2020-新生赛-Include" class="headerlink" title="一、[ACTF2020 新生赛]Include"></a>一、[ACTF2020 新生赛]Include</h2><h5 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711088.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h5 id="2-解题步骤"><a href="#2-解题步骤" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p>点进去看了一下<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711089.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>根据题目猜测，应该是和php的文件包含漏洞有关..尝试了一下显示phpinfo，意料之中的失败了，看wp才了解到，这是一道伪协议的题目。然后翻了一下<a target="_blank" rel="noopener" href="https://blog.csdn.net/Obs_cure/article/details/108296908">之前的博客</a>，复制一下payload，成功解题。</p>
+                <h2 id="一、-ACTF2020-新生赛-Include"><a href="#一、-ACTF2020-新生赛-Include" class="headerlink" title="一、[ACTF2020 新生赛]Include"></a>一、[ACTF2020 新生赛]Include</h2><h5 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711088.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="2-解题步骤"><a href="#2-解题步骤" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p>点进去看了一下<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711089.png" srcset="/img/loading.gif" lazyload><br>根据题目猜测，应该是和php的文件包含漏洞有关..尝试了一下显示phpinfo，意料之中的失败了，看wp才了解到，这是一道伪协议的题目。然后翻了一下<a target="_blank" rel="noopener" href="https://blog.csdn.net/Obs_cure/article/details/108296908">之前的博客</a>，复制一下payload，成功解题。</p>
 <blockquote>
 <p>?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;convert.base64-encode&#x2F;resource&#x3D;flag.php</p>
 </blockquote>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711090.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711091.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711090.png" srcset="/img/loading.gif" lazyload><br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711091.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h5><ol>
 <li>第二次做伪协议的题，只能说经验不足，没辨识出来，下次遇见类似这种?file&#x3D;访问文件的题目时可以尝试。</li>
 </ol>
 <h5 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4.参考资料"></a>4.参考资料</h5><ul>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yesec/p/12379909.html">[BUUOJ记录] [ACTF2020 新生赛]Include - Ye’sBlog - 博客园</a></li>
 </ul>
-<h2 id="一、-GXYCTF2019-Ping-Ping-Ping"><a href="#一、-GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="一、[GXYCTF2019]Ping Ping Ping"></a>一、[GXYCTF2019]Ping Ping Ping</h2><h5 id="1-题目-1"><a href="#1-题目-1" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711092.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h5 id="2-解题步骤-1"><a href="#2-解题步骤-1" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p>一脸懵，试一下给ip送变量<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711093.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>是rce漏洞，但也有些关键字被过滤了<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711094.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711095.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>好想学会写脚本然后用脚本测试过滤了哪些….这里知道了漏洞类型，应该用穷举法测出哪些函数没有被过滤…出于懒惰还是看一眼wp吧…</p>
-<p>是我败了，师傅的智慧果然是无穷的，直接读文件是我没想到的<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711096.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711097.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<p>（注： ls, cat是linux访问文件的命令）<br>看wp知道是因为空格被过滤了，师傅们使用的是<code>$&#123;IFS&#125;$</code>绕过。系统自带的变量 $IFS 内部字段分隔符(Internal Field Separator, IFS)定义一个定界符，默认是空格。知道了原理，开始绕！<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711098.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<h2 id="一、-GXYCTF2019-Ping-Ping-Ping"><a href="#一、-GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="一、[GXYCTF2019]Ping Ping Ping"></a>一、[GXYCTF2019]Ping Ping Ping</h2><h5 id="1-题目-1"><a href="#1-题目-1" class="headerlink" title="1.题目"></a>1.题目</h5><p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711092.png" srcset="/img/loading.gif" lazyload></p>
+<h5 id="2-解题步骤-1"><a href="#2-解题步骤-1" class="headerlink" title="2.解题步骤"></a>2.解题步骤</h5><p>一脸懵，试一下给ip送变量<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711093.png" srcset="/img/loading.gif" lazyload><br>是rce漏洞，但也有些关键字被过滤了<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711094.png" srcset="/img/loading.gif" lazyload><br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711095.png" srcset="/img/loading.gif" lazyload><br>好想学会写脚本然后用脚本测试过滤了哪些….这里知道了漏洞类型，应该用穷举法测出哪些函数没有被过滤…出于懒惰还是看一眼wp吧…</p>
+<p>是我败了，师傅的智慧果然是无穷的，直接读文件是我没想到的<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711096.png" srcset="/img/loading.gif" lazyload><br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711097.png" srcset="/img/loading.gif" lazyload></p>
+<p>（注： ls, cat是linux访问文件的命令）<br>看wp知道是因为空格被过滤了，师傅们使用的是<code>$&#123;IFS&#125;$</code>绕过。系统自带的变量 $IFS 内部字段分隔符(Internal Field Separator, IFS)定义一个定界符，默认是空格。知道了原理，开始绕！<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711098.png" srcset="/img/loading.gif" lazyload></p>
 <p>好↑的↓，是大括号被过滤了，师傅说改成<code>$IFS$1</code>…百度了半天不明白为什么要用<code>$IFS$1</code></p>
-<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711099.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>这里没访问到，师傅提示要访问index.php<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711100.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"><br>爆出了源码，可以看到正则过滤了哪些内容。接下来有三种方法可以绕过。</p>
+<p><img src="https://qiniu.mingxuan.xin/picgo/20260302234711099.png" srcset="/img/loading.gif" lazyload><br>这里没访问到，师傅提示要访问index.php<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711100.png" srcset="/img/loading.gif" lazyload><br>爆出了源码，可以看到正则过滤了哪些内容。接下来有三种方法可以绕过。</p>
 <ol>
 <li>变量拼接</li>
 </ol>
@@ -325,7 +325,7 @@
 <li>内敛执行</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">?ip=127.0.0.1;<span class="hljs-built_in">cat</span>$IFS<span class="hljs-variable">$1</span>`<span class="hljs-built_in">ls</span>`<br></code></pre></td></tr></table></figure>
-<p>将反引号内命令的输出作为输入执行。所以这句话就变成了 cat index.php flag.php。就会把两个文件显示出来。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711101.png" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>将反引号内命令的输出作为输入执行。所以这句话就变成了 cat index.php flag.php。就会把两个文件显示出来。<br><img src="https://qiniu.mingxuan.xin/picgo/20260302234711101.png" srcset="/img/loading.gif" lazyload></p>
 <h5 id="3-总结-1"><a href="#3-总结-1" class="headerlink" title="3.总结"></a>3.总结</h5><ol>
 <li>第三道rce的题，感觉核心就是绕过。这道题教会了我空格的绕过和三种字符串的绕过。</li>
 <li>又熟悉了一下linux的命令。像ls cat 还有bash，sh的概念等等。</li>
