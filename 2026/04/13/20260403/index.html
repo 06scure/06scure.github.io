@@ -19,15 +19,15 @@
   <meta name="author" content="Obscure">
   <meta name="keywords" content="">
   
-    <meta name="description" content="刚到寝室准备摩拳擦掌开始训练呢，仔细一看SDM-UniPS作者不公开数据集，不公开训练代码…">
+    <meta name="description" content="最近又做了一些无用的工作，尝试写SDM_UniPS 的训练脚本，但是没写明白，耽误了一点时间… 对科研又有了一些新的心得，理想的顺序应该是先做一个baseline(基准)，然后基于这个基准去逐步改进，并做消融实验，逐步的观察模型效果，而不是上来就用一个新的模型新的结构，两眼一抹黑的乱改 为什么又放弃了SDM_UniPS？主要还是因为他是做的高分，还是比较占内存的，硬件限制~  下定决心开始从 Un">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小论文工作日记（三）">
-<meta property="og:url" content="http://blog.mingxuan.xin/2026/04/02/20260403/index.html">
+<meta property="og:url" content="http://blog.mingxuan.xin/2026/04/13/20260403/index.html">
 <meta property="og:site_name" content="Obscure的个人博客">
-<meta property="og:description" content="刚到寝室准备摩拳擦掌开始训练呢，仔细一看SDM-UniPS作者不公开数据集，不公开训练代码…">
+<meta property="og:description" content="最近又做了一些无用的工作，尝试写SDM_UniPS 的训练脚本，但是没写明白，耽误了一点时间… 对科研又有了一些新的心得，理想的顺序应该是先做一个baseline(基准)，然后基于这个基准去逐步改进，并做消融实验，逐步的观察模型效果，而不是上来就用一个新的模型新的结构，两眼一抹黑的乱改 为什么又放弃了SDM_UniPS？主要还是因为他是做的高分，还是比较占内存的，硬件限制~  下定决心开始从 Un">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-04-02T16:42:55.201Z">
-<meta property="article:modified_time" content="2026-04-02T16:42:55.201Z">
+<meta property="article:published_time" content="2026-04-13T21:45:00.000Z">
+<meta property="article:modified_time" content="2026-04-13T17:35:04.634Z">
 <meta property="article:author" content="Obscure">
 <meta property="article:tag" content="大模型">
 <meta property="article:tag" content="AI">
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-04-02 16:42" pubdate>
-          2026年4月2日 下午
+        <time datetime="2026-04-13 21:45" pubdate>
+          2026年4月13日 晚上
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          36 字
+          1.1k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          1 分钟
+          10 分钟
         
       </span>
     
@@ -278,7 +278,111 @@
             
               <div class="markdown-body">
                 
-                <p>刚到寝室准备摩拳擦掌开始训练呢，仔细一看SDM-UniPS作者不公开数据集，不公开训练代码…</p>
+                <p>最近又做了一些无用的工作，尝试写SDM_UniPS 的训练脚本，但是没写明白，耽误了一点时间…</p>
+<p>对科研又有了一些新的心得，理想的顺序应该是先做一个baseline(基准)，然后基于这个基准去逐步改进，并做消融实验，逐步的观察模型效果，而不是上来就用一个新的模型新的结构，两眼一抹黑的乱改</p>
+<p>为什么又放弃了SDM_UniPS？主要还是因为他是做的高分，还是比较占内存的，硬件限制~ </p>
+<p>下定决心开始从 UniPS 开始改进，但是原作者写的比较乱，花了2天时间重写了一下外围的训练和推理脚本，修复了一些BUG。现在大概训练了15个epoch，结果为：</p>
+<table>
+<thead>
+<tr>
+<th>Ball</th>
+<th>Bear</th>
+<th>Buddha</th>
+<th>Cat</th>
+<th>Cow</th>
+<th>Goblet</th>
+<th>Harvest</th>
+<th>Pot1</th>
+<th>Pot2</th>
+<th>Reading</th>
+<th>Avg</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4.79</td>
+<td>10.53</td>
+<td>17.17</td>
+<td>12.72</td>
+<td>16.02</td>
+<td>23.47</td>
+<td>33.23</td>
+<td>13.42</td>
+<td>12.11</td>
+<td>23.43</td>
+<td>16.69</td>
+</tr>
+</tbody></table>
+<p>哈哈，我感觉他的效果也很一般，找了一下论文，他果然没有在DiLiGenT上做测试，可能是指标太差了吧~</p>
+<p>Baseline 跑好了之后，接下来就是修改。整理了一下各个AI老师给我的意见，整理一下：</p>
+<p>顺便写一个通用提示词方便复制：</p>
+<p>我在复现论文UniPS <a target="_blank" rel="noopener" href="https://github.com/satoshi-ikehata/Universal-PS-CVPR2022">satoshi-ikehata&#x2F;Universal-PS-CVPR2022: Official Pytorch Implementation of Universal Photometric Stereo Network using Global Lighting Contexts (CVPR2022)</a>,并以其作为baseline进行改进。我如果…</p>
+<h1 id="一、改进方向"><a href="#一、改进方向" class="headerlink" title="一、改进方向"></a>一、改进方向</h1><h5 id="1-损失"><a href="#1-损失" class="headerlink" title="1. 损失"></a>1. 损失</h5><ul>
+<li>来源：ChatGPT&#x2F;GLM</li>
+<li>难度：简单</li>
+</ul>
+<p>光度立体问题中，一直都是用MSE作为损失计算法向量。可以考虑增加法线梯度损失，边缘感知损失</p>
+<p>but，逐像素怎么做高频约束？需要细细讨论…</p>
+<p>GLM老师甩给我一篇论文<a target="_blank" rel="noopener" href="https://arxiv.org/html/2412.11650v1">Image Gradient-Aided Photometric Stereo Network</a></p>
+<p>由于现在的网络是先两阶段损失，逐像素计算损失 + 低像素特征图损失</p>
+<h5 id="2-小波输入"><a href="#2-小波输入" class="headerlink" title="2. 小波输入"></a>2. 小波输入</h5><ul>
+<li>来源：Claude</li>
+<li>难度：简单</li>
+</ul>
+<p>Claude老师参考Lino UniPS, 把输入的图先做一个小波分解，然后视为图片直接送入编码器</p>
+<p>有想法，不过有点抄袭的嫌疑，我个人没啥兴趣…<br>而且原作者还在解码器端也做了一些手脚<br>回头可以让AI帮我写一个版本试试看</p>
+<h5 id="3-Dino嵌入"><a href="#3-Dino嵌入" class="headerlink" title="3. Dino嵌入"></a>3. Dino嵌入</h5><ul>
+<li>来源：Claude</li>
+<li>难度：中等</li>
+</ul>
+<p>使用DINOv3-ConvNeXt-Tiny &#x2F; small 作为几何先验。</p>
+<p>Dino 输出为：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>分辨率(H,W)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>96</td>
+<td>H&#x2F;4, W&#x2F;4</td>
+</tr>
+<tr>
+<td>192</td>
+<td>H&#x2F;8, W&#x2F;8</td>
+</tr>
+<tr>
+<td>384</td>
+<td>H&#x2F;16 , W&#x2F;16</td>
+</tr>
+<tr>
+<td>768</td>
+<td>H&#x2F;32, W&#x2F;32</td>
+</tr>
+<tr>
+<td>同时也提供token形式的特征输出(1+ H * W &#x2F; 1024, 768)。</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>而恰好的是，UniPS中，swin Transformer的输出的维度一模一样。</p>
+<p>按照C老师的说法，可以冻结DINO，然后在communication之前把特征concat一下，或者再增加一个cross attention<br>相当于提供了一些材质和几何的先验，可能会有改善</p>
+<p>这个方案深得我心，明天可以做个消融实验试一下，而且也可以测试把swin transformer干掉</p>
+<h5 id="4-VGGT嵌入"><a href="#4-VGGT嵌入" class="headerlink" title="4. VGGT嵌入"></a>4. VGGT嵌入</h5><ul>
+<li>来源：GLM&#x2F;</li>
+<li>难度：困难</li>
+</ul>
+<p>在熟悉dino之后，可以把VGGT的global attention搬进来，并少做几层attention，最后在更靠后的位置嵌入特征，作为一种几何先验。这里就有点远了，上面的任务就够做一段时间实验了</p>
+<h1 id="二、原模型改进"><a href="#二、原模型改进" class="headerlink" title="二、原模型改进"></a>二、原模型改进</h1><h5 id="1-模型职责分离"><a href="#1-模型职责分离" class="headerlink" title="1. 模型职责分离"></a>1. 模型职责分离</h5><p>原模型把网络结构、优化器、调度器，损失都揉在一起了，不太利于后期的修改，不过目前来看，各位老师提出的方案还不至于修改这里，可以先放一放</p>
+<h5 id="2-保存读取"><a href="#2-保存读取" class="headerlink" title="2. 保存读取"></a>2. 保存读取</h5><p>原模型把各个结构的权重文件是分开保存的，这个可以考虑保存权重字典，要不然后面也不好增加模块，在做dino嵌入的时候可以考虑一下</p>
+<h5 id="3-分辨率"><a href="#3-分辨率" class="headerlink" title="3. 分辨率"></a>3. 分辨率</h5><p>这个我认为是个大问题，在池田后面的工作SDM中，第一个解决的问题就是分辨率，把图片裁成patch再输入而不是下采样输入。UniPS中resize也是为了节省内存，这里我分析还是要借鉴VGGT，分块，分片。</p>
+<p>欸？突然有个大胆的想法</p>
+<p>vggt是 global attention , frame attention ,为什么不加一个pixel attention？</p>
+<p>暂时不考虑patch的问题的话，</p>
+<p>global attention 是[N* H* W , embedding]</p>
+<p>frame attention 是N * [ H * W, embedding]</p>
+<p>pixel attention 是 [H* W, N* C]</p>
+<p>但是这样H* W 作为transformer的序列显得实在是太长太长了，但是如果做patch级别的又没什么意义</p>
+<p>再议，再议吧…先做一些务实的改进，这些天马行空的想法暂时还是做不了，无论是能力还是资源…</p>
 
                 
               </div>
@@ -329,7 +433,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>小论文工作日记（三）</div>
-      <div>http://blog.mingxuan.xin/2026/04/02/20260403/</div>
+      <div>http://blog.mingxuan.xin/2026/04/13/20260403/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +445,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2026年4月2日</div>
+          <div>2026年4月13日</div>
         </div>
       
       
@@ -379,18 +483,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/04/02/20260402/" title="小论文工作日记（二）">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">小论文工作日记（二）</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/04/01/20260401/" title="小论文工作日记（一）">
-                        <span class="hidden-mobile">小论文工作日记（一）</span>
+                      <a href="/2026/04/02/20260402/" title="小论文工作日记（二）">
+                        <span class="hidden-mobile">小论文工作日记（二）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
