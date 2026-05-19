@@ -227,6 +227,128 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2021/02/08/20210208/" target="_self">
+          CTF学习笔记——Upload
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/08/20210208/" target="_self">
+        <div>
+          一、[极客大挑战 2019]Upload1.题目 2.解题步骤目测可以上传图片，先随便上传一个图片试试既然可以上传文件，试试挂马并不管用。看WP原来是之前图片有问题，实际上是可以上传成功的从这里可以分析出，靶机的文件上传没有问题，有问题的是文件，也就是说会对上传的进行过滤，也就是说为什么刚刚的大马没有挂上。但是刚刚为什么图片也不能上传呢，找了另外一个就可以上传？猜测是文件大小的问题，但实际测试下来
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-02-08 01:22" pubdate>
+              2021-02-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2021/01/10/20210110/" target="_self">
+          CTF学习笔记——[极客大挑战 2019]Http
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/01/10/20210110/" target="_self">
+        <div>
+          一、[极客大挑战 2019]Http1.题目 2.解题步骤查看源码的时候发现这里有链接然后访问发现猜测需要用burp抓包更改请求头再访问 更改之后提示syclover浏览器访问，于是继续更改 啊 这…他说我只能在本地读取… 这里没遇见过…百度了一下发现可以用XFF头进行伪造，于是继续构造放包后得到flag 3.总结主要考察了burp和伪造http协议，以及了解了XFF请求头绕过ip的方法。 4.参
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-01-10 09:45" pubdate>
+              2021-01-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2020/12/10/20201210/" target="_self">
           CTF学习笔记——[极客大挑战 2019]PHP
         </a>
@@ -702,130 +824,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/CTF/">#CTF</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/08/09/20200816/" target="_self">
-          CTF学习笔记——SQL注入(2)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/08/09/20200816/" target="_self">
-        <div>
-          一、[SUCTF 2019]EasySQL1.题目 2.解题步骤看标题就知道是关于sql注入的题目。老规矩，先跑一下sqlmap，再用1’ or 1&#x3D;1 #试试。 Nonono. 不死心再试一下别的语句呢？ 11;show databases;#   成功的把数据库爆出来了，说明存在堆叠注入的漏洞。(这里有个疑惑的点是上个博客的堆叠注入是1’;用于闭合，这里不加单引号就可以，加上单引号就
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-09 17:53" pubdate>
-              2020-08-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/CTF/">#CTF</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2020/08/02/20200802/" target="_self">
-          CTF学习笔记——XSS攻击
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2020/08/02/20200802/" target="_self">
-        <div>
-          一、XSS原理跨站脚本攻击（XSS），是最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。[1]百度百科 HTML是一种超文本标记语言，通过将一些字符特殊地对待来区别文本和标记，例如，小于符号（&lt;）被看作是HTML标签的开始，与之间的字符是页面的标题等等。当动态页
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-02 16:55" pubdate>
-              2020-08-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/CTF/">#CTF</a>
-            
-              <a href="/tags/XSS/">#XSS</a>
             
           </div>
         
