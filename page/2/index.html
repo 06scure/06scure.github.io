@@ -227,6 +227,132 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2026/01/21/20260121/" target="_self">
+          RKVision开发日志(十二)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/21/20260121/" target="_self">
+        <div>
+          再次感慨一下代码水平和项目管理还是差的太远太远了，想着用更好一点的框架，更成熟一点的驱动，有没有更好的方案，到头来写了改改了写，浪费时间 昨天重新简单规划了一下框架，今天在开始之前先简单规划一下需要修改的内容 之前相机进程之前是写的opencv的capture直接读取，这次改成用gst读取，并封装restart，这意味着要跨进程传递命令。  首先写一个进程间通信通道，实现主进程和相机进程通信，并控
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-21 14:08" pubdate>
+              2026-01-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Python/">#Python</a>
+            
+              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2026/01/19/20260119/" target="_self">
+          RKVision开发日志(十二)
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/19/20260119/" target="_self">
+        <div>
+          新建了测试文件，今天打算用调用API打开、关闭相机 今天的主要工作是把web跑起来之后，封装了几个简单的接口，并能从外部控制相机的打开与关闭，因为fastapi在上一版本中已经很熟悉了，所以内容其实并没有多少，主要是做调试工作，比如会有一些偶发性闪退，我已经改掉了。这里主要是想聊聊控制链的逻辑 一、服务层最开始设计程序架构的时候我是试图把服务层去掉的，为什么要封装一下？代码跳来跳去的，又乱又不好理
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2026-01-19 12:44" pubdate>
+              2026-01-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Python/">#Python</a>
+            
+              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2026/01/18/20260118/" target="_self">
           RKVision开发日志(十一)
         </a>
@@ -723,137 +849,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2026/01/01/20260101/" target="_self">
-          RKVision开发日志(四)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2026/01/01/20260101/" target="_self">
-        <div>
-          一、相机进程基类相机进程继承进程类，主要负责：  读取配置文件，根据配置文件设置的width,height,fps配置相机 开启相机捕获进程，将帧数据写入一段共享内存中，同时将帧号、时间戳写入队列 监听消息队列，执行命令  需要提前设计：  不同的相机硬件所需的media_pipline不同，把这部分需要写一个方法，方便后续子类重写 执行的命令包括：停止图像采集进程，开启&#x2F;关闭预览图像生
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2026-01-01 22:25" pubdate>
-              2026-01-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/12/30/20251230/" target="_self">
-          RKVision开发日志(三)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/12/30/20251230/" target="_self">
-        <div>
-          一、Python多进程我个人对多进程的理解是某种时分复用，比如人类在做家务时：需要做：烧热水，洗衣服，扫地。人类会先把水打到烧水壶中，按一下按钮；然后去把脏衣服整理好放到洗衣机中，打开洗衣机；然后去扫地，等待水烧开和洗衣机洗好之后再操作。而对于程序而言，上述任务需要几个循环同时进行，在做主任务时需要监控其他任务是否完成，显然在同一个程序中不太好做这样的操作，为了解决这一问题，才出现了多线程、多进程
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-12-30 15:54" pubdate>
-              2025-12-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="category-chain-item">嵌入式</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Python/">#Python</a>
-            
-              <a href="/tags/%E7%91%9E%E8%8A%AF%E5%BE%AE/">#瑞芯微</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#board">7</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/#board">8</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
